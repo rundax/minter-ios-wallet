@@ -144,16 +144,18 @@ class SpendCoinsViewModel: ConvertCoinsViewModel, ViewModelProtocol {
 			self?.spendCoin.onNext(item?.coin)
 		}).disposed(by: disposeBag)
 
-		self.spendCoin.distinctUntilChanged().asObservable().filter({ [weak self] (coin) -> Bool in
-			return coin != nil && self?.selectedBalance != nil && self?.selectedAddress != nil
-		}).subscribe(onNext: { [weak self] (coin) in
-			guard let _self = self else { return }
-
-			let item = SpendCoinPickerItem(coin: coin!,
-																		 balance: _self.selectedBalance!,
-																		 address: _self.selectedAddress!,
-																		 formatter: _self.formatter)
-			self?.spendCoinField.onNext(item.title)
+		self.spendCoin
+			.distinctUntilChanged()
+			.asObservable()
+			.filter({ [weak self] (coin) -> Bool in
+				return coin != nil && self?.selectedBalance != nil && self?.selectedAddress != nil
+			}).subscribe(onNext: { [weak self] (coin) in
+				guard let _self = self else { return }
+				let item = SpendCoinPickerItem(coin: coin!,
+																			 balance: _self.selectedBalance!,
+																			 address: _self.selectedAddress!,
+																			 formatter: _self.formatter)
+				self?.spendCoinField.onNext(item.title)
 		}).disposed(by: disposeBag)
 
 		Observable.combineLatest(spendCoin.asObservable(),
@@ -206,7 +208,6 @@ class SpendCoinsViewModel: ConvertCoinsViewModel, ViewModelProtocol {
 
 	let useMaxDidTap = PublishSubject<Void>()
 	let exchangeDidTap = PublishSubject<Void>()
-
 	var spendCoin = BehaviorSubject<String?>(value: nil)
 	var spendCoinField = ReplaySubject<String?>.create(bufferSize: 2)
 
@@ -464,7 +465,7 @@ class SpendCoinsViewModel: ConvertCoinsViewModel, ViewModelProtocol {
 																				coinTo: coinTo,
 																				value: convertVal,
 																				minimumValueToBuy: minValBuy)
-					}		
+					}
 					let signedTx = RawTransactionSigner.sign(rawTx: tx, privateKey: pk.raw.toHexString())
 					return GateManager.shared.send(rawTx: signedTx)
 				}).subscribe(onNext: { [observer] (hash) in

@@ -8,6 +8,7 @@
 
 import Foundation
 import MinterCore
+import MinterExplorer
 import BigInt
 import RxSwift
 
@@ -29,6 +30,11 @@ class RawTransactionViewModel: BaseViewModel, ViewModelProtocol {
 	struct Output {
 		var sections: Observable<[BaseTableSectionItem]>
 		var shouldClose: Observable<Void>
+		var errorNotification: Observable<NotifiableError?>
+		var successNotification: Observable<NotifiableSuccess?>
+		var vibrate: Observable<Void>
+		var popup: Observable<PopupViewController?>
+		var lastTransactionExplorerURL: () -> (URL?)
 	}
 
 	var input: RawTransactionViewModel.Input!
@@ -37,16 +43,26 @@ class RawTransactionViewModel: BaseViewModel, ViewModelProtocol {
 	// MARK: -
 
 	private var cancelButtonDidTapSubject = PublishSubject<Void>()
+	private var errorNotificationSubject = PublishSubject<NotifiableError?>()
+	private var successNotificationSubject = PublishSubject<NotifiableSuccess?>()
+	private var proceedButtonDidTapSubject = PublishSubject<Void>()
 	private var sendButtonDidTapSubject = PublishSubject<Void>()
-	private var sectionsSubject = PublishSubject<[BaseTableSectionItem]>()
+	private var sectionsSubject = ReplaySubject<[BaseTableSectionItem]>.create(bufferSize: 1)
 	private var sendingTxSubject = PublishSubject<Bool>()
+	private var popupSubject = PublishSubject<PopupViewController?>()
+	private var vibrateSubject = PublishSubject<Void>()
 
 	// MARK: -
 
+	private var nonce: BigUInt?
 	private var payload: String?
 	private var type: RawTransactionType
+	private var gasPrice: BigUInt?
 	private var gasCoin: String
 	private var data: Data?
+
+	private var multisendAddressCount = 0
+	private var createCoinSymbolCount = 0
 
 	private let accountManager = AccountManager()
 	private var fields: [[String: String]] = []
@@ -55,99 +71,294 @@ class RawTransactionViewModel: BaseViewModel, ViewModelProtocol {
 		return currentGas.asObservable()
 			.map({ [weak self] (obj) -> String in
 				let payloadData = self?.payload?.data(using: .utf8)
-				return self?.comissionText(for: obj, payloadData: payloadData) ?? ""
+				return self?.commissionText(for: obj, payloadData: payloadData) ?? ""
 		})
 	}
 	private let coinFormatter = CurrencyNumberFormatter.coinFormatter
 	private let decimalFormatter = CurrencyNumberFormatter.decimalFormatter
+	private let noMantissaFormatter = CurrencyNumberFormatter.decimalShortNoMantissaFormatter
 
 	// MARK: -
 
-	init(gasCoin: String,
-			 type: RawTransactionType,
-			 data: Data?,
-			 payload: String?,
-			 serviceData: Data?,
-			 signatureType: Data?) {
-
+	init(
+		nonce: BigUInt?,
+		gasPrice: BigUInt?,
+		gasCoin: String?,
+		type: RawTransactionType,
+		data: Data?,
+		payload: String?,
+		serviceData: Data?,
+		signatureType: Data?
+	) {
 		self.type = type
-		self.gasCoin = gasCoin
+		self.gasPrice = gasPrice
+		self.gasCoin = gasCoin ?? Coin.baseCoin().symbol!
+		self.nonce = nonce
 
 		super.init()
 
 		self.payload = payload
 		self.data = data
+		if let data = data,
+			let txData = RLP.decode(data),
+			let content = txData[0]?.content {
+			switch content {
+			case .list(let items, _, _):
+				switch type {
+				case .sendCoin:
+				if let coinData = items[0].data,
+					let coin = String(coinData: coinData),
+					let addressData = items[1].data,
+					let valueData = items[2].data {
+						let address = addressData.toHexString()
+						let value = BigUInt(valueData)
+						let amount = (Decimal(bigInt: value) ?? 0).PIPToDecimal()
+						let amountString = CurrencyNumberFormatter.formattedDecimal(with: amount,
+																																				formatter: decimalFormatter)
 
-		switch type {
-		case .sendCoin:
-			if let data = data,
-				let txData = RLP.decode(data),
-				let content = txData[0]?.content {
-				switch content {
-				case .list(let items, _, _):
-					if let coinData = items[0].data,
-						let coin = String(data: coinData, encoding: .utf8)?
-							.replacingOccurrences(of: "\0", with: ""),
-						let addressData = items[1].data,
-						let valueData = items[2].data {
-							let address = addressData.toHexString()
+						let sendingValue = amountString + " " + coin
+						fields.append(["key": "YOU'RE SENDING".localized(), "value": sendingValue])
+						fields.append(["key": "TO".localized(), "value": "Mx" + address])
+				}
+				case .sellCoin:
+					fields.append(["key": "TYPE".localized(), "value": "SELL COIN"])
+					if let coinFromData = items[0].data,
+						let coinFrom = String(coinData: coinFromData),
+						let valueData = items[1].data,
+						let coinToData = items[2].data,
+						let coinTo = String(coinData: coinToData),
+						let minimumValueToBuyData = items[2].data {
+							let minimumValueToBuy = BigUInt(minimumValueToBuyData)
 							let value = BigUInt(valueData)
-							let amount = (Decimal(bigInt: value) ?? 0).PIPToDecimal()
-							let amountString = CurrencyNumberFormatter.formattedDecimal(with: amount,
-																																		formatter: decimalFormatter)
-
-							let sendingValue = amountString + " " + coin
-
-							fields.append(["key": "YOU'RE sending".localized(), "value": sendingValue])
-							fields.append(["key": "TO".localized(), "value": "Mx" + address])
-							if let payload = payload {
-								fields.append(["key": "PAYLOAD MESSAGE".localized(), "value": payload])
-							}
+							let amountString = CurrencyNumberFormatter.formattedDecimal(with: (Decimal(bigInt: value) ?? 0).PIPToDecimal(),
+																																					formatter: decimalFormatter)
+							fields.append(["key": "COIN FROM".localized(), "value": coinFrom])
+							fields.append(["key": "AMOUNT".localized(), "value": amountString])
+							fields.append(["key": "COIN TO".localized(), "value": coinTo])
 					}
 					break
-				case .noItem: break
-				case .data(_): break
+				case .sellAllCoins:
+					fields.append(["key": "TYPE".localized(), "value": "SELL ALL"])
+					if let coinFromData = items[0].data,
+						let coinFrom = String(coinData: coinFromData),
+						let coinToData = items[1].data,
+						let coinTo = String(coinData: coinToData),
+						let minimumValueToBuyData = items[2].data {
+//							let minimumValueToBuy = BigUInt(minimumValueToBuyData)
+							fields.append(["key": "COIN FROM".localized(), "value": coinFrom])
+							fields.append(["key": "COIN TO".localized(), "value": coinTo])
+					}
+					break
+				case .buyCoin:
+					fields.append(["key": "TYPE".localized(), "value": "BUY COIN"])
+					if let coinFromData = items[0].data,
+						let coinFrom = String(coinData: coinFromData),
+						let valueData = items[1].data,
+						let coinToData = items[2].data,
+						let coinTo = String(coinData: coinToData),
+						let maximumValueToBuyData = items[2].data {
+							let maximumValueToBuy = BigUInt(maximumValueToBuyData)
+							let value = BigUInt(valueData)
+							let amountString = CurrencyNumberFormatter.formattedDecimal(with: (Decimal(bigInt: value) ?? 0).PIPToDecimal(),
+																																					formatter: decimalFormatter)
+							fields.append(["key": "COIN FROM".localized(), "value": coinFrom])
+							fields.append(["key": "AMOUNT".localized(), "value": amountString])
+							fields.append(["key": "COIN TO".localized(), "value": coinTo])
+					}
+					break
+				case .createCoin:
+					fields.append(["key": "TYPE".localized(), "value": "CREATE COIN"])
+					if let coinNameData = items[0].data,
+						let coinName = String(data: coinNameData, encoding: .utf8),
+						let coinSymbolData = items[1].data,
+						let coinSymbol = String(coinData: coinSymbolData),
+						let initialAmountData = items[2].data,
+						let initialReserveData = items[3].data,
+						let constantReserveRatioData = items[4].data {
+							self.createCoinSymbolCount = coinSymbol.count
+							let initialAmount = BigUInt(initialAmountData)
+							let initialReserve = BigUInt(initialReserveData)
+							let crr = BigUInt(constantReserveRatioData)
+							let initialAmountString = CurrencyNumberFormatter.formattedDecimal(with: (Decimal(bigInt: initialAmount) ?? 0).PIPToDecimal(),
+																																								 formatter: decimalFormatter)
+							let initialReserveString = CurrencyNumberFormatter.formattedDecimal(with: (Decimal(bigInt: initialReserve) ?? 0).PIPToDecimal(),
+																																									formatter: decimalFormatter)
+							let crrString = CurrencyNumberFormatter.formattedDecimal(with: (Decimal(bigInt: crr) ?? 0),
+																																			 formatter: noMantissaFormatter)
+							fields.append(["key": "COIN NAME".localized(), "value": coinName])
+							fields.append(["key": "COIN SYMBOL".localized(), "value": coinSymbol])
+							fields.append(["key": "INITIAL AMOUNT".localized(), "value": initialAmountString])
+							fields.append(["key": "INITIAL RESERVE".localized(), "value": initialReserveString])
+							fields.append(["key": "CONSTANT RESERVE RATIO".localized(), "value": crrString])
+					}
+					break
+				case .declareCandidacy:
+					fields.append(["key": "TYPE".localized(), "value": "DECLARE CANDIDACY".localized()])
+					if
+						let addressData = items[0].data,
+						let publicKeyData = items[1].data,
+						let commissionData = items[2].data,
+						let coinData = items[3].data,
+						let coin = String(coinData: coinData),
+						let stakeData = items[4].data {
+							let commission = BigUInt(commissionData)
+							let commissionString = CurrencyNumberFormatter.formattedDecimal(with: (Decimal(bigInt: commission) ?? 0),
+																																							formatter: noMantissaFormatter)
+
+							let stake = BigUInt(stakeData)
+							let amountString = CurrencyNumberFormatter.formattedDecimal(with: (Decimal(bigInt: stake) ?? 0).PIPToDecimal(),
+																																					formatter: decimalFormatter)
+							fields.append(["key": "ADDRESS".localized(), "value": "Mx" + addressData.toHexString()])
+							fields.append(["key": "PUBLIC KEY".localized(), "value": "Mp" + publicKeyData.toHexString()])
+							fields.append(["key": "COMMISSION".localized(), "value": commissionString])
+							fields.append(["key": "COIN".localized(), "value": coin])
+							fields.append(["key": "STAKE".localized(), "value": amountString])
+					}
+					break
+				case .delegate:
+					fields.append(["key": "TYPE".localized(), "value": "DELEGATE".localized()])
+					if
+						let publicKeyData = items[0].data,
+						let coinData = items[1].data,
+						let coin = String(coinData: coinData),
+						let stakeData = items[2].data {
+							let stake = BigUInt(stakeData)
+							let amountString = CurrencyNumberFormatter.formattedDecimal(with: (Decimal(bigInt: stake) ?? 0).PIPToDecimal(),
+																																					formatter: decimalFormatter)
+							fields.append(["key": "PUBLIC KEY".localized(), "value": "Mp" + publicKeyData.toHexString()])
+							fields.append(["key": "COIN".localized(), "value": coin])
+							fields.append(["key": "AMOUNT".localized(), "value": amountString])
+					}
+					break
+				case .unbond:
+					fields.append(["key": "TYPE".localized(), "value": "UNBOND".localized()])
+					if
+						let publicKeyData = items[0].data,
+						let coinData = items[1].data,
+						let coin = String(coinData: coinData),
+						let stakeData = items[2].data {
+							let stake = BigUInt(stakeData)
+							let amountString = CurrencyNumberFormatter.formattedDecimal(with: (Decimal(bigInt: stake) ?? 0).PIPToDecimal(),
+																																					formatter: decimalFormatter)
+							fields.append(["key": "PUBLIC KEY".localized(), "value": "Mp" + publicKeyData.toHexString()])
+							fields.append(["key": "COIN".localized(), "value": coin])
+							fields.append(["key": "AMOUNT".localized(), "value": amountString])
+					}
+					break
+				case .redeemCheck:
+					fields.append(["key": "TYPE".localized(), "value": "REDEEM CHECK".localized()])
+					if
+						let checkData = items[0].data,
+						let proofData = items[1].data {
+						fields.append(["key": "CHECK".localized(), "value": "Mc" + checkData.toHexString()])
+						fields.append(["key": "PROOF".localized(), "value": proofData.toHexString()])
+					}
+					break
+				case .setCandidateOnline:
+					fields.append(["key": "TYPE".localized(), "value": "SET CANDIDATE ON".localized()])
+					if let publicKeyData = items[0].data {
+						fields.append(["key": "PUBLIC KEY".localized(), "value": "Mp" + publicKeyData.toHexString()])
+					}
+					break
+				case .setCandidateOffline:
+					fields.append(["key": "TYPE".localized(), "value": "SET CANDIDATE OFF".localized()])
+					if let publicKeyData = items[0].data {
+						fields.append(["key": "PUBLIC KEY".localized(), "value": "Mp" + publicKeyData.toHexString()])
+					}
+					break
+				case .createMultisigAddress:
+					break
+				case .multisend:
+					if let arrayData = items[0].data,
+						let array = RLP.decode(arrayData) {
+						multisendAddressCount = array.count ?? 0
+						for i in 0..<(array.count ?? 0) {
+							if let addressDictData = array[i]?.data,
+							let addressDict = RLP.decode(addressDictData),
+								let coinData = addressDict[0]?.data,
+									let coin = String(coinData: coinData),
+									let addressData = addressDict[1]?.data,
+									let valueData = addressDict[2]?.data {
+										let address = addressData.toHexString()
+										let value = BigUInt(valueData)
+										let amount = (Decimal(bigInt: value) ?? 0).PIPToDecimal()
+										let amountString = CurrencyNumberFormatter.formattedDecimal(with: amount,
+																																								formatter: decimalFormatter)
+										let sendingValue = amountString + " " + coin
+										fields.append(["key": "YOU'RE SENDING".localized(), "value": sendingValue])
+										fields.append(["key": "TO".localized(), "value": "Mx" + address])
+								}
+						}
+					}
+					break
+				case .editCandidate:
+					fields.append(["key": "TYPE".localized(), "value": "EDIT CANDIDATE".localized()])
+					if let publicKeyData = items[0].data,
+						let rewardAddressData = items[1].data,
+						let ownerAddressData = items[2].data {
+							fields.append(["key": "PUBLIC KEY".localized(), "value": "Mp" + publicKeyData.toHexString()])
+							fields.append(["key": "REWARD ADDRESS".localized(), "value": "Mx" + rewardAddressData.toHexString()])
+							fields.append(["key": "OWNDER ADDRESS".localized(), "value": "Mx" + ownerAddressData.toHexString()])
+					}
+					break
 				}
+				break
+			case .noItem: break
+			case .data(_): break
 			}
-		case .sellCoin:
-			break
-		case .sellAllCoins:
-			break
-		case .buyCoin:
-			break
-		case .createCoin:
-			break
-		case .declareCandidacy:
-			break
-		case .delegate:
-			break
-		case .unbond:
-			break
-		case .redeemCheck:
-			break
-		case .setCandidateOnline:
-			break
-		case .setCandidateOffline:
-			break
-		case .createMultisigAddress:
-			break
-		case .multisend:
-			break
-		case .editCandidate:
-			break
+			if let gasCoin = gasCoin {
+				fields.append(["key": "GAS COIN".localized(), "value": gasCoin])
+			}
+			if let payload = payload, payload.count > 0 {
+				fields.append(["key": "PAYLOAD MESSAGE".localized(), "value": payload])
+			}
 		}
 
 		self.input = Input()
 		self.output = Output(sections: sectionsSubject.asObservable(),
-												 shouldClose: cancelButtonDidTapSubject.asObservable())
+												 shouldClose: cancelButtonDidTapSubject.asObservable(),
+												 errorNotification: errorNotificationSubject.asObservable(),
+												 successNotification: successNotificationSubject.asObservable(),
+												 vibrate: vibrateSubject.asObservable(),
+												 popup: popupSubject.asObservable(),
+												 lastTransactionExplorerURL: self.lastTransactionExplorerURL)
 
 		sendButtonDidTapSubject.subscribe(onNext: { [weak self] (_) in
 			self?.sendTx()
 		}).disposed(by: disposeBag)
 
-		DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-			self.sectionsSubject.onNext(self.createSections())
-		}
+		proceedButtonDidTapSubject.subscribe(onNext: { [weak self] (_) in
+			self?.vibrateSubject.onNext(())
+			let viewModel = ConfirmPopupViewModel(desc: "Please confirm transaction sending".localized(),
+																						buttonTitle: "CONFIRM AND SEND".localized())
+			viewModel.buttonTitle = "CONFIRM AND SEND".localized()
+			viewModel.cancelTitle = "CANCEL".localized()
+			viewModel.desc = "Press confirm sending transaction".localized()
+			viewModel
+				.output
+				.didTapActionButton
+				.asDriver(onErrorJustReturn: ())
+				.drive(self!.sendButtonDidTapSubject.asObserver())
+				.disposed(by: self!.disposeBag)
+
+			viewModel
+				.output
+				.didTapCancel
+				.asDriver(onErrorJustReturn: ())
+				.drive(onNext: { _ in
+					self?.popupSubject.onNext(nil)
+				})
+				.disposed(by: self!.disposeBag)
+
+			self?.sendingTxSubject
+				.asDriver(onErrorJustReturn: false)
+				.drive(viewModel.input.activityIndicator)
+				.disposed(by: self!.disposeBag)
+
+			let popup = PopupRouter.confirmPopupViewController(viewModel: viewModel)
+			self?.popupSubject.onNext(popup)
+		}).disposed(by: disposeBag)
+		self.sectionsSubject.onNext(self.createSections())
 	}
 
 	private func sendTx() {
@@ -158,9 +369,7 @@ class RawTransactionViewModel: BaseViewModel, ViewModelProtocol {
 		Observable.combineLatest(GateManager.shared.nonce(address: "Mx" + address),
 														 GateManager.shared.minGas())
 			.do(onNext: { [weak self] (result) in
-				self?.sendingTxSubject.onNext(false)
-			}, onError: { [weak self] error in
-					print(error)
+				
 			}, onSubscribe: { [weak self] in
 				self?.sendingTxSubject.onNext(true)
 			}).flatMap({ [weak self] (result) -> Observable<String?> in
@@ -175,15 +384,33 @@ class RawTransactionViewModel: BaseViewModel, ViewModelProtocol {
 						return Observable.empty()
 				}
 
-				let tx = RawTransaction(nonce: nnnc,
-																type: BigUInt(type.rawValue),
+				let gasPrice = (self?.gasPrice != nil) ? self!.gasPrice! : BigUInt(try self?.currentGas.value() ?? RawTransactionDefaultGasPrice)
+				let resultNonce = (self?.nonce != nil) ? self!.nonce! : nnnc
+
+				let tx = RawTransaction(nonce: resultNonce,
+																gasPrice: gasPrice,
 																gasCoin: gasCoin,
+																type: BigUInt(type.rawValue),
 																data: self?.data ?? Data(),
 																payload: self?.payload?.data(using: .utf8) ?? Data())
 
 				let signedTx = RawTransactionSigner.sign(rawTx: tx, privateKey: privateKey)
 				return GateManager.shared.send(rawTx: signedTx)
-			}).subscribe().disposed(by: disposeBag)
+			}).subscribe(onNext: { [weak self] (result) in
+				self?.lastSentTransactionHash = result
+				if let sentViewModel = self?.sentViewModel() {
+					let sentViewController = PopupRouter.sentPopupViewCointroller(viewModel: sentViewModel)
+					self?.popupSubject.onNext(sentViewController)
+				}
+
+				Session.shared.loadTransactions()
+				Session.shared.loadBalances()
+				Session.shared.loadDelegatedBalance()
+				self?.sendingTxSubject.onNext(false)
+			}, onError: { [weak self] (error) in
+				self?.sendingTxSubject.onNext(false)
+				self?.handle(error: error)
+			}).disposed(by: disposeBag)
 	}
 
 	// MARK: - Sections
@@ -202,7 +429,7 @@ class RawTransactionViewModel: BaseViewModel, ViewModelProtocol {
 																				identifier: cellIdentifierPrefix.fee.rawValue)
 		fee.title = "Transaction Fee".localized()
 		let payloadData = payload?.data(using: .utf8)
-		fee.subtitle = self.comissionText(for: 1, payloadData: payloadData)
+		fee.subtitle = self.commissionText(for: 1, payloadData: payloadData)
 		fee.subtitleObservable = self.gasObservable
 
 		let separator = SeparatorTableViewCellItem(reuseIdentifier: "SeparatorTableViewCell",
@@ -213,13 +440,12 @@ class RawTransactionViewModel: BaseViewModel, ViewModelProtocol {
 
 		let button = ButtonTableViewCellItem(reuseIdentifier: "ButtonTableViewCell",
 																				 identifier: cellIdentifierPrefix.button.rawValue)
-		button.title = "CONFIRM AND SEND".localized()
+		button.title = "PROCEED".localized()
 		button.buttonPattern = "purple"
 		button.output?.didTapButton
 			.asDriver(onErrorJustReturn: ())
-			.drive(sendButtonDidTapSubject.asObserver())
+			.drive(proceedButtonDidTapSubject.asObserver())
 			.disposed(by: disposeBag)
-		button.isLoadingObserver = sendingTxSubject.asObservable()
 
 		let cancelButton = ButtonTableViewCellItem(reuseIdentifier: "ButtonTableViewCell",
 																							 identifier: cellIdentifierPrefix.cancelButton.rawValue)
@@ -230,16 +456,59 @@ class RawTransactionViewModel: BaseViewModel, ViewModelProtocol {
 			.drive(cancelButtonDidTapSubject.asObserver())
 			.disposed(by: disposeBag)
 
+		let blank2 = BlankTableViewCellItem(reuseIdentifier: "BlankTableViewCell",
+																				identifier: cellIdentifierPrefix.blank.rawValue + "_2")
+		let blank3 = BlankTableViewCellItem(reuseIdentifier: "BlankTableViewCell",
+																				identifier: cellIdentifierPrefix.blank.rawValue + "_3")
+
 		var section = BaseTableSectionItem(header: "")
-		section.items = items + [fee, separator, blank, button, cancelButton]
+		section.items = items + [fee, separator, blank, blank2, blank3, button, cancelButton]
 		return [section]
 	}
 
-	private func comissionText(for gas: Int, payloadData: Data? = nil) -> String {
+	func sentViewModel() -> SentPopupViewModel {
+		let vm = SentPopupViewModel()
+		vm.actionButtonTitle = "VIEW TRANSACTION".localized()
+		vm.secondButtonTitle = "CLOSE".localized()
+		vm.title = "Success!".localized()
+		vm.noAvatar = true
+		vm.desc = "Transaction sent!"
+		return vm
+	}
+
+	private func commissionText(for gas: Int, payloadData: Data? = nil) -> String {
 		let payloadCom = Decimal((payloadData ?? Data()).count) * RawTransaction.payloadByteComissionPrice.decimalFromPIP()
-		let commission = (self.type.commission() + payloadCom).PIPToDecimal() * Decimal(gas)
+		let commission = (self.type
+			.commission(options: [.multisendCount: self.multisendAddressCount,
+														.coinSymbolLettersCount: self.createCoinSymbolCount]) + payloadCom)
+			.PIPToDecimal() * Decimal(gas)
 		let balanceString = CurrencyNumberFormatter.formattedDecimal(with: commission,
 																																 formatter: coinFormatter)
 		return balanceString + " " + (Coin.baseCoin().symbol ?? "")
+	}
+
+	private func handle(error: Error) {
+		var notification: NotifiableError
+		if let error = error as? HTTPClientError {
+			if let errorMessage = error.userData?["log"] as? String {
+				notification = NotifiableError(title: "An Error Occurred".localized(),
+																			 text: errorMessage)
+			} else {
+				notification = NotifiableError(title: "An Error Occurred".localized(),
+																			 text: "Unable to send transaction".localized())
+			}
+		} else {
+			notification = NotifiableError(title: "An Error Occurred".localized(),
+																		 text: "Unable to send transaction".localized())
+		}
+		self.errorNotificationSubject.onNext(notification)
+	}
+
+	var lastSentTransactionHash: String?
+	func lastTransactionExplorerURL() -> URL? {
+		guard nil != lastSentTransactionHash else {
+			return nil
+		}
+		return URL(string: MinterExplorerBaseURL! + "/transactions/" + (lastSentTransactionHash ?? ""))
 	}
 }

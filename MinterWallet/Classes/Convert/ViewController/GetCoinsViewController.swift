@@ -33,6 +33,7 @@ class GetCoinsViewController: ConvertCoinsViewController, IndicatorInfoProvider,
 		hardImpactFeedbackGenerator.prepare()
 		hardImpactFeedbackGenerator.impactOccurred()
 		AnalyticsHelper.defaultAnalytics.track(event: .ConvertGetExchangeButton, params: nil)
+		//TODO: Move to input
 		vm.exchange()
 	}
 	@IBOutlet weak var getCoinActivityIndicator: UIActivityIndicatorView!
@@ -208,7 +209,6 @@ class GetCoinsViewController: ConvertCoinsViewController, IndicatorInfoProvider,
 			guard let coin = selected[0] else {
 				return
 			}
-
 			if let item = items.filter({ (item) -> Bool in
 				let balanceString = CurrencyNumberFormatter.formattedDecimal(with: (item.balance ?? 0),
 																																		 formatter: self!.coinFormatter)
@@ -230,12 +230,10 @@ class GetCoinsViewController: ConvertCoinsViewController, IndicatorInfoProvider,
 	// MARK: - Validatable
 
 	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-
 		var txtAfterUpdate = textField.text ?? ""
 		txtAfterUpdate = (txtAfterUpdate as NSString)
 			.replacingCharacters(in: range, with: string).uppercased()
-		textField.text = txtAfterUpdate
-		
+
 		if textField == self.getAmountTextField {
 			vm.getAmount.value = (txtAfterUpdate as String)
 				.replacingOccurrences(of: ",", with: ".")
@@ -245,7 +243,6 @@ class GetCoinsViewController: ConvertCoinsViewController, IndicatorInfoProvider,
 			vm.getCoin.onNext(txtAfterUpdate as String)
 			autocompleteView.perform(#selector(LUAutocompleteView.textFieldEditingChanged))
 		}
-		return false
+		return true
 	}
-
 }
