@@ -11,6 +11,8 @@ import RxSwift
 import MinterCore
 import MinterExplorer
 import BigInt
+import SwiftOTP
+import NotificationBannerSwift
 
 class GetCoinsViewModel: ConvertCoinsViewModel {
 
@@ -163,100 +165,141 @@ class GetCoinsViewModel: ConvertCoinsViewModel {
 		}
 	}
 
-	func exchange() {
-		var approximatelySumRoundedVal = (self.approximatelySum.value ?? 0) * 1.1 * TransactionCoinFactorDecimal
-		approximatelySumRoundedVal.round(.up)
+    func exchange() {
+        func continueExchange() {
+            var approximatelySumRoundedVal = (self.approximatelySum.value ?? 0) * 1.1 * TransactionCoinFactorDecimal
+            approximatelySumRoundedVal.round(.up)
 
-		guard let coinFrom = self.selectedCoin?.transformToCoinName(),
-			let coinTo = try? self.getCoin.value()?.transformToCoinName() ?? "",
-			let selectedAddress = self.selectedAddress,
-			let amntString = self.getAmount.value, let amount = Decimal(string: amntString),
-			let maximumValueToSell = BigUInt(decimal: approximatelySumRoundedVal)
-			else {
-				self.errorNotification.onNext(NotifiableError(title: "Incorrect amount", text: nil))
-				return
-		}
+            guard let coinFrom = self.selectedCoin?.transformToCoinName(),
+                let coinTo = try? self.getCoin.value()?.transformToCoinName() ?? "",
+                let selectedAddress = self.selectedAddress,
+                let amntString = self.getAmount.value, let amount = Decimal(string: amntString),
+                let maximumValueToSell = BigUInt(decimal: approximatelySumRoundedVal)
+                else {
+                    self.errorNotification.onNext(NotifiableError(title: "Incorrect amount", text: nil))
+                    return
+            }
 
-		let ammnt = amount * TransactionCoinFactorDecimal
+            let ammnt = amount * TransactionCoinFactorDecimal
 
-		let convertVal = (BigUInt(decimal: ammnt) ?? BigUInt(0))
+            let convertVal = (BigUInt(decimal: ammnt) ?? BigUInt(0))
 
-		let value = convertVal
+            let value = convertVal
 
-		if value <= 0 {
-			return
-		}
+            if value <= 0 {
+                return
+            }
 
-		isLoading.onNext(true)
+            isLoading.onNext(true)
 
-		DispatchQueue.global(qos: .userInitiated).async {
-			guard let mnemonic = self.accountManager.mnemonic(for: selectedAddress),
-				let seed = self.accountManager.seed(mnemonic: mnemonic),
-				let privateKey = try? self.accountManager.privateKey(from: seed).raw.toHexString() else {
-				self.isLoading.onNext(false)
-				//Error no Private key found
-				assert(true)
-				self.errorNotification.onNext(NotifiableError(title: "No private key found", text: nil))
-				return
-			}
+            DispatchQueue.global(qos: .userInitiated).async {
+                guard let mnemonic = self.accountManager.mnemonic(for: selectedAddress),
+                    let seed = self.accountManager.seed(mnemonic: mnemonic),
+                    let privateKey = try? self.accountManager.privateKey(from: seed).raw.toHexString() else {
+                    self.isLoading.onNext(false)
+                    //Error no Private key found
+                    assert(true)
+                    self.errorNotification.onNext(NotifiableError(title: "No private key found", text: nil))
+                    return
+                }
 
-			GateManager.shared.nonce(for: "Mx" + selectedAddress, completion: { [weak self] (count, err) in
+                GateManager.shared.nonce(for: "Mx" + selectedAddress, completion: { [weak self] (count, err) in
 
-				GateManager.shared.minGasPrice(completion: { (gasPrice, _) in
+                    GateManager.shared.minGasPrice(completion: { (gasPrice, _) in
 
-					guard err == nil, let nnce = count else {
-						self?.isLoading.onNext(false)
-						self?.errorNotification.onNext(NotifiableError(title: "Can't get nonce", text: nil))
-						return
-					}
+                        guard err == nil, let nnce = count else {
+                            self?.isLoading.onNext(false)
+                            self?.errorNotification.onNext(NotifiableError(title: "Can't get nonce", text: nil))
+                            return
+                        }
 
-					let gas = gasPrice ?? (self?.currentGas.value ?? RawTransactionDefaultGasPrice)
+                        let gas = gasPrice ?? (self?.currentGas.value ?? RawTransactionDefaultGasPrice)
 
-					let nonce = nnce + 1
+                        let nonce = nnce + 1
 
-					let coin = (self?.canPayComissionWithBaseCoin() ?? false) ? Coin.baseCoin().symbol : coinFrom
-					let coinData = coin?.data(using: .utf8)?.setLengthRight(10) ?? Data(repeating: 0, count: 10)
-					//TODO: remove after https://github.com/MinterTeam/minter-go-node/issues/224
-					let maxValueToSell = BigUInt(decimal: (self?.selectedBalance ?? 0) * TransactionCoinFactorDecimal) ?? BigUInt(0)//maximumValueToSell
+                        let coin = (self?.canPayComissionWithBaseCoin() ?? false) ? Coin.baseCoin().symbol : coinFrom
+                        let coinData = coin?.data(using: .utf8)?.setLengthRight(10) ?? Data(repeating: 0, count: 10)
+                        //TODO: remove after https://github.com/MinterTeam/minter-go-node/issues/224
+                        let maxValueToSell = BigUInt(decimal: (self?.selectedBalance ?? 0) * TransactionCoinFactorDecimal) ?? BigUInt(0)//maximumValueToSell
 
-					let rawTx = BuyCoinRawTransaction(nonce: BigUInt(decimal: nonce)!,
-																						gasPrice: gas,
-																						gasCoin: coinData,
-																						coinFrom: coinFrom,
-																						coinTo: coinTo,
-																						value: value,
-																						maximumValueToSell: maxValueToSell)
-					let signedTx = RawTransactionSigner.sign(rawTx: rawTx, privateKey: privateKey)
+                        let rawTx = BuyCoinRawTransaction(nonce: BigUInt(decimal: nonce)!,
+                                                                                            gasPrice: gas,
+                                                                                            gasCoin: coinData,
+                                                                                            coinFrom: coinFrom,
+                                                                                            coinTo: coinTo,
+                                                                                            value: value,
+                                                                                            maximumValueToSell: maxValueToSell)
+                        let signedTx = RawTransactionSigner.sign(rawTx: rawTx, privateKey: privateKey)
 
-					GateManager.shared.sendRawTransaction(rawTransaction: signedTx!, completion: { (_, err) in
+                        GateManager.shared.sendRawTransaction(rawTransaction: signedTx!, completion: { (_, err) in
 
-						self?.isLoading.onNext(false)
+                            self?.isLoading.onNext(false)
 
-						defer {
-							DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + 2, execute: {
-								Session.shared.loadBalances()
-								Session.shared.loadTransactions()
-								Session.shared.loadDelegatedBalance()
-							})
+                            defer {
+                                DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + 2, execute: {
+                                    Session.shared.loadBalances()
+                                    Session.shared.loadTransactions()
+                                    Session.shared.loadDelegatedBalance()
+                                })
 
-							Session.shared.loadBalances()
-							Session.shared.loadTransactions()
-							Session.shared.loadDelegatedBalance()
-						}
+                                Session.shared.loadBalances()
+                                Session.shared.loadTransactions()
+                                Session.shared.loadDelegatedBalance()
+                            }
 
-						guard nil == err else {
-							self?.handleError(err)
-							return
-						}
+                            guard nil == err else {
+                                self?.handleError(err)
+                                return
+                            }
 
-						self?.shouldClearForm.value = true
-						self?.successMessage
-							.onNext(NotifiableSuccess(title: "Coins have been successfully bought".localized(), text: nil))
-					})
-				})
-			})
-		}
-	}
+                            self?.shouldClearForm.value = true
+                            self?.successMessage
+                                .onNext(NotifiableSuccess(title: "Coins have been successfully bought".localized(), text: nil))
+                        })
+                    })
+                })
+            }
+        }
+
+        if let secretCode = accountManager.secretCode() {
+            let alert = BaseAlertController(title: "Enter 6 digit code", message: nil, preferredStyle: .alert)
+            let yesAction = UIAlertAction(title: "OK", style: .default) { action in
+                let firstTextField = alert.textFields![0] as UITextField
+                guard let data = base32DecodeToData(secretCode) else {
+                    return
+                }
+
+                guard let totp = TOTP(secret: data, digits: 6, timeInterval: 30, algorithm: .sha1) else {
+                    return
+                }
+                let otpString = totp.generate(time: Date())
+
+                if otpString == firstTextField.text {
+                    continueExchange()
+                } else {
+                    let banner = NotificationBanner(title: "Wrong code!",subtitle: "", style: .danger)
+                    banner.show()
+                }
+            }
+            let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel)
+            alert.addTextField(configurationHandler: { (textField) in
+                textField.placeholder = "Enter 6 digit code"
+            })
+            alert.addAction(yesAction)
+            alert.addAction(cancelAction)
+            alert.view.tintColor = UIColor.mainColor()
+                
+             if var topController = UIApplication.shared.keyWindow?.rootViewController {
+                 while let presentedViewController = topController.presentedViewController {
+                     topController = presentedViewController
+                 }
+
+                topController.present(alert, animated: true)
+             }
+        } else {
+            continueExchange()
+        }
+    }
 
 	private func handleError(_ err: Error?) {
 		if
