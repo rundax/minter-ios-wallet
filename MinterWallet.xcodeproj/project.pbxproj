@@ -16,6 +16,12 @@
 		27FF799EFD5EE33465322922 /* ReceiveViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C649F6A6F89A011B5F4521AD /* ReceiveViewModel.swift */; };
 		2B4873CFE9E2F66FBBAADC30 /* CreateWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1BDF87BDE21BBFB5B4968A /* CreateWalletViewController.swift */; };
 		2E776157C3BE73E6DF25F7C2 /* Send.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A08D1CE45C9B6F749099A430 /* Send.storyboard */; };
+		30328C1A2368764C00443D8D /* PairedModeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30328C142368764C00443D8D /* PairedModeViewModel.swift */; };
+		30328C1B2368764C00443D8D /* PairedModeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30328C142368764C00443D8D /* PairedModeViewModel.swift */; };
+		30328C1C2368764C00443D8D /* PairedModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30328C172368764C00443D8D /* PairedModeViewController.swift */; };
+		30328C1D2368764C00443D8D /* PairedModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30328C172368764C00443D8D /* PairedModeViewController.swift */; };
+		30328C1E2368764C00443D8D /* PairedMode.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30328C182368764C00443D8D /* PairedMode.storyboard */; };
+		30328C1F2368764C00443D8D /* PairedMode.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30328C182368764C00443D8D /* PairedMode.storyboard */; };
 		332EB812C95C0592C6924E65 /* CoinsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A13B58DCBBFF6DC3A2EC4B /* CoinsViewController.swift */; };
 		35C28F738CF2110198FBDD3C /* CreateWalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088EC129B1FBF3EE83B23AE0 /* CreateWalletViewModel.swift */; };
 		3A2FF1E94AD830202FF84725 /* Convert.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EB9FDE7FE8682F706D3A2E4 /* Convert.storyboard */; };
@@ -607,6 +613,9 @@
 		163841D5463C4C049F735C69 /* TransactionsViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TransactionsViewModel.swift; sourceTree = "<group>"; };
 		1939F242DE0C1FE08F95338D /* AdvancedModeViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdvancedModeViewModel.swift; sourceTree = "<group>"; };
 		25784C6ACDA695190875E917 /* Login.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		30328C142368764C00443D8D /* PairedModeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairedModeViewModel.swift; sourceTree = "<group>"; };
+		30328C172368764C00443D8D /* PairedModeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairedModeViewController.swift; sourceTree = "<group>"; };
+		30328C182368764C00443D8D /* PairedMode.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PairedMode.storyboard; sourceTree = "<group>"; };
 		33CCC11E350993C29DD8EE53 /* Pods-MinterWalletTestnet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MinterWalletTestnet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MinterWalletTestnet/Pods-MinterWalletTestnet.debug.xcconfig"; sourceTree = "<group>"; };
 		3BA1EA41241735BB83566B6A /* PopupViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		3F0861B418A65F5CA32B8596 /* Root.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = Root.storyboard; sourceTree = "<group>"; };
@@ -1059,6 +1068,49 @@
 				95D467FDBF66D3C775394F18 /* Pods-MinterWalletTestnet.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		30328C122368764C00443D8D /* PairedMode */ = {
+			isa = PBXGroup;
+			children = (
+				30328C132368764C00443D8D /* ViewModel */,
+				30328C152368764C00443D8D /* View */,
+				30328C162368764C00443D8D /* ViewController */,
+				30328C182368764C00443D8D /* PairedMode.storyboard */,
+				30328C192368764C00443D8D /* Router */,
+			);
+			name = PairedMode;
+			path = Classes/PairedMode;
+			sourceTree = "<group>";
+		};
+		30328C132368764C00443D8D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				30328C142368764C00443D8D /* PairedModeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		30328C152368764C00443D8D /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		30328C162368764C00443D8D /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				30328C172368764C00443D8D /* PairedModeViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		30328C192368764C00443D8D /* Router */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 		32F3EFD7F6AC32D1CE8F9B79 /* Root */ = {
@@ -1789,6 +1841,7 @@
 				B05CA668FCAFDF33550C9139 /* Settings */,
 				FAF9C50222AA6931000BF80A /* Delegated */,
 				94002D0AFFF4C5E044485CB9 /* Address */,
+				30328C122368764C00443D8D /* PairedMode */,
 				BF089A7BF5F3415FFF11CF4C /* AdvancedMode */,
 				1EA2C3288A484F349AFE2E04 /* Convert */,
 				FA669B68207239F200AD110A /* AppDelegate.swift */,
@@ -2402,6 +2455,7 @@
 				FA333074224A4B3C003B4763 /* UbuntuMono-BI.ttf in Resources */,
 				FA333075224A4B3C003B4763 /* pop_down.wav in Resources */,
 				FA333076224A4B3C003B4763 /* Ubuntu-LI.ttf in Resources */,
+				30328C1E2368764C00443D8D /* PairedMode.storyboard in Resources */,
 				FA333077224A4B3C003B4763 /* UbuntuMono-RI.ttf in Resources */,
 				FAC5393E22C37C220077E181 /* PIN.storyboard in Resources */,
 				FA333079224A4B3C003B4763 /* UbuntuMono-B.ttf in Resources */,
@@ -2472,6 +2526,7 @@
 				FA669BC02072483100AD110A /* UbuntuMono-BI.ttf in Resources */,
 				FADD8F1F219309A300463F66 /* pop_down.wav in Resources */,
 				FA669BC62072483100AD110A /* Ubuntu-LI.ttf in Resources */,
+				30328C1F2368764C00443D8D /* PairedMode.storyboard in Resources */,
 				FA669BCA2072483100AD110A /* UbuntuMono-RI.ttf in Resources */,
 				FAC5393F22C37C220077E181 /* PIN.storyboard in Resources */,
 				FA669BCD2072483100AD110A /* UbuntuMono-B.ttf in Resources */,
@@ -2678,6 +2733,7 @@
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftCentrifuge/SwiftCentrifuge.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftOTP/SwiftOTP.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftValidator/SwiftValidator.framework",
 				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework",
@@ -2717,6 +2773,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftCentrifuge.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftOTP.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftValidator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPKeyboardAvoiding.framework",
@@ -2772,7 +2829,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" e0c0d96cb82d0098481845be3477bc7970f956e3 f517f858c0ad1f507a4748574f0f8ee3d3fba624917b0b78fc49f5f8859b78f4\n";
+			shellScript = "
+
+";
 		};
 		FA33308F224A4B3C003B4763 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2810,6 +2869,7 @@
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftCentrifuge/SwiftCentrifuge.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftOTP/SwiftOTP.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftValidator/SwiftValidator.framework",
 				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework",
@@ -2849,6 +2909,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftCentrifuge.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftOTP.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftValidator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPKeyboardAvoiding.framework",
@@ -2903,7 +2964,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+			shellScript = "# \"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2991,6 +3052,7 @@
 				FA332FE1224A4B3C003B4763 /* AnalyticsEvents.swift in Sources */,
 				FA332FE2224A4B3C003B4763 /* NextGrowingInternalTextView.swift in Sources */,
 				FA672DF62316C6170028FE29 /* UsernameTableViewCell.swift in Sources */,
+				30328C1C2368764C00443D8D /* PairedModeViewController.swift in Sources */,
 				FA332FE3224A4B3C003B4763 /* UIViewController+TopMost.swift in Sources */,
 				FA332FE4224A4B3C003B4763 /* LoginViewController.swift in Sources */,
 				FA332FE5224A4B3C003B4763 /* AdvancedModeBaseViewModel.swift in Sources */,
@@ -3029,6 +3091,7 @@
 				FA5DB809236198C7008A8E47 /* ImpactProtocol.swift in Sources */,
 				FA333002224A4B3C003B4763 /* TransactionDateFormatter.swift in Sources */,
 				FA333003224A4B3C003B4763 /* UIViewController+HideKeyboard.swift in Sources */,
+				30328C1A2368764C00443D8D /* PairedModeViewModel.swift in Sources */,
 				FA333004224A4B3C003B4763 /* PasswordEditViewController.swift in Sources */,
 				FA333005224A4B3C003B4763 /* ScreenHeader.swift in Sources */,
 				FA333006224A4B3C003B4763 /* CoinsViewModel.swift in Sources */,
@@ -3214,6 +3277,7 @@
 				FAC4BA1220D94604005A1B90 /* String+Validation.swift in Sources */,
 				FA9BE30B213FE7E0002160F3 /* AnalyticsEvents.swift in Sources */,
 				FA672DF72316C6170028FE29 /* UsernameTableViewCell.swift in Sources */,
+				30328C1D2368764C00443D8D /* PairedModeViewController.swift in Sources */,
 				FA0AF8DC21B5297E000B571B /* NextGrowingInternalTextView.swift in Sources */,
 				FA6B5746207513BE002124D0 /* UIViewController+TopMost.swift in Sources */,
 				2177DA1D3DFAC5A28E961357 /* LoginViewController.swift in Sources */,
@@ -3252,6 +3316,7 @@
 				FA5DB80A236198C8008A8E47 /* ImpactProtocol.swift in Sources */,
 				FA3154AA20B5ABD1005D9F21 /* TransactionDateFormatter.swift in Sources */,
 				FAA2608620946456009FF3DE /* UIViewController+HideKeyboard.swift in Sources */,
+				30328C1B2368764C00443D8D /* PairedModeViewModel.swift in Sources */,
 				FAA2607020931D2F009FF3DE /* PasswordEditViewController.swift in Sources */,
 				FA835CCE2077BC9200BFC35A /* ScreenHeader.swift in Sources */,
 				D1CAF56CB50CFF293A1D7F1A /* CoinsViewModel.swift in Sources */,
@@ -3422,7 +3487,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 232;
-				DEVELOPMENT_TEAM = A26H28FPZU;
+				DEVELOPMENT_TEAM = C5S22Z3J44;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3433,7 +3498,7 @@
 					"$(PROJECT_DIR)/MinterWallet/Third\\ Party",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/MinterWallet/MinterWallet-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0.21;
 				PRODUCT_BUNDLE_IDENTIFIER = MNT.BipWallet;
@@ -3456,7 +3521,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 232;
-				DEVELOPMENT_TEAM = A26H28FPZU;
+				DEVELOPMENT_TEAM = C5S22Z3J44;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3467,7 +3532,7 @@
 					"$(PROJECT_DIR)/MinterWallet/Third\\ Party",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/MinterWallet/MinterWallet-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0.21;
 				PRODUCT_BUNDLE_IDENTIFIER = MNT.BipWallet;
@@ -3596,7 +3661,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 232;
-				DEVELOPMENT_TEAM = A26H28FPZU;
+				DEVELOPMENT_TEAM = C5S22Z3J44;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3630,7 +3695,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 232;
-				DEVELOPMENT_TEAM = A26H28FPZU;
+				DEVELOPMENT_TEAM = C5S22Z3J44;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

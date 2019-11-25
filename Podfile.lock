@@ -62,6 +62,8 @@ PODS:
     - Starscream
     - SwiftProtobuf
   - SwiftLint (0.35.0)
+  - SwiftOTP (2.0.0):
+    - CryptoSwift (>= 1.0.0)
   - SwiftProtobuf (1.7.0)
   - SwiftValidator (4.0.0)
   - TPKeyboardAvoiding (1.3.3)
@@ -93,6 +95,7 @@ DEPENDENCIES:
   - RxSwift
   - SwiftCentrifuge
   - SwiftLint
+  - SwiftOTP
   - SwiftValidator (from `https://github.com/jpotts18/SwiftValidator.git`, branch `master`)
   - TPKeyboardAvoiding (~> 1.3)
   - XLPagerTabStrip (~> 8.0)
@@ -128,6 +131,7 @@ SPEC REPOS:
     - Starscream
     - SwiftCentrifuge
     - SwiftLint
+    - SwiftOTP
     - SwiftProtobuf
     - TPKeyboardAvoiding
     - TrezorCrypto
@@ -197,6 +201,7 @@ SPEC CHECKSUMS:
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SwiftCentrifuge: fa745a1fad5ace1c592eb8ceb21e06d28a080ae6
   SwiftLint: 5553187048b900c91aa03552807681bb6b027846
+  SwiftOTP: f5e4df69cd4d1642e4bb3cb9e12bf6e9669ea164
   SwiftProtobuf: 4fd9645e69b72cbae6ec8da5be0cdd20ca6565dd
   SwiftValidator: 249b6b3ae3b294266c5b9de134d94f18f2d5aa47
   TPKeyboardAvoiding: 6dd3fe3268b8f2627beb7ff3d82a3cacbdf66a36
@@ -204,6 +209,6 @@ SPEC CHECKSUMS:
   XLPagerTabStrip: 63166e21c9844fa30f2d95d30f335e73be5caf22
   YandexMobileMetrica: f18374ee6977a4cd1d0a86298a0df4ad7baf4135
 
-PODFILE CHECKSUM: 9b21d08849fb73bbc692e8783398cde13a4b5df4
+PODFILE CHECKSUM: e72bebbc3b485bc1aebf16293f7a80b43f636a6e
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.8.1

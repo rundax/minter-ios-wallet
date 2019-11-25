@@ -32,6 +32,7 @@ class AccountManager {
 	//TODO: rename
 	private let passwordKey = "AccountPassword"
 	private let iv = Data(bytes: "Minter seed".bytes).setLengthRight(16)
+    private let secretCodeKey = "secretPairedCodeKey"
 
 	// MARK: -
 	//Account with seed
@@ -107,7 +108,7 @@ class AccountManager {
 
 	//Save PK to SecureStorage
 
-	func save(mnemonic: String, password: Data) throws {
+    func save(mnemonic: String, password: Data, pairedCode: String? = nil) throws {
 		guard let key = self.address(from: mnemonic) else {
 			return
 		}
@@ -116,6 +117,11 @@ class AccountManager {
 			throw AccountManagerError.privateKeyCanNotBeSaved
 		}
 		secureStorage.set(data!, forKey: key)
+
+        // TODO: need to encrypt
+        if let secretCode = pairedCode, let secretData = secretCode.data(using: .unicode) {
+            secureStorage.set(secretData, forKey: secretCodeKey)
+        }
 	}
 
 	func encryptedMnemonic(mnemonic: String, password: Data) throws -> Data? {
@@ -132,7 +138,6 @@ class AccountManager {
 		} catch {
 			throw AccountManagerError.privateKeyUnableToEncrypt
 		}
-		return nil
 	}
 
 	func address(from mnemonic: String) -> String? {
@@ -191,6 +196,13 @@ class AccountManager {
 		return String(data: mnemonic, encoding: .utf8)
 	}
 
+    func secretCode() -> String? {
+        if let data = secureStorage.object(forKey: secretCodeKey) as? Data {
+            return String(data: data, encoding: .unicode)
+        }
+        return nil
+    }
+
 	// MARK: -
 
 	func setMain(isMain: Bool, account: inout Account) {
@@ -215,7 +227,7 @@ class AccountManager {
 		return res
 	}
 
-	func loadRemoteAccounts(completion: (([String]) -> ())?) {
+	func loadRemoteAccounts(completion: (([String]) -> Void)?) {
 		guard let accessToken = Session.shared.accessToken.value else {
 			return
 		}

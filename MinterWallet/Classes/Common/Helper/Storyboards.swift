@@ -228,6 +228,27 @@ struct Storyboards {
         }
     }
 
+    struct PairedMode: Storyboard {
+
+        static let identifier = "PairedMode"
+
+        static var storyboard: UIStoryboard {
+            return UIStoryboard(name: self.identifier, bundle: nil)
+        }
+
+        static func instantiateInitialViewController() -> PairedModeViewController {
+            return self.storyboard.instantiateInitialViewController() as! PairedModeViewController
+        }
+
+        static func instantiateViewController(withIdentifier identifier: String) -> UIViewController {
+            return self.storyboard.instantiateViewController(withIdentifier: identifier)
+        }
+
+        static func instantiateViewController<T: UIViewController>(ofType type: T.Type) -> T? where T: IdentifiableProtocol {
+            return self.storyboard.instantiateViewController(ofType: type)
+        }
+    }
+
     struct Address: Storyboard {
 
         static let identifier = "Address"
@@ -865,6 +886,8 @@ extension IdentifiableProtocol where Self: TransactionsViewController {
     var storyboardIdentifier: String? { return "TransactionsViewController" }
     static var storyboardIdentifier: String? { return "TransactionsViewController" }
 }
+
+// MARK: - PairedModeViewController
 
 // MARK: - AddressViewController
 extension UIStoryboardSegue {

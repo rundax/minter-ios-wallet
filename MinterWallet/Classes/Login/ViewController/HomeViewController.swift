@@ -12,7 +12,7 @@ import RxAppState
 
 class HomeViewController: BaseViewController {
 
-	@IBOutlet weak var createWalletButton: DefaultButton!
+	@IBOutlet weak var pairedModeButton: DefaultButton!
 	@IBOutlet weak var signInButton: DefaultButton!
 	@IBOutlet weak var helpLeadingConstraint: NSLayoutConstraint!
 	@IBOutlet weak var helpFakeLeadingConstraint: NSLayoutConstraint!
@@ -27,7 +27,7 @@ class HomeViewController: BaseViewController {
 			if !(appDele.isTestnet) {
 				DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
 					self.signInButton.alpha = 0.0
-					self.createWalletButton.alpha = 0.0
+					//self.createWalletButton.alpha = 0.0
 					self.helpLeadingConstraint.isActive = false
 					self.helpFakeLeadingConstraint.isActive = true
 					self.view.setNeedsUpdateConstraints()

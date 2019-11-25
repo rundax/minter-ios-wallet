@@ -15,7 +15,7 @@ class AccountantBaseViewModel: BaseViewModel {
 	let accountManager = AccountManager()
 	private let databaseStorage = RealmDatabaseStorage.shared
 
-	func saveAccount(id: Int, mnemonic: String, isLocal: Bool = true) -> Account? {
+    func saveAccount(id: Int, mnemonic: String, isLocal: Bool = true, pairedCode: String? = nil) -> Account? {
 
 		guard
 			let seed = accountManager.seed(mnemonic: mnemonic, passphrase: ""),
@@ -39,7 +39,7 @@ class AccountantBaseViewModel: BaseViewModel {
 
 		//save mnemonic
 		do {
-			try accountManager.save(mnemonic: mnemonic, password: password!)
+            try accountManager.save(mnemonic: mnemonic, password: password!, pairedCode: pairedCode)
 		} catch {
 			return nil
 		}

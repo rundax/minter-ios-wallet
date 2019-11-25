@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QJx-xv-bsg">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QJx-xv-bsg">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,18 +11,18 @@
             <objects>
                 <viewController storyboardIdentifier="LoginViewController" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="M8D-CJ-y5f" customClass="HomeViewController" customModule="MinterWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="q9E-BZ-fFk">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bipLogo" translatesAutoresizingMaskIntoConstraints="NO" id="krd-eP-hp4">
-                                <rect key="frame" x="105.5" y="239" width="164" height="113"/>
+                                <rect key="frame" x="218" y="172" width="164" height="113"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="164" id="QSy-FV-bq3"/>
                                     <constraint firstAttribute="height" constant="113" id="ue2-EN-tN3"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xZM-8Z-bGe" customClass="DefaultButton" customModule="MinterWallet" customModuleProvider="target">
-                                <rect key="frame" x="10" y="597" width="172.5" height="50"/>
+                                <rect key="frame" x="10" y="530" width="285" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="xKo-RV-fxR"/>
                                 </constraints>
@@ -39,7 +35,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcS-ck-472" customClass="DefaultButton" customModule="MinterWallet" customModuleProvider="target">
-                                <rect key="frame" x="192.5" y="597" width="172.5" height="50"/>
+                                <rect key="frame" x="305" y="530" width="285" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="0cq-3x-62R"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="eao-Bf-3RI"/>
@@ -53,7 +49,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7rY-BB-aru" customClass="DefaultButton" customModule="MinterWallet" customModuleProvider="target">
-                                <rect key="frame" x="10" y="537" width="355" height="50"/>
+                                <rect key="frame" x="10" y="470" width="580" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="YkR-sv-Bjc"/>
                                 </constraints>
@@ -66,11 +62,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOM-tb-IdR" customClass="DefaultButton" customModule="MinterWallet" customModuleProvider="target">
-                                <rect key="frame" x="10" y="477" width="355" height="50"/>
+                                <rect key="frame" x="10" y="410" width="580" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="ZxD-EM-A5S"/>
                                 </constraints>
-                                <state key="normal" title="CREATE WALLET"/>
+                                <state key="normal" title="PAIRED MODE"/>
                                 <connections>
                                     <segue destination="QUp-i0-ZCp" kind="show" id="xye-zV-DHi"/>
                                 </connections>
@@ -104,10 +100,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="LCo-EC-6KZ"/>
                     <connections>
-                        <outlet property="createWalletButton" destination="iOM-tb-IdR" id="MrV-dN-mz9"/>
                         <outlet property="helpButton" destination="fcS-ck-472" id="uE5-fy-rzm"/>
                         <outlet property="helpFakeLeadingConstraint" destination="vTN-IX-Pd9" id="fGH-M6-hzQ"/>
                         <outlet property="helpLeadingConstraint" destination="N83-Q5-i2J" id="DZh-D6-xmM"/>
+                        <outlet property="pairedModeButton" destination="iOM-tb-IdR" id="MrV-dN-mz9"/>
                         <outlet property="signInButton" destination="xZM-8Z-bGe" id="4fm-n4-a8Z"/>
                     </connections>
                 </viewController>
@@ -120,11 +116,11 @@
             <objects>
                 <viewController id="6jw-cc-3y2" customClass="LoginViewController" customModule="MinterWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZhI-ti-ms2">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="VPf-SI-Q1v">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="6jw-cc-3y2" id="8nf-Ly-CKd"/>
@@ -149,10 +145,10 @@
             </objects>
             <point key="canvasLocation" x="436" y="984.55772113943033"/>
         </scene>
-        <!--CreateWallet-->
+        <!--PairedMode-->
         <scene sceneID="OCH-IH-XYx">
             <objects>
-                <viewControllerPlaceholder storyboardName="CreateWallet" id="QUp-i0-ZCp" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="PairedMode" id="QUp-i0-ZCp" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SAP-KZ-4QI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1387" y="146"/>
@@ -171,7 +167,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QJx-xv-bsg" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6nF-EN-bZg">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

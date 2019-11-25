@@ -31,6 +31,7 @@ def shared_pods
 	pod 'GrowingTextView'
 	pod 'CryptoSwift', '~> 1.0'
 	pod 'SwiftLint'
+  pod 'SwiftOTP'
 end
 
 target 'MinterWallet' do

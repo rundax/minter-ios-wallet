@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="o5v-Ld-dnv">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-M.ttf">
+            <string>Ubuntu-Medium</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Paired Mode-->
+        <scene sceneID="W4L-nN-nRV">
+            <objects>
+                <viewController id="o5v-Ld-dnv" customClass="PairedModeViewController" customModule="MinterWallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5J4-e9-hDb"/>
+                        <viewControllerLayoutGuide type="bottom" id="qsg-Fn-EQP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pUc-gp-dAt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="always" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3ep-GI-K5o" customClass="GrowingDefaultTextView" customModule="MinterWallet" customModuleProvider="target">
+                                <rect key="frame" x="10" y="132.5" width="394" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="1PL-3r-6kb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="trimWhiteSpaceWhenEndEditing" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maxHeight">
+                                        <real key="value" value="200"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="minHeight">
+                                        <real key="value" value="100"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Seed Phrase"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="o5v-Ld-dnv" id="k5M-DT-O1l"/>
+                                </connections>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cyH-0a-wkM" customClass="DefaultButton" customModule="MinterWallet" customModuleProvider="target">
+                                <rect key="frame" x="10" y="252.5" width="394" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ZhV-6v-gpX"/>
+                                </constraints>
+                                <state key="normal" title="ACTIVATE"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="pattern" value="purple"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="animateButtonTouch" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="activateButtonDidTap:" destination="o5v-Ld-dnv" eventType="touchUpInside" id="RKl-kL-a7p"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PASTE SEED PHRASE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Spc-B6-wzK">
+                                <rect key="frame" x="20" y="112" width="107" height="12.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="12.5" id="nZ3-7C-Kix"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J9Y-TS-p4b">
+                                <rect key="frame" x="404" y="128" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="12"/>
+                                <color key="textColor" red="0.93333333330000001" green="0.13725490200000001" blue="0.16862745100000001" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="JhR-ip-kih">
+                                <rect key="frame" x="30" y="326.5" width="354" height="464"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Secret Code to Google 2FA app" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WM7-o7-arJ">
+                                        <rect key="frame" x="39" y="0.0" width="276.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="coQ-Bb-XKr">
+                                        <rect key="frame" x="140.5" y="32.5" width="73" height="33"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="tintColor" red="0.31372549019607843" green="0.1803921568627451" blue="0.76078431372549016" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="XXXXXX"/>
+                                        <connections>
+                                            <action selector="secretCodeButtonPressed:" destination="o5v-Ld-dnv" eventType="touchUpInside" id="VJ0-TE-I3l"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or scan QR code bellow" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7sn-ZH-ykv">
+                                        <rect key="frame" x="87" y="77.5" width="180.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="95c-hu-XJI">
+                                        <rect key="frame" x="0.0" y="110" width="354" height="354"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="95c-hu-XJI" secondAttribute="height" multiplier="1:1" id="V7e-Bb-9b6"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="cyH-0a-wkM" firstAttribute="top" secondItem="3ep-GI-K5o" secondAttribute="bottom" constant="20" id="1Oy-G8-jF0"/>
+                            <constraint firstItem="3ep-GI-K5o" firstAttribute="top" secondItem="J9Y-TS-p4b" secondAttribute="bottom" constant="4.5" id="6tW-Ze-iGq"/>
+                            <constraint firstAttribute="trailing" secondItem="cyH-0a-wkM" secondAttribute="trailing" constant="10" id="B8V-hH-v5C"/>
+                            <constraint firstItem="J9Y-TS-p4b" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Spc-B6-wzK" secondAttribute="trailing" constant="5" id="DJN-8a-Tuj"/>
+                            <constraint firstItem="JhR-ip-kih" firstAttribute="leading" secondItem="pUc-gp-dAt" secondAttribute="leadingMargin" constant="10" id="Kvi-5m-Rm9"/>
+                            <constraint firstItem="J9Y-TS-p4b" firstAttribute="trailing" secondItem="3ep-GI-K5o" secondAttribute="trailing" id="R8c-1o-PB2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="JhR-ip-kih" secondAttribute="trailing" constant="10" id="UAr-1z-p3j"/>
+                            <constraint firstItem="Spc-B6-wzK" firstAttribute="top" secondItem="5J4-e9-hDb" secondAttribute="bottom" constant="24" id="WG8-H9-hmQ"/>
+                            <constraint firstItem="3ep-GI-K5o" firstAttribute="leading" secondItem="pUc-gp-dAt" secondAttribute="leading" constant="10" id="ZQ6-B1-njS"/>
+                            <constraint firstItem="3ep-GI-K5o" firstAttribute="top" secondItem="Spc-B6-wzK" secondAttribute="bottom" constant="8" id="b6E-IH-wK9"/>
+                            <constraint firstItem="JhR-ip-kih" firstAttribute="top" secondItem="cyH-0a-wkM" secondAttribute="bottom" constant="24" id="e76-93-DAx"/>
+                            <constraint firstItem="Spc-B6-wzK" firstAttribute="leading" secondItem="pUc-gp-dAt" secondAttribute="leading" constant="20" id="gEM-1r-xQq"/>
+                            <constraint firstItem="cyH-0a-wkM" firstAttribute="leading" secondItem="pUc-gp-dAt" secondAttribute="leading" constant="10" id="iSX-HG-nJF"/>
+                            <constraint firstItem="qsg-Fn-EQP" firstAttribute="top" relation="greaterThanOrEqual" secondItem="JhR-ip-kih" secondAttribute="bottom" constant="24" id="ogM-rb-iCc"/>
+                            <constraint firstAttribute="trailing" secondItem="3ep-GI-K5o" secondAttribute="trailing" constant="10" id="pc4-K3-CJb"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Paired Mode" id="7Tk-cm-HyW">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="KM1-Zm-bnn"/>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="errorLabel" destination="J9Y-TS-p4b" id="Wfh-0H-JEh"/>
+                        <outlet property="secretCodeButton" destination="coQ-Bb-XKr" id="9D7-ci-4sx"/>
+                        <outlet property="secretCodeQRImageView" destination="95c-hu-XJI" id="CIS-AR-lbQ"/>
+                        <outlet property="textView" destination="3ep-GI-K5o" id="xSJ-gf-sUW"/>
+                        <outlet property="topConstraint" destination="WG8-H9-hmQ" id="HdH-7S-lf3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nLh-f1-yR8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1208.8" y="206.44677661169416"/>
+        </scene>
+    </scenes>
+</document>
