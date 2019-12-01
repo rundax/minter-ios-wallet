@@ -7,12 +7,11 @@
 //
 
 import UIKit
-import Fabric
-import Crashlytics
 import MinterCore
 import MinterExplorer
 import MinterMy
 import RxSwift
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -42,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 																	 websocketURLString: conf.environment.explorerWebsocketURL)
 		}
 		MinterMySDK.initialize(network: isTestnet ? .testnet : .mainnet)
-		Fabric.with([Crashlytics.self])
+        FirebaseApp.configure()
 		
 		// this line is important
 		self.window = UIWindow(frame: UIScreen.main.bounds)

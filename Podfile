@@ -20,8 +20,9 @@ def shared_pods
 	pod 'RealmSwift', git: 'https://github.com/realm/realm-cocoa.git', branch: 'master', submodules: true
 	pod 'AFDateHelper', '~> 4.2.2'
 	pod 'NotificationBannerSwift', '1.8.0'
-	pod 'Fabric', '~> 1.7'
-	pod 'Crashlytics', '~> 3.10'
+	pod 'Fabric'
+	pod 'Crashlytics'
+  pod 'Firebase/Analytics'
 	pod 'ObjectMapper', '~> 3.3'
 	pod 'XLPagerTabStrip', '~> 8.0'
 	pod 'ReachabilitySwift', '~> 4.3'
