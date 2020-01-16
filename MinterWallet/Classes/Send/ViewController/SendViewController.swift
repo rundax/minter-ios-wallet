@@ -58,6 +58,9 @@ class SendViewController:
 		}
 		return QRCodeReaderViewController(builder: builder)
 	}()
+    
+    weak var usernameTextView: UITextView?
+    var recipient: Recipient?
 
 	// MARK: - Life cycle
 
@@ -103,6 +106,10 @@ class SendViewController:
 			pickerCell.delegate = self
 			pickerCell.updateRightViewMode()
 		}
+		
+		if let usernameCell = cell as? UsernameTableViewCell {
+			usernameTextView = usernameCell.textView
+		}
 
 		if let buttonCell = cell as? ButtonTableViewCell {
 			buttonCell.delegate = self
@@ -147,6 +154,21 @@ extension SendViewController {
 																				subtitle: notification?.text,
 																				style: .danger)
 				banner.show()
+			}).disposed(by: disposeBag)
+        
+			viewModel.output
+					.recipient
+					.asDriver(onErrorJustReturn: nil)
+					.drive(onNext: { (recipients) in
+							if let recipients = recipients {
+								if recipients.count == 1 {
+									self.usernameTextView?.resignFirstResponder()
+									self.recipient = recipients.first
+									if let text = self.usernameTextView?.text, text.count < recipients.first!.email.count {
+										self.usernameTextView?.text = recipients.first?.email
+									}
+								}
+							}
 			}).disposed(by: disposeBag)
 
 		viewModel

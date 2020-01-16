@@ -22,6 +22,8 @@
 		30328C1D2368764C00443D8D /* PairedModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30328C172368764C00443D8D /* PairedModeViewController.swift */; };
 		30328C1E2368764C00443D8D /* PairedMode.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30328C182368764C00443D8D /* PairedMode.storyboard */; };
 		30328C1F2368764C00443D8D /* PairedMode.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30328C182368764C00443D8D /* PairedMode.storyboard */; };
+		3067F39123956316002DC97C /* EmailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067F39023956316002DC97C /* EmailManager.swift */; };
+		3067F39223956316002DC97C /* EmailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067F39023956316002DC97C /* EmailManager.swift */; };
 		309920A42394764100220323 /* MinterWalletTestnet-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 309920A32394764100220323 /* MinterWalletTestnet-Info.plist */; };
 		309920A52394764100220323 /* MinterWalletTestnet-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 309920A32394764100220323 /* MinterWalletTestnet-Info.plist */; };
 		332EB812C95C0592C6924E65 /* CoinsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A13B58DCBBFF6DC3A2EC4B /* CoinsViewController.swift */; };
@@ -618,6 +620,7 @@
 		30328C142368764C00443D8D /* PairedModeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairedModeViewModel.swift; sourceTree = "<group>"; };
 		30328C172368764C00443D8D /* PairedModeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairedModeViewController.swift; sourceTree = "<group>"; };
 		30328C182368764C00443D8D /* PairedMode.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PairedMode.storyboard; sourceTree = "<group>"; };
+		3067F39023956316002DC97C /* EmailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailManager.swift; sourceTree = "<group>"; };
 		309920A32394764100220323 /* MinterWalletTestnet-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MinterWalletTestnet-Info.plist"; sourceTree = "<group>"; };
 		309920A62394772400220323 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		33CCC11E350993C29DD8EE53 /* Pods-MinterWalletTestnet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MinterWalletTestnet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MinterWalletTestnet/Pods-MinterWalletTestnet.debug.xcconfig"; sourceTree = "<group>"; };
@@ -704,7 +707,7 @@
 		FA3154A920B5ABD1005D9F21 /* TransactionDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDateFormatter.swift; sourceTree = "<group>"; };
 		FA319B8720AACB5300751A48 /* AccountDataBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDataBaseModel.swift; sourceTree = "<group>"; };
 		FA332F5922439F61003B4763 /* ConfigurationTestnet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationTestnet.swift; sourceTree = "<group>"; };
-		FA333093224A4B3C003B4763 /* Rundax Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rundax Wallet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA333093224A4B3C003B4763 /* Rundax Testnet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rundax Testnet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA333095224A4F1D003B4763 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		FA39488023507BB2002AD8DE /* UIApplication+AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+AppDelegate.swift"; sourceTree = "<group>"; };
 		FA39488323509124002AD8DE /* ConfirmPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPopupViewController.swift; sourceTree = "<group>"; };
@@ -735,7 +738,7 @@
 		FA61EF48209B037700A6FB62 /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		FA6259E720F899CB003B8BEF /* Forms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forms.swift; sourceTree = "<group>"; };
 		FA64E280234770EF00436BFE /* RawTransaction+RLPDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RawTransaction+RLPDecodable.swift"; sourceTree = "<group>"; };
-		FA669B65207239F200AD110A /* Rundax TESTNET.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rundax TESTNET.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA669B65207239F200AD110A /* Rundax Testnet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rundax Testnet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA669B68207239F200AD110A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Classes/AppDelegate.swift; sourceTree = "<group>"; };
 		FA669B6F207239F200AD110A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FA669B71207239F200AD110A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -1788,6 +1791,7 @@
 				FA83186521F8C268007F268D /* GateManager.swift */,
 				FAB0D35422CCA5A9002945E2 /* PINManager.swift */,
 				FA7DB949230C8EBF00C75A7A /* BipDevManager.swift */,
+				3067F39023956316002DC97C /* EmailManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1815,10 +1819,10 @@
 		FA669B66207239F200AD110A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FA669B65207239F200AD110A /* Rundax TESTNET.app */,
+				FA669B65207239F200AD110A /* Rundax Testnet.app */,
 				FA669B7B207239F200AD110A /* MinterWalletTests.xctest */,
 				FA669B86207239F200AD110A /* MinterWalletUITests.xctest */,
-				FA333093224A4B3C003B4763 /* Rundax Wallet.app */,
+				FA333093224A4B3C003B4763 /* Rundax Testnet.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2300,7 +2304,7 @@
 			);
 			name = MinterWallet;
 			productName = MinterWallet;
-			productReference = FA333093224A4B3C003B4763 /* Rundax Wallet.app */;
+			productReference = FA333093224A4B3C003B4763 /* Rundax Testnet.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FA669B64207239F200AD110A /* MinterWalletTestnet */ = {
@@ -2322,7 +2326,7 @@
 			);
 			name = MinterWalletTestnet;
 			productName = MinterWallet;
-			productReference = FA669B65207239F200AD110A /* Rundax TESTNET.app */;
+			productReference = FA669B65207239F200AD110A /* Rundax Testnet.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FA669B7A207239F200AD110A /* MinterWalletTests */ = {
@@ -3138,6 +3142,7 @@
 				FA333019224A4B3C003B4763 /* ProfileManager+Rx.swift in Sources */,
 				FA33301B224A4B3C003B4763 /* CoinManager+Rx.swift in Sources */,
 				FA33301C224A4B3C003B4763 /* GenerateAddressViewModel.swift in Sources */,
+				3067F39123956316002DC97C /* EmailManager.swift in Sources */,
 				FAA2AAEA2296E42300581D47 /* TransactionAddressButton.swift in Sources */,
 				FAA0B2AB232A44E7001C5C72 /* SendPayloadTableViewCell.swift in Sources */,
 				FA33301D224A4B3C003B4763 /* SentPopupViewModel.swift in Sources */,
@@ -3363,6 +3368,7 @@
 				FA17817121EF7D1F00FECDED /* ProfileManager+Rx.swift in Sources */,
 				FA83186A21FF003F007F268D /* CoinManager+Rx.swift in Sources */,
 				FAA2607C209355BD009FF3DE /* GenerateAddressViewModel.swift in Sources */,
+				3067F39223956316002DC97C /* EmailManager.swift in Sources */,
 				FAA2AAEB2296E42300581D47 /* TransactionAddressButton.swift in Sources */,
 				FAA0B2AC232A44E7001C5C72 /* SendPayloadTableViewCell.swift in Sources */,
 				FA7A9BFA20BED61000E3CCDA /* SentPopupViewModel.swift in Sources */,
@@ -3521,8 +3527,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Rundax.Wallet;
-				PRODUCT_NAME = "Rundax Wallet";
+				PRODUCT_BUNDLE_IDENTIFIER = Rundax.WalletTestnet;
+				PRODUCT_NAME = "Rundax Testnet";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_BITCODE_FROM_COPIED_FILES = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "MinterWallet/MinterWallet-Bridging-Header.h";
@@ -3555,8 +3561,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Rundax.Wallet;
-				PRODUCT_NAME = "Rundax Wallet";
+				PRODUCT_BUNDLE_IDENTIFIER = Rundax.WalletTestnet;
+				PRODUCT_NAME = "Rundax Testnet";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_BITCODE_FROM_COPIED_FILES = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "MinterWallet/MinterWallet-Bridging-Header.h";
@@ -3696,7 +3702,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Rundax.WalletTestnet;
-				PRODUCT_NAME = "Rundax TESTNET";
+				PRODUCT_NAME = "Rundax Testnet";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_BITCODE_FROM_COPIED_FILES = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "MinterWallet/MinterWallet-Bridging-Header.h";
@@ -3730,7 +3736,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Rundax.WalletTestnet;
-				PRODUCT_NAME = "Rundax TESTNET";
+				PRODUCT_NAME = "Rundax Testnet";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_BITCODE_FROM_COPIED_FILES = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "MinterWallet/MinterWallet-Bridging-Header.h";

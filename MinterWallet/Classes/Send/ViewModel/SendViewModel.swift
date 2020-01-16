@@ -44,6 +44,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 	}
 	struct Output {
 		var errorNotification: Observable<NotifiableError?>
+		var recipient: Observable<[Recipient]?>
 		var txErrorNotification: Observable<NotifiableError?>
 		var popup: Observable<PopupViewController?>
 		var showViewController: Observable<UIViewController?>
@@ -61,9 +62,9 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 
 	typealias FormChangedObservable = (String?, String?, String?, String?)
 	private let coinSubject = BehaviorRelay<String?>(value: "")
-	private let recipientSubject = BehaviorRelay<String?>(value: "")
+	private let sendToSubject = BehaviorRelay<String?>(value: "")
 	private let addressSubject = BehaviorRelay<String?>(value: "")
-	private var recipientAddress = BehaviorRelay<String?>(value: nil)
+	private var recipientSubject = BehaviorRelay<Recipient?>(value: nil)
 	private let amountSubject = BehaviorRelay<String?>(value: "")
 	private var formChangedObservable: Observable<FormChangedObservable> {
 		return Observable.combineLatest(coinSubject.asObservable(),
@@ -161,6 +162,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 	private let payloadSubject = BehaviorSubject<String?>(value: "")
 	private let clearPayloadSubject = BehaviorSubject<String?>(value: "")
 	private let errorNotificationSubject = PublishSubject<NotifiableError?>()
+	private let recipientListSubject = PublishSubject<[Recipient]?>()
 	private let txErrorNotificationSubject = PublishSubject<NotifiableError?>()
 	private let txScanButtonDidTap = PublishSubject<Void>()
 	private let popupSubject = PublishSubject<PopupViewController?>()
@@ -186,6 +188,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 											 txScanButtonDidTap: txScanButtonDidTap.asObserver(),
 											 didScanQR: didScanQRSubject.asObserver())
 		self.output = Output(errorNotification: errorNotificationSubject.asObservable(),
+                             recipient: recipientListSubject.asObservable(),
 												 txErrorNotification: txErrorNotificationSubject.asObservable(),
 												 popup: popupSubject.asObservable(),
 												 showViewController: showViewControllerSubject.asObservable())
@@ -247,7 +250,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 			.subscribe(onNext: { [weak self] (val) in
 				let url = URL(string: val ?? "")
 				if true == val?.isValidPublicKey() || true == val?.isValidAddress() {
-					self?.recipientSubject.accept(val)
+					self?.sendToSubject.accept(val)
 				} else if
 					let url = url,
 					let rawViewController = RawTransactionRouter.rawTransactionViewController(with: url) {
@@ -265,7 +268,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 			.subscribe(onNext: { [weak self] (not) in
 				if let recipient = not.userInfo?["address"] as? String {
 					if recipient.isValidAddress() || recipient.isValidPublicKey() {
-						self?.recipientSubject.accept(recipient)
+						self?.sendToSubject.accept(recipient)
 					}
 				}
 			}).disposed(by: disposeBag)
@@ -273,7 +276,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 		formChangedObservable.subscribe(onNext: { [weak self] (val) in
 			let amount = val.2
 
-			if self?.recipientSubject.value == nil || self?.recipientSubject.value == "" {
+			if self?.sendToSubject.value == nil || self?.sendToSubject.value == "" {
 				self?.addressStateSubject.onNext(.default)
 			}
 
@@ -289,7 +292,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 			}
 		}).disposed(by: disposeBag)
 
-		recipientSubject
+		sendToSubject
 			.do(onNext: { [weak self] (rec) in
 				if self?.isValidMinterRecipient(recipient: rec ?? "") ?? false {
 					self?.addressSubject.accept(rec)
@@ -317,6 +320,9 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 					self?.addressSubject.accept(rec)
 				}
 			})
+			.do(onNext: { [weak self] (rec) in
+				self?.getEmails(rec)
+			})
 			.filter({ [weak self] (rec) -> Bool in
 				return self?.isToValid(to: rec ?? "") ?? false
 			})
@@ -339,7 +345,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 				case .completed:
 					break
 				case .next(let addr):
-					if addr.isValidAddress() || addr.isValidPublicKey() {
+						if addr.isValidAddress() || addr.isValidPublicKey() || addr.isValidEmail() {
 						self?.addressSubject.accept(addr)
 						self?.addressStateSubject.onNext(.default)
 					}
@@ -350,20 +356,32 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 				}
 			}).disposed(by: disposeBag)
 	}
+	
+	func getEmails(_ rec: String?) {
+		EmailManager.getEmails(email: rec ?? "")
+			.subscribe(onNext: { emails in
+				if emails?.count == 1 {
+					self.recipientListSubject.onNext(emails)
+					self.recipientSubject.accept(emails?.first)
+				}
+		}, onError: { error in
+			self.recipientListSubject.onError(error)
+		})
+	}
 
 	// MARK: - Sections
 
 	func createSections() -> [BaseTableSectionItem] {
 		let username = UsernameTableViewCellItem(reuseIdentifier: "UsernameTableViewCell",
 																						 identifier: CellIdentifierPrefix.address.rawValue)
-		username.title = "TO (MX ADDRESS OR PUBLIC KEY)".localized()
+		username.title = "TO (MX ADDRESS, PUBLIC KEY OR EMAIL)".localized()
 		if let appDele = UIApplication.realAppDelegate(), appDele.isTestnet {
 			username.title = "TO (@USERNAME, EMAIL, MX ADDRESS OR PUBLIC KEY)".localized()
 		}
 		username.isLoadingObservable = isLoadingAddressSubject.asObservable()
 		username.stateObservable = addressStateSubject.asObservable()
 		username.keybordType = .emailAddress
-		(username.text <-> recipientSubject).disposed(by: disposeBag)
+		(username.text <-> sendToSubject).disposed(by: disposeBag)
 
 		let coin = PickerTableViewCellItem(reuseIdentifier: "PickerTableViewCell",
 																			 identifier: CellIdentifierPrefix.coin.rawValue + (selectedBalanceText ?? ""))
@@ -414,7 +432,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 																				identifier: CellIdentifierPrefix.fee.rawValue)
 		fee.title = "Transaction Fee".localized()
 		let payloadData = (try? clearPayloadSubject.value() ?? "")?.data(using: .utf8)
-		fee.subtitle = self.comissionText(recipient: recipientSubject.value ?? "", for: 1, payloadData: payloadData)
+		fee.subtitle = self.comissionText(recipient: sendToSubject.value ?? "", for: 1, payloadData: payloadData)
 		fee.subtitleObservable = self.gasObservable
 
 		let separator = SeparatorTableViewCellItem(reuseIdentifier: "SeparatorTableViewCell",
@@ -465,7 +483,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 	}
 
 	func isValidMinterRecipient(recipient: String) -> Bool {
-		return recipient.isValidAddress() || recipient.isValidPublicKey()
+        return recipient.isValidAddress() || recipient.isValidPublicKey() || recipient.isValidEmail()
 	}
 
 	func isAmountValid(amount: Decimal) -> Bool {
@@ -566,7 +584,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 				let nonce = BigUInt(val.0.0)
 				let amount = (Decimal(string: val.1.2 ?? "") ?? Decimal(0))
 				let coin = val.1.0 ?? Coin.baseCoin().symbol!
-				let recipient = val.1.1 ?? ""
+				let recipient = (val.1.1 ?? "").isValidEmail() ? self.recipientSubject.value?.address ?? "" : val.1.1 ?? ""
 				let payload = val.1.3 ?? ""
 				return self.prepareTx(nonce: nonce,
 												 amount: amount,
@@ -580,7 +598,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 				self?.lastSentTransactionHash = val
 
 				self?.sections.value = self?.createSections() ?? []
-				let rec = self?.recipientSubject.value ?? ""
+				let rec = self?.sendToSubject.value ?? ""
 				let address = self?.addressSubject.value ?? ""
 
 				if let sentViewModel = self?.sentViewModel(to: rec, address: address) {
@@ -603,26 +621,41 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 
 	func clear() {
 		self.clearPayloadSubject.onNext(nil)
-		self.recipientSubject.accept(nil)
+		self.sendToSubject.accept(nil)
 		self.amountSubject.accept(nil)
 		self.payloadSubject.onNext(nil)
+		self.recipientListSubject.onNext(nil)
+		self.recipientSubject.accept(nil)
+		self.addressSubject.accept(nil)
 	}
 
 	func sendButtonTaped() {
-		let recipient = recipientSubject.value ?? ""
 		let amount = Decimal(string: amountSubject.value?.replacingOccurrences(of: ",", with: ".") ?? "") ?? 0
-		let address = addressSubject.value ?? ""
-		let sendVM = self.sendPopupViewModel(to: recipient,
+		let recipientString: String
+		let address: String
+		if let recipient = recipientSubject.value, addressSubject.value == recipient.email {
+			recipientString = "\(recipient.email) \(recipient.address)"
+			address = recipient.address
+		} else if let addressString = addressSubject.value, addressString.isValidAddress() {
+			recipientString = addressString
+			address = addressString
+		} else {
+			let banner = NotificationBanner(title: "Invalid recipient!",subtitle: "", style: .danger)
+			banner.show()
+			return
+		}
+
+		let sendVM = self.sendPopupViewModel(to: recipientString,
 																				 address: address,
 																				 amount: amount)
         
-        if let secretCode = accountManager.secretCode() {
-            confirmWithSecretCode(secretCode, sendVM: sendVM)
-        } else {
-            let sendPopup = Storyboards.Popup.instantiateInitialViewController()
-            sendPopup.viewModel = sendVM
-            self.popupSubject.onNext(sendPopup)
-        }
+		if let secretCode = accountManager.secretCode() {
+				confirmWithSecretCode(secretCode, sendVM: sendVM)
+		} else {
+				let sendPopup = Storyboards.Popup.instantiateInitialViewController()
+				sendPopup.viewModel = sendVM
+				self.popupSubject.onNext(sendPopup)
+		}
 	}
 
 	func submitSendButtonTaped() {
