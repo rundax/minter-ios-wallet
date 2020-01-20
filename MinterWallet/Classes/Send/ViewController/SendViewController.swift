@@ -59,13 +59,16 @@ class SendViewController:
 		return QRCodeReaderViewController(builder: builder)
 	}()
     
-    weak var usernameTextView: UITextView?
-    var recipient: Recipient?
+	weak var usernameTextView: UITextView?
+	var recipient: Recipient?
+	
+	@IBOutlet weak var autocompleteView: AutocompleteView!
 
 	// MARK: - Life cycle
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		autocompleteView.isHidden = true
 
 		registerCells()
 		configure(with: viewModel)
@@ -108,7 +111,15 @@ class SendViewController:
 		}
 		
 		if let usernameCell = cell as? UsernameTableViewCell {
-			usernameTextView = usernameCell.textView
+			if usernameTextView == nil {
+				usernameTextView = usernameCell.textView
+				usernameTextView?.delegate = self
+
+				autocompleteView.tableView.dataSource = autocompleteView
+				autocompleteView.tableView.delegate = self
+				autocompleteView.layer.applySketchShadow(color: UIColor.mainColor(alpha: 0.1), alpha: 1, x: 0, y: 4, blur: 8, spread: 0)
+				autocompleteView.makeBorderWithCornerRadius(radius: 8, borderColor: UIColor(hex: 0xE1E1E1)!, borderWidth: 1.0)
+			}
 		}
 
 		if let buttonCell = cell as? ButtonTableViewCell {
@@ -154,21 +165,6 @@ extension SendViewController {
 																				subtitle: notification?.text,
 																				style: .danger)
 				banner.show()
-			}).disposed(by: disposeBag)
-        
-			viewModel.output
-					.recipient
-					.asDriver(onErrorJustReturn: nil)
-					.drive(onNext: { (recipients) in
-							if let recipients = recipients {
-								if recipients.count == 1 {
-									self.usernameTextView?.resignFirstResponder()
-									self.recipient = recipients.first
-									if let text = self.usernameTextView?.text, text.count < recipients.first!.email.count {
-										self.usernameTextView?.text = recipients.first?.email
-									}
-								}
-							}
 			}).disposed(by: disposeBag)
 
 		viewModel
@@ -487,5 +483,41 @@ extension SendViewController {
 											 forCellReuseIdentifier: "BlankTableViewCell")
 		tableView.register(UINib(nibName: "SendPayloadTableViewCell", bundle: nil),
 											 forCellReuseIdentifier: "SendPayloadTableViewCell")
+	}
+}
+
+// MARK: - UITableViewDelegate
+
+extension SendViewController {
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		if tableView == autocompleteView.tableView {
+			self.recipient = autocompleteView.elements[indexPath.row]
+			self.usernameTextView?.text = self.recipient?.email
+			view.endEditing(true)
+			self.autocompleteView.isHidden = true
+			self.viewModel.input.recipient.onNext(self.recipient)
+		}
+	}
+}
+
+extension SendViewController: UITextViewDelegate {
+	public func textViewDidChange(_ textView: UITextView) {
+		viewModel.getEmails(textView.text) { [weak self] recipients in
+			guard let recipientList = recipients else {
+				return
+			}
+			self?.autocompleteView.elements = recipientList
+
+			DispatchQueue.main.async { [weak self] in
+				self?.autocompleteView.isHidden = false
+				let usernameTextViewBounds = self?.usernameTextView?.convert(self!.usernameTextView!.bounds, to: self!.view)
+				let frame = CGRect(x: 10, y: usernameTextViewBounds!.origin.y + usernameTextViewBounds!.size.height + 16, width: self!.usernameTextView!.frame.width, height: CGFloat(recipientList.count) * 45)
+				self?.autocompleteView.frame = frame
+			}
+		}
+	}
+	
+	public func textViewDidEndEditing(_ textView: UITextView) {
+		autocompleteView.isHidden = true
 	}
 }

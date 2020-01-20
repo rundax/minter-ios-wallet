@@ -16,6 +16,8 @@
 		27FF799EFD5EE33465322922 /* ReceiveViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C649F6A6F89A011B5F4521AD /* ReceiveViewModel.swift */; };
 		2B4873CFE9E2F66FBBAADC30 /* CreateWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1BDF87BDE21BBFB5B4968A /* CreateWalletViewController.swift */; };
 		2E776157C3BE73E6DF25F7C2 /* Send.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A08D1CE45C9B6F749099A430 /* Send.storyboard */; };
+		3002AF2623D1E8A2007F6FD6 /* AutocompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3002AF2523D1E8A2007F6FD6 /* AutocompleteView.swift */; };
+		3002AF2723D1E8A2007F6FD6 /* AutocompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3002AF2523D1E8A2007F6FD6 /* AutocompleteView.swift */; };
 		30328C1A2368764C00443D8D /* PairedModeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30328C142368764C00443D8D /* PairedModeViewModel.swift */; };
 		30328C1B2368764C00443D8D /* PairedModeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30328C142368764C00443D8D /* PairedModeViewModel.swift */; };
 		30328C1C2368764C00443D8D /* PairedModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30328C172368764C00443D8D /* PairedModeViewController.swift */; };
@@ -617,6 +619,7 @@
 		163841D5463C4C049F735C69 /* TransactionsViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TransactionsViewModel.swift; sourceTree = "<group>"; };
 		1939F242DE0C1FE08F95338D /* AdvancedModeViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdvancedModeViewModel.swift; sourceTree = "<group>"; };
 		25784C6ACDA695190875E917 /* Login.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		3002AF2523D1E8A2007F6FD6 /* AutocompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteView.swift; sourceTree = "<group>"; };
 		30328C142368764C00443D8D /* PairedModeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairedModeViewModel.swift; sourceTree = "<group>"; };
 		30328C172368764C00443D8D /* PairedModeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairedModeViewController.swift; sourceTree = "<group>"; };
 		30328C182368764C00443D8D /* PairedMode.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PairedMode.storyboard; sourceTree = "<group>"; };
@@ -2243,6 +2246,7 @@
 				FAF5FDAD214949CB00911619 /* LUAutocompleteView.swift */,
 				FAF5FDAE214949CB00911619 /* LUAutocompleteViewDataSource.swift */,
 				FAF5FDAB214949CA00911619 /* LUAutocompleteViewDelegate.swift */,
+				3002AF2523D1E8A2007F6FD6 /* AutocompleteView.swift */,
 			);
 			path = LUAutocomplete;
 			sourceTree = "<group>";
@@ -3104,6 +3108,7 @@
 				FA332FF8224A4B3C003B4763 /* AppSettingsManager.swift in Sources */,
 				FA332FF9224A4B3C003B4763 /* SwitchCameraButton.swift in Sources */,
 				FAA2AAE72296CE4100581D47 /* BannerHelper.swift in Sources */,
+				3002AF2623D1E8A2007F6FD6 /* AutocompleteView.swift in Sources */,
 				FA332FFA224A4B3C003B4763 /* GateManager.swift in Sources */,
 				FA332FFB224A4B3C003B4763 /* BaseViewController.swift in Sources */,
 				FA332FFC224A4B3C003B4763 /* Toucan.swift in Sources */,
@@ -3330,6 +3335,7 @@
 				FA531E2E219B1F1900A7AD9F /* AppSettingsManager.swift in Sources */,
 				FA0F296621B1740800E10F5E /* SwitchCameraButton.swift in Sources */,
 				FAA2AAE82296CE4100581D47 /* BannerHelper.swift in Sources */,
+				3002AF2723D1E8A2007F6FD6 /* AutocompleteView.swift in Sources */,
 				FA83186621F8C268007F268D /* GateManager.swift in Sources */,
 				FA669B9E207244FF00AD110A /* BaseViewController.swift in Sources */,
 				FA0F296E21B1773A00E10F5E /* Toucan.swift in Sources */,

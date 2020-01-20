@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tau-9U-uAc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tau-9U-uAc">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Send Coins-->
         <scene sceneID="ut7-iY-7fL">
             <objects>
-                <viewController storyboardIdentifier="SendViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="G7S-Ax-D3H" customClass="SendViewController" customModule="MinterWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SendViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="G7S-Ax-D3H" customClass="SendViewController" customModule="Rundax_Testnet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="psE-mh-9l1"/>
                         <viewControllerLayoutGuide type="bottom" id="xgc-eM-9AQ"/>
@@ -27,6 +27,11 @@
                                     <outlet property="delegate" destination="G7S-Ax-D3H" id="L2m-jF-YJ8"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mgU-CX-hK2" customClass="AutocompleteView" customModule="Rundax_Testnet" customModuleProvider="target">
+                                <rect key="frame" x="16" y="266" width="343" height="135"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -42,6 +47,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="autocompleteView" destination="mgU-CX-hK2" id="xyi-Gs-uPU"/>
                         <outlet property="scanQRButton" destination="5he-Fe-YrG" id="nzj-sY-mx3"/>
                         <outlet property="tableView" destination="Qe3-CG-9gR" id="JSL-Zf-Coq"/>
                         <outlet property="txScanButton" destination="5he-Fe-YrG" id="ljQ-Wi-YpN"/>

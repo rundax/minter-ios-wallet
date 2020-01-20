@@ -41,10 +41,10 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 		var payload: AnyObserver<String?>
 		var txScanButtonDidTap: AnyObserver<Void>
 		var didScanQR: AnyObserver<String?>
+		var recipient: AnyObserver<Recipient?>
 	}
 	struct Output {
 		var errorNotification: Observable<NotifiableError?>
-		var recipient: Observable<[Recipient]?>
 		var txErrorNotification: Observable<NotifiableError?>
 		var popup: Observable<PopupViewController?>
 		var showViewController: Observable<UIViewController?>
@@ -64,7 +64,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 	private let coinSubject = BehaviorRelay<String?>(value: "")
 	private let sendToSubject = BehaviorRelay<String?>(value: "")
 	private let addressSubject = BehaviorRelay<String?>(value: "")
-	private var recipientSubject = BehaviorRelay<Recipient?>(value: nil)
+	private var recipientSelectedSubject = BehaviorRelay<Recipient?>(value: nil)
 	private let amountSubject = BehaviorRelay<String?>(value: "")
 	private var formChangedObservable: Observable<FormChangedObservable> {
 		return Observable.combineLatest(coinSubject.asObservable(),
@@ -94,6 +94,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 
 	//State obervables
 	private var didScanQRSubject = PublishSubject<String?>()
+	private var recipientSubject = PublishSubject<Recipient?>()
 	private var addressStateSubject = PublishSubject<TextViewTableViewCell.State>()
 	private var amountStateSubject = PublishSubject<TextFieldTableViewCell.State>()
 	private var payloadStateObservable = PublishSubject<TextViewTableViewCell.State>()
@@ -186,9 +187,8 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 	init(dependency: Dependency) { // swiftlint:disable:this function_body_length cyclomatic_complexity
 		self.input = Input(payload: payloadSubject.asObserver(),
 											 txScanButtonDidTap: txScanButtonDidTap.asObserver(),
-											 didScanQR: didScanQRSubject.asObserver())
+											 didScanQR: didScanQRSubject.asObserver(), recipient: recipientSubject.asObserver())
 		self.output = Output(errorNotification: errorNotificationSubject.asObservable(),
-                             recipient: recipientListSubject.asObservable(),
 												 txErrorNotification: txErrorNotificationSubject.asObservable(),
 												 popup: popupSubject.asObservable(),
 												 showViewController: showViewControllerSubject.asObservable())
@@ -259,6 +259,12 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 				}
 				self?.errorNotificationSubject.onNext(NotifiableError(title: "Invalid transaction data".localized(), text: nil))
 			}).disposed(by: disposeBag)
+		
+		recipientSubject
+		.asObservable()
+		.subscribe(onNext: { [weak self] (val) in
+			self?.recipientSelectedSubject.accept(val)
+		}).disposed(by: disposeBag)
 
 		NotificationCenter
 			.default
@@ -320,9 +326,6 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 					self?.addressSubject.accept(rec)
 				}
 			})
-			.do(onNext: { [weak self] (rec) in
-				self?.getEmails(rec)
-			})
 			.filter({ [weak self] (rec) -> Bool in
 				return self?.isToValid(to: rec ?? "") ?? false
 			})
@@ -357,16 +360,13 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 			}).disposed(by: disposeBag)
 	}
 	
-	func getEmails(_ rec: String?) {
+	func getEmails(_ rec: String?, completion: (([Recipient]?) -> Void)?) {
 		EmailManager.getEmails(email: rec ?? "")
-			.subscribe(onNext: { emails in
-				if emails?.count == 1 {
-					self.recipientListSubject.onNext(emails)
-					self.recipientSubject.accept(emails?.first)
-				}
-		}, onError: { error in
-			self.recipientListSubject.onError(error)
-		})
+			.subscribe(onNext: { recipientList in
+				completion?(recipientList)
+			}, onError: { error in
+				completion?(nil)
+			})
 	}
 
 	// MARK: - Sections
@@ -584,7 +584,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 				let nonce = BigUInt(val.0.0)
 				let amount = (Decimal(string: val.1.2 ?? "") ?? Decimal(0))
 				let coin = val.1.0 ?? Coin.baseCoin().symbol!
-				let recipient = (val.1.1 ?? "").isValidEmail() ? self.recipientSubject.value?.address ?? "" : val.1.1 ?? ""
+				let recipient = (val.1.1 ?? "").isValidEmail() ? self.recipientSelectedSubject.value?.address ?? "" : val.1.1 ?? ""
 				let payload = val.1.3 ?? ""
 				return self.prepareTx(nonce: nonce,
 												 amount: amount,
@@ -625,7 +625,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 		self.amountSubject.accept(nil)
 		self.payloadSubject.onNext(nil)
 		self.recipientListSubject.onNext(nil)
-		self.recipientSubject.accept(nil)
+		self.recipientSelectedSubject.accept(nil)
 		self.addressSubject.accept(nil)
 	}
 
@@ -633,7 +633,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 		let amount = Decimal(string: amountSubject.value?.replacingOccurrences(of: ",", with: ".") ?? "") ?? 0
 		let recipientString: String
 		let address: String
-		if let recipient = recipientSubject.value, addressSubject.value == recipient.email {
+		if let recipient = recipientSelectedSubject.value, addressSubject.value == recipient.email {
 			recipientString = "\(recipient.email) \(recipient.address)"
 			address = recipient.address
 		} else if let addressString = addressSubject.value, addressString.isValidAddress() {
