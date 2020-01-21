@@ -58,7 +58,7 @@ class SendViewController:
 		}
 		return QRCodeReaderViewController(builder: builder)
 	}()
-    
+
 	weak var usernameTextView: UITextView?
 	var recipient: Recipient?
 	
@@ -113,7 +113,7 @@ class SendViewController:
 		if let usernameCell = cell as? UsernameTableViewCell {
 			if usernameTextView == nil {
 				usernameTextView = usernameCell.textView
-				usernameTextView?.delegate = self
+				usernameCell.textViewDelegate = self
 
 				autocompleteView.tableView.dataSource = autocompleteView
 				autocompleteView.tableView.delegate = self
@@ -500,7 +500,7 @@ extension SendViewController {
 	}
 }
 
-extension SendViewController: UITextViewDelegate {
+extension SendViewController: UsernameTextViewTableViewCellDelegate {
 	public func textViewDidChange(_ textView: UITextView) {
 		viewModel.getEmails(textView.text) { [weak self] recipients in
 			guard let recipientList = recipients else {

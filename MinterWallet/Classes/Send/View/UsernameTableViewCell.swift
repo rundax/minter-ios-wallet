@@ -10,9 +10,15 @@ import UIKit
 
 class UsernameTableViewCellItem: TextViewTableViewCellItem {}
 
+protocol UsernameTextViewTableViewCellDelegate: class {
+	func textViewDidChange(_ textView: UITextView)
+	func textViewDidEndEditing(_ textView: UITextView)
+}
+
 class UsernameTableViewCell: TextViewTableViewCell {
 
 	var borderLayer: CAShapeLayer?
+	weak var textViewDelegate: UsernameTextViewTableViewCellDelegate?
 
 	// MARK: -
 
@@ -55,5 +61,17 @@ class UsernameTableViewCell: TextViewTableViewCell {
 		self.textView?.superview?.layer.borderWidth = 2
 		self.textView?.superview?.layer.borderColor = UIColor.mainGreyColor(alpha: 0.4).cgColor
 		self.errorTitle.text = ""
+	}
+}
+
+// UITextViewDelegate override
+extension UsernameTableViewCell {
+	func textViewDidChange(_ textView: UITextView) {
+		textViewDelegate?.textViewDidChange(textView)
+	}
+	
+	override func textViewDidEndEditing(_ textView: UITextView) {
+		super.textViewDidEndEditing(textView)
+		textViewDelegate?.textViewDidEndEditing(textView)
 	}
 }
