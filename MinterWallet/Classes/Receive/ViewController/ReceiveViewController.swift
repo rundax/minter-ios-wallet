@@ -21,7 +21,9 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate {
 	var rxDataSource: RxTableViewSectionedAnimatedDataSource<BaseTableSectionItem>?
 
 	// MARK: -
-
+	@IBAction func addEmailDidTap(_ sender: Any) {
+	}
+	
 	@IBAction func shareButtonDidTap(_ sender: UIButton) {
 
 		hardImpactFeedbackGenerator.prepare()
@@ -36,15 +38,13 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate {
 		}
 	}
 
+	@IBOutlet var headerView: UIView!
 	@IBOutlet var footerView: UIView!
 
 	@IBOutlet weak var tableView: UITableView! {
 		didSet {
+			tableView.tableHeaderView = self.headerView
 			tableView.tableFooterView = self.footerView
-			tableView.contentInset = UIEdgeInsets(top: -40,
-																						left: 0,
-																						bottom: 0,
-																						right: 0)
 		}
 	}
 
