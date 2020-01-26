@@ -52,10 +52,15 @@ class ReceiveViewModel: BaseViewModel {
 			let qr = QRTableViewCellItem(reuseIdentifier: "QRTableViewCell", identifier: "QRTableViewCell")
 			qr.string = "Mx" + account.address
 
-			var section = BaseTableSectionItem(header: "YOUR ADDRESS".localized())
+			let cashedRecipient = JSONStorage<Recipient>(storageType: .permanent, filename: Session.shared.accounts.value.first(where: { $0.isMain })?.address ?? "")
+			let email = ReceiveEmailTableViewCellItem(reuseIdentifier: "ReceiveEmailTableViewCell", identifier: "ReceiveEmailTableViewCell_" + sectionId)
+			email.recipient = cashedRecipient.storedValue
+			address.buttonTitle = "Copy".localized()
+			
+			var section = BaseTableSectionItem(header: "YOUR CREDENTIALS".localized())
 			section.identifier = sectionId
 
-			section.items = [address, separator, qr]
+			section.items = [email, address, separator, qr]
 			return section
 		}
 

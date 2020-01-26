@@ -26,6 +26,10 @@
 		30328C1F2368764C00443D8D /* PairedMode.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30328C182368764C00443D8D /* PairedMode.storyboard */; };
 		3067F39123956316002DC97C /* EmailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067F39023956316002DC97C /* EmailManager.swift */; };
 		3067F39223956316002DC97C /* EmailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067F39023956316002DC97C /* EmailManager.swift */; };
+		308CD03523DA424B0049C69B /* JSONStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CD03423DA424B0049C69B /* JSONStorage.swift */; };
+		308CD03623DA424B0049C69B /* JSONStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CD03423DA424B0049C69B /* JSONStorage.swift */; };
+		308CD03823DA48A10049C69B /* ReceiveEmailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CD03723DA48A10049C69B /* ReceiveEmailTableViewCell.swift */; };
+		308CD03923DA48A10049C69B /* ReceiveEmailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CD03723DA48A10049C69B /* ReceiveEmailTableViewCell.swift */; };
 		309920A42394764100220323 /* MinterWalletTestnet-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 309920A32394764100220323 /* MinterWalletTestnet-Info.plist */; };
 		309920A52394764100220323 /* MinterWalletTestnet-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 309920A32394764100220323 /* MinterWalletTestnet-Info.plist */; };
 		332EB812C95C0592C6924E65 /* CoinsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A13B58DCBBFF6DC3A2EC4B /* CoinsViewController.swift */; };
@@ -624,6 +628,8 @@
 		30328C172368764C00443D8D /* PairedModeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairedModeViewController.swift; sourceTree = "<group>"; };
 		30328C182368764C00443D8D /* PairedMode.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PairedMode.storyboard; sourceTree = "<group>"; };
 		3067F39023956316002DC97C /* EmailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailManager.swift; sourceTree = "<group>"; };
+		308CD03423DA424B0049C69B /* JSONStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONStorage.swift; sourceTree = "<group>"; };
+		308CD03723DA48A10049C69B /* ReceiveEmailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveEmailTableViewCell.swift; sourceTree = "<group>"; };
 		309920A32394764100220323 /* MinterWalletTestnet-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MinterWalletTestnet-Info.plist"; sourceTree = "<group>"; };
 		309920A62394772400220323 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		33CCC11E350993C29DD8EE53 /* Pods-MinterWalletTestnet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MinterWalletTestnet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MinterWalletTestnet/Pods-MinterWalletTestnet.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1527,6 +1533,7 @@
 			children = (
 				FA505ADC20E24D7C00DA90C0 /* QRTableViewCell.swift */,
 				FA670A3820E27352000A5169 /* ReceiveAddressTableViewCell.swift */,
+				308CD03723DA48A10049C69B /* ReceiveEmailTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2195,6 +2202,7 @@
 			children = (
 				FADB3E3B20A9C30000EB6CD7 /* Storage.swift */,
 				FA6760A920A9E90900F970E7 /* DatabaseStorage.swift */,
+				308CD03423DA424B0049C69B /* JSONStorage.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -3157,6 +3165,7 @@
 				FA333021224A4B3C003B4763 /* QRCodeReaderViewController.swift in Sources */,
 				FA333022224A4B3C003B4763 /* GenerateAddressSeedTableViewCell.swift in Sources */,
 				FA333023224A4B3C003B4763 /* AuthManager+Rx.swift in Sources */,
+				308CD03523DA424B0049C69B /* JSONStorage.swift in Sources */,
 				FA294E9A2294012D00382D82 /* ActivityRouter.swift in Sources */,
 				FAC6DDF7233A146000A7E650 /* RawTransactionViewModel.swift in Sources */,
 				FA333024224A4B3C003B4763 /* TransactionsViewModel.swift in Sources */,
@@ -3164,6 +3173,7 @@
 				FA333026224A4B3C003B4763 /* SessionAddressSyncer.swift in Sources */,
 				FA704EB22306B45E00A1A459 /* AdvancedGateManager+Rx.swift in Sources */,
 				FA333027224A4B3C003B4763 /* SettingsSwitchTableViewCell.swift in Sources */,
+				308CD03823DA48A10049C69B /* ReceiveEmailTableViewCell.swift in Sources */,
 				FA0A0DD72371A70B00B83C29 /* UITextViewWorkaround.swift in Sources */,
 				FA333028224A4B3C003B4763 /* SendViewController.swift in Sources */,
 				FAA2AAE12296C5BE00581D47 /* TransactionTitleHelper.swift in Sources */,
@@ -3384,6 +3394,7 @@
 				FA0F296721B1740800E10F5E /* QRCodeReaderViewController.swift in Sources */,
 				FAA2608320935E8B009FF3DE /* GenerateAddressSeedTableViewCell.swift in Sources */,
 				FA17816F21EF455300FECDED /* AuthManager+Rx.swift in Sources */,
+				308CD03623DA424B0049C69B /* JSONStorage.swift in Sources */,
 				FA294E9B2294012D00382D82 /* ActivityRouter.swift in Sources */,
 				FAC6DDF8233A146000A7E650 /* RawTransactionViewModel.swift in Sources */,
 				1091290DC26B4D7128B4DA92 /* TransactionsViewModel.swift in Sources */,
@@ -3391,6 +3402,7 @@
 				FA7935FB20D30B710012642E /* SessionAddressSyncer.swift in Sources */,
 				FA704EB32306B45E00A1A459 /* AdvancedGateManager+Rx.swift in Sources */,
 				FAE79456208DC30D0006CB0B /* SettingsSwitchTableViewCell.swift in Sources */,
+				308CD03923DA48A10049C69B /* ReceiveEmailTableViewCell.swift in Sources */,
 				FA0A0DD82371A70B00B83C29 /* UITextViewWorkaround.swift in Sources */,
 				D124A0B3D452A1612EA7194E /* SendViewController.swift in Sources */,
 				FAA2AAE22296C5BE00581D47 /* TransactionTitleHelper.swift in Sources */,

@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import RxSwift
 
-struct Recipient: Equatable {
+struct Recipient: Equatable, Codable {
 	let email: String
 	let address: String
 	
@@ -49,5 +49,33 @@ class EmailManager {
 					}
 					return Disposables.create()
 			}
+	}
+	
+	static func getRecipient(address: String, completion: ((Recipient?) -> Void)?) {
+		if address != "", let url = URL(string: "https://api.myminter.net/minter/main/v01/") {
+		Alamofire.request(url,
+											method: .post,
+											parameters: ["address": "Mx" + address])
+		.validate()
+		.responseJSON { response in
+				switch response.result {
+				case .success(let JSON):
+						print("Success with JSON: \(JSON)")
+
+						if let array = JSON as? Array<[String:String]> {
+							var entities: Array<Recipient> = []
+							for item in array {
+									entities.append(Recipient(email: item["email"]!, address: item["address"]!))
+							}
+							completion?(entities.first)
+						} else {
+							completion?(nil)
+					}
+					case .failure(let error):
+							print("Request failed with error: \(error)")
+							completion?(nil)
+					}
+			}
+		}
 	}
 }

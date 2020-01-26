@@ -192,6 +192,8 @@ class Session {
 		mainCoinBalance.value = 0.0
 		user.value = nil
 		isPINRequired.onNext(false)
+		StorageType.permanent.clearStorage()
+		StorageType.cache.clearStorage()
 	}
 
 	// MARK: -
@@ -220,6 +222,14 @@ class Session {
 				return (acc1.isMain && !acc2.isMain)
 			})
 			self?.accounts.accept(accounts)
+			for account in accounts {
+				EmailManager.getRecipient(address: account.address) { recipient in
+					let cachedRecipient = JSONStorage<Recipient>(storageType: .permanent, filename: account.address)
+					if let recipient = recipient {
+						cachedRecipient.save(recipient)
+					}
+				}
+			}
 		}).disposed(by: disposeBag)
 
 		syncer.startSync()

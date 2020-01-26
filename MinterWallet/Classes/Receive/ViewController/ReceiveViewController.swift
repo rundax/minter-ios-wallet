@@ -20,6 +20,8 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate {
 	let disposeBag = DisposeBag()
 	var rxDataSource: RxTableViewSectionedAnimatedDataSource<BaseTableSectionItem>?
 
+	@IBOutlet weak var addEmailButton: UIButton!
+
 	// MARK: -
 	@IBAction func addEmailDidTap(_ sender: Any) {
 	}
@@ -88,6 +90,26 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate {
 
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		let cashedRecipient = JSONStorage<Recipient>(storageType: .permanent, filename: Session.shared.accounts.value.first(where: { $0.isMain })?.address ?? "")
+		if cashedRecipient.storedValue == nil {
+			EmailManager.getRecipient(address: cashedRecipient.filename) { [weak self] recipient in
+				if let recipient = recipient {
+					JSONStorage<Recipient>(storageType: .permanent, filename: Session.shared.accounts.value.first(where: { $0.isMain })?.address ?? "").save(recipient)
+					self?.addEmailButton.setTitle("CHANGE EMAIL".localized(), for: .normal)
+				}
+				self?.viewModel.createSections()
+				self?.tableView.reloadData()
+			}
+			addEmailButton.setTitle("ATTACH EMAIL".localized(), for: .normal)
+		} else {
+			addEmailButton.setTitle("CHANGE EMAIL".localized(), for: .normal)
+			viewModel.createSections()
+			tableView.reloadData()
+		}
+	}
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 
@@ -121,6 +143,20 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate {
 		}
 
 		return header
+	}
+	
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		if let item = viewModel.cellItem(section: indexPath.section,
+																		 row: indexPath.row) as? ReceiveEmailTableViewCellItem {
+			guard let recipient = item.recipient else {
+				return 0
+			}
+			
+			if recipient.email == "" {
+				return 0
+			}
+		}
+		return UITableViewAutomaticDimension
 	}
 }
 
