@@ -26,6 +26,10 @@
 		30328C1F2368764C00443D8D /* PairedMode.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30328C182368764C00443D8D /* PairedMode.storyboard */; };
 		3067F39123956316002DC97C /* EmailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067F39023956316002DC97C /* EmailManager.swift */; };
 		3067F39223956316002DC97C /* EmailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067F39023956316002DC97C /* EmailManager.swift */; };
+		3075CDFC23E07C44007FE2CF /* TextfieldPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075CDFB23E07C44007FE2CF /* TextfieldPopupViewController.swift */; };
+		3075CDFD23E07C44007FE2CF /* TextfieldPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075CDFB23E07C44007FE2CF /* TextfieldPopupViewController.swift */; };
+		3075CDFF23E08352007FE2CF /* TextFieldPopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075CDFE23E08352007FE2CF /* TextFieldPopupViewModel.swift */; };
+		3075CE0023E08352007FE2CF /* TextFieldPopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075CDFE23E08352007FE2CF /* TextFieldPopupViewModel.swift */; };
 		308CD03523DA424B0049C69B /* JSONStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CD03423DA424B0049C69B /* JSONStorage.swift */; };
 		308CD03623DA424B0049C69B /* JSONStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CD03423DA424B0049C69B /* JSONStorage.swift */; };
 		308CD03823DA48A10049C69B /* ReceiveEmailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CD03723DA48A10049C69B /* ReceiveEmailTableViewCell.swift */; };
@@ -628,6 +632,8 @@
 		30328C172368764C00443D8D /* PairedModeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairedModeViewController.swift; sourceTree = "<group>"; };
 		30328C182368764C00443D8D /* PairedMode.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PairedMode.storyboard; sourceTree = "<group>"; };
 		3067F39023956316002DC97C /* EmailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailManager.swift; sourceTree = "<group>"; };
+		3075CDFB23E07C44007FE2CF /* TextfieldPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextfieldPopupViewController.swift; sourceTree = "<group>"; };
+		3075CDFE23E08352007FE2CF /* TextFieldPopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldPopupViewModel.swift; sourceTree = "<group>"; };
 		308CD03423DA424B0049C69B /* JSONStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONStorage.swift; sourceTree = "<group>"; };
 		308CD03723DA48A10049C69B /* ReceiveEmailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveEmailTableViewCell.swift; sourceTree = "<group>"; };
 		309920A32394764100220323 /* MinterWalletTestnet-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MinterWalletTestnet-Info.plist"; sourceTree = "<group>"; };
@@ -1462,6 +1468,7 @@
 				FAA234EC20872BD000F999DE /* SendPopupViewController.swift */,
 				FA7A9BF720BED28900E3CCDA /* SentPopupViewController.swift */,
 				FA39488323509124002AD8DE /* ConfirmPopupViewController.swift */,
+				3075CDFB23E07C44007FE2CF /* TextfieldPopupViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1480,6 +1487,7 @@
 				FAA234EE20872BF800F999DE /* SendPopupViewModel.swift */,
 				FA7A9BF920BED61000E3CCDA /* SentPopupViewModel.swift */,
 				FA3948862350924B002AD8DE /* ConfirmPopupViewModel.swift */,
+				3075CDFE23E08352007FE2CF /* TextFieldPopupViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3106,6 +3114,7 @@
 				FA332FF0224A4B3C003B4763 /* QRCode.swift in Sources */,
 				FAF9C50D22AA69E4000BF80A /* DelegatedViewModel.swift in Sources */,
 				FA332FF1224A4B3C003B4763 /* PasswordEditViewModel.swift in Sources */,
+				3075CDFF23E08352007FE2CF /* TextFieldPopupViewModel.swift in Sources */,
 				FA333096224A4F1D003B4763 /* Configuration.swift in Sources */,
 				FA332FF2224A4B3C003B4763 /* TransactionManager.swift in Sources */,
 				FA332FF3224A4B3C003B4763 /* BaseCellItem.swift in Sources */,
@@ -3162,6 +3171,7 @@
 				FA33301E224A4B3C003B4763 /* InfoManager+Rx.swift in Sources */,
 				FA33301F224A4B3C003B4763 /* UIView+Roundify.swift in Sources */,
 				FA333020224A4B3C003B4763 /* TransactionsViewController.swift in Sources */,
+				3075CDFC23E07C44007FE2CF /* TextfieldPopupViewController.swift in Sources */,
 				FA333021224A4B3C003B4763 /* QRCodeReaderViewController.swift in Sources */,
 				FA333022224A4B3C003B4763 /* GenerateAddressSeedTableViewCell.swift in Sources */,
 				FA333023224A4B3C003B4763 /* AuthManager+Rx.swift in Sources */,
@@ -3335,6 +3345,7 @@
 				FA79F60720D06D3D007876ED /* String+Email.swift in Sources */,
 				FAF9C50E22AA69E4000BF80A /* DelegatedViewModel.swift in Sources */,
 				FA0AF8E821B534EF000B571B /* QRCode.swift in Sources */,
+				3075CE0023E08352007FE2CF /* TextFieldPopupViewModel.swift in Sources */,
 				FAA2607220931D41009FF3DE /* PasswordEditViewModel.swift in Sources */,
 				FAB85B4E20DD33E300782AFB /* TransactionManager.swift in Sources */,
 				FAC1E1C72074C4A20083333F /* BaseCellItem.swift in Sources */,
@@ -3391,6 +3402,7 @@
 				FA17817D21F73E4200FECDED /* InfoManager+Rx.swift in Sources */,
 				FA89A79920873A280019226D /* UIView+Roundify.swift in Sources */,
 				833CF747F604B61E37401C11 /* TransactionsViewController.swift in Sources */,
+				3075CDFD23E07C44007FE2CF /* TextfieldPopupViewController.swift in Sources */,
 				FA0F296721B1740800E10F5E /* QRCodeReaderViewController.swift in Sources */,
 				FAA2608320935E8B009FF3DE /* GenerateAddressSeedTableViewCell.swift in Sources */,
 				FA17816F21EF455300FECDED /* AuthManager+Rx.swift in Sources */,

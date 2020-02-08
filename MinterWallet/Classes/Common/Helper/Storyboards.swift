@@ -80,6 +80,10 @@ struct Storyboards {
         static func instantiateConfirmPopupViewController() -> ConfirmPopupViewController {
             return self.storyboard.instantiateViewController(withIdentifier: "ConfirmPopupViewController") as! ConfirmPopupViewController
         }
+
+        static func instantiateTextfieldPopupViewController() -> TextfieldPopupViewController {
+            return self.storyboard.instantiateViewController(withIdentifier: "TextfieldPopupViewController") as! TextfieldPopupViewController
+        }
     }
 
     struct PIN: Storyboard {
@@ -736,6 +740,16 @@ extension ConfirmPopupViewController: ConfirmPopupViewControllerIdentifiableProt
 extension IdentifiableProtocol where Self: ConfirmPopupViewController {
     var storyboardIdentifier: String? { return "ConfirmPopupViewController" }
     static var storyboardIdentifier: String? { return "ConfirmPopupViewController" }
+}
+
+// MARK: - TextfieldPopupViewController
+protocol TextfieldPopupViewControllerIdentifiableProtocol: IdentifiableProtocol { }
+
+extension TextfieldPopupViewController: TextfieldPopupViewControllerIdentifiableProtocol { }
+
+extension IdentifiableProtocol where Self: TextfieldPopupViewController {
+    var storyboardIdentifier: String? { return "TextfieldPopupViewController" }
+    static var storyboardIdentifier: String? { return "TextfieldPopupViewController" }
 }
 
 // MARK: - PINViewController

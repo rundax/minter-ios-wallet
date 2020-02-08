@@ -31,4 +31,10 @@ class PopupRouter: BaseRouter {
 		viewController.viewModel = viewModel
 		return viewController
 	}
+	
+	class func textfieldPopupViewController(viewModel: TextFieldPopupViewModel) -> TextfieldPopupViewController? {
+		let viewController = Storyboards.Popup.instantiateTextfieldPopupViewController()
+		viewController.viewModel = viewModel
+		return viewController
+	}
 }

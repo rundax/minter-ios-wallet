@@ -366,7 +366,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 				completion?(recipientList)
 			}, onError: { error in
 				completion?(nil)
-			})
+			}).disposed(by: disposeBag)
 	}
 
 	// MARK: - Sections

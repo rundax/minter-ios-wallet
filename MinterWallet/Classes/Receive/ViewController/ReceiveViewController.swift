@@ -19,11 +19,16 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate {
 
 	let disposeBag = DisposeBag()
 	var rxDataSource: RxTableViewSectionedAnimatedDataSource<BaseTableSectionItem>?
+	var popupViewController: PopupViewController?
+	weak var delegate: SentPopupViewControllerDelegate?
 
 	@IBOutlet weak var addEmailButton: UIButton!
 
 	// MARK: -
 	@IBAction func addEmailDidTap(_ sender: Any) {
+		SoundHelper.playSoundIfAllowed(type: .bip)
+		hardImpactFeedbackGenerator.prepare()
+		hardImpactFeedbackGenerator.impactOccurred()
 	}
 	
 	@IBAction func shareButtonDidTap(_ sender: UIButton) {
@@ -79,9 +84,44 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate {
 		tableView.rx.setDelegate(self).disposed(by: disposeBag)
 
 		viewModel.sectionsObservable.bind(to: tableView.rx.items(dataSource: rxDataSource!)).disposed(by: disposeBag)
+		
+		viewModel
+		.output
+		.popup
+		.asDriver(onErrorJustReturn: nil)
+		.drive(onNext: { [weak self] (popup) in
+			if popup == nil {
+				self?.popupViewController?.dismiss(animated: true, completion: nil)
+				return
+			}
+
+			if let sent = popup as? SentPopupViewController {
+				sent.delegate = self
+			}
+
+			if let textField = popup as? TextfieldPopupViewController {
+				self?.popupViewController = nil
+				textField.delegate = self
+			}
+
+			if self?.popupViewController == nil {
+				self?.showPopup(viewController: popup!)
+				self?.popupViewController = popup
+			} else {
+				self?.showPopup(viewController: popup!,
+												inPopupViewController: self!.popupViewController)
+			}
+		}).disposed(by: disposeBag)
+		
+		addEmailButton
+			.rx
+			.tap
+			.asDriver()
+			.drive(viewModel.input.attachEmailButtonDidTap)
+			.disposed(by: disposeBag)
 
 		if self.shouldShowTestnetToolbar {
-			self.tableView.contentInset = UIEdgeInsets(top: 8,
+			self.tableView.contentInset = UIEdgeInsets(top: 40,
 																								 left: 0,
 																								 bottom: 0,
 																								 right: 0)
@@ -181,5 +221,54 @@ extension ReceiveViewController: QRTableViewCellDelegate {
 			let banner = NotificationBanner(title: "Copied".localized(), subtitle: nil, style: .info)
 			banner.show()
 		}
+	}
+}
+
+extension ReceiveViewController: SentPopupViewControllerDelegate {
+	// MARK: - SentPopupViewControllerDelegate
+
+	func didTapActionButton(viewController: SentPopupViewController) {
+		SoundHelper.playSoundIfAllowed(type: .click)
+		hardImpactFeedbackGenerator.prepare()
+		hardImpactFeedbackGenerator.impactOccurred()
+		AnalyticsHelper.defaultAnalytics.track(event: .sentCoinPopupViewTransactionButton)
+		viewController.dismiss(animated: true) { [weak self] in
+			if let url = self?.viewModel.lastTransactionExplorerURL() {
+				let vc = BaseSafariViewController(url: url)
+				self?.present(vc, animated: true) {}
+			}
+		}
+	}
+
+	func didTapSecondActionButton(viewController: SentPopupViewController) {
+		SoundHelper.playSoundIfAllowed(type: .click)
+		lightImpactFeedbackGenerator.prepare()
+		lightImpactFeedbackGenerator.impactOccurred()
+		AnalyticsHelper.defaultAnalytics.track(event: .sentCoinPopupShareTransactionButton)
+		viewController.dismiss(animated: true) { [weak self] in
+			if let url = self?.viewModel.lastTransactionExplorerURL() {
+				let vc = ActivityRouter.activityViewController(activities: [url], sourceView: self!.view)
+				self?.present(vc, animated: true, completion: nil)
+			}
+		}
+	}
+
+	func didTapSecondButton(viewController: SentPopupViewController) {
+		SoundHelper.playSoundIfAllowed(type: .cancel)
+		lightImpactFeedbackGenerator.prepare()
+		AnalyticsHelper.defaultAnalytics.track(event: .sentCoinPopupCloseButton)
+		viewController.dismiss(animated: true, completion: nil)
+	}
+}
+
+extension ReceiveViewController: TextfieldPopupViewControllerDelegate {
+	func didFinish(viewController: TextfieldPopupViewController) {
+		
+	}
+	
+	func didCancel(viewController: TextfieldPopupViewController) {
+		SoundHelper.playSoundIfAllowed(type: .cancel)
+//		AnalyticsHelper.defaultAnalytics.track(event: .sendCoinPopupCancelButton)
+		viewController.dismiss(animated: true, completion: nil)
 	}
 }

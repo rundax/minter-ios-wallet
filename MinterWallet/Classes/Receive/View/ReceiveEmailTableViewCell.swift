@@ -10,6 +10,7 @@ import UIKit
 
 class ReceiveEmailTableViewCellItem : BaseCellItem {
 	var recipient: Recipient?
+	var buttonTitle: String?
 }
 
 
@@ -32,6 +33,7 @@ class ReceiveEmailTableViewCell: AddressTableViewCell {
 		
 		if let item = item as? ReceiveEmailTableViewCellItem {
 			addressLabel.text = item.recipient?.email
+			actionButton.setTitle(item.buttonTitle, for: .normal)
 		}
 	}
 }
