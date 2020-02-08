@@ -102,6 +102,7 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate {
 			if let textField = popup as? TextfieldPopupViewController {
 				self?.popupViewController = nil
 				textField.delegate = self
+				textField.popupViewControllerDelegate = self
 			}
 
 			if self?.popupViewController == nil {
@@ -270,5 +271,12 @@ extension ReceiveViewController: TextfieldPopupViewControllerDelegate {
 		SoundHelper.playSoundIfAllowed(type: .cancel)
 //		AnalyticsHelper.defaultAnalytics.track(event: .sendCoinPopupCancelButton)
 		viewController.dismiss(animated: true, completion: nil)
+	}
+}
+
+extension ReceiveViewController: PopupViewControllerDelegate {
+	func didDismissPopup(viewController: PopupViewController?) {
+		self.viewModel.clear()
+		viewController?.dismiss(animated: true, completion: nil)
 	}
 }

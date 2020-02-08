@@ -150,6 +150,11 @@ class ValidatableTextField: UITextField {
 		self.rightView = UIView()
 		self.rightViewMode = .never
 	}
+	
+	func hideImages() {
+		validImageView.isHidden = true
+		invalidImageView.isHidden = true
+	}
 
 	override func resignFirstResponder() -> Bool {
 		let resign = super.resignFirstResponder()

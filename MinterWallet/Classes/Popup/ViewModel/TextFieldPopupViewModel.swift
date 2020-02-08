@@ -19,12 +19,14 @@ class TextFieldPopupViewModel: PopupViewModel, ViewModelProtocol {
 		var didTapCancel: AnyObserver<Void>
 		var activityIndicator: AnyObserver<Bool>
 		var textFieldText: AnyObserver<String?>
+		var textFieldDidChangeState: AnyObserver<TextfieldPopupViewController.State?>
 	}
 	struct Output {
 		var isActivityIndicatorAnimating: Observable<Bool>
 		var didTapActionButton: Observable<Void>
 		var didTapCancel: Observable<Void>
 		var textFieldDidChange: Observable<String?>
+		var textFieldDidChangeState: Observable<TextfieldPopupViewController.State?>
 	}
 	struct Dependency {}
 	var input: TextFieldPopupViewModel.Input!
@@ -46,17 +48,18 @@ class TextFieldPopupViewModel: PopupViewModel, ViewModelProtocol {
 	private var didTapCancelSubject = PublishSubject<Void>()
 	private var activityIndicatorSubject = PublishSubject<Bool>()
 	private var textFieldTextSubject = BehaviorSubject<String?>(value: "")
+	private var textFieldStateSubject = BehaviorSubject<TextfieldPopupViewController.State?>(value: .default)
 
 	init(popupTitle: String?, buttonTitle: String? = nil, cancelTitle: String? = nil) {
 		super.init()
 
 		input = Input(didTapAction: didTapActionSubject.asObserver(),
 									didTapCancel: didTapCancelSubject.asObserver(),
-									activityIndicator: activityIndicatorSubject.asObserver(), textFieldText: textFieldTextSubject.asObserver())
+									activityIndicator: activityIndicatorSubject.asObserver(), textFieldText: textFieldTextSubject.asObserver(), textFieldDidChangeState: textFieldStateSubject.asObserver())
 		output = Output(isActivityIndicatorAnimating: activityIndicatorSubject.asObservable(),
 										didTapActionButton: didTapActionSubject.asObservable(),
 										didTapCancel: didTapCancelSubject.asObservable(),
-										textFieldDidChange: textFieldTextSubject.asObservable())
+										textFieldDidChange: textFieldTextSubject.asObservable(), textFieldDidChangeState: textFieldStateSubject.asObservable())
 		dependency = Dependency()
 		
 		self.popupTitle = popupTitle

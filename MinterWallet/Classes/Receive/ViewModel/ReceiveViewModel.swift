@@ -62,7 +62,6 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 
 	private let errorNotificationSubject = PublishSubject<NotifiableError?>()
 	private let txErrorNotificationSubject = PublishSubject<NotifiableError?>()
-	private let txScanButtonDidTap = PublishSubject<Void>()
 	private let popupSubject = PublishSubject<PopupViewController?>()
 	
 	private let clearPayloadSubject = BehaviorSubject<String?>(value: "")
@@ -182,13 +181,13 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 	}
 	
 	func attachEmailButtonTaped() {
-		
 //		GateManager
 //			.shared
 //			.minGas()
 //			.subscribe(onNext: { [weak self] (gas) in
 //				self?.currentGas.onNext(gas)
 //		}).disposed(by: disposeBag)
+
 		let email = (try? self.emailSubject.value()) as? String
 		let attachVM = self.attachEmailPopupViewModel(textFieldText: email)
 		
@@ -197,11 +196,22 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 		}).disposed(by: disposeBag)
 
 		attachVM.output.didTapCancel.asObservable().subscribe(onNext: { _ in
-			print("cancel")
+			self.clear()
 		}).disposed(by: disposeBag)
 
 		attachVM.output.textFieldDidChange.asObservable().subscribe({ text in
-			self.emailSubject.onNext(text.element ?? "")
+			guard let email = text.element as? String else { return }
+			if email == "" {
+				attachVM.input.textFieldDidChangeState.onNext(.default)
+				return
+			}
+
+			if email.isValidEmail() {
+				attachVM.input.textFieldDidChangeState.onNext(.default)
+				self.emailSubject.onNext(text.element ?? "")
+			} else {
+				attachVM.input.textFieldDidChangeState.onNext(.invalid(error: "Email is incorrect".localized()))
+			}
 		}).disposed(by: disposeBag)
 		
 // 		TODO: - attach 2FA support after refactoring
@@ -249,10 +259,6 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 				return GateManager.shared.send(rawTx: signedTx)
 			}).subscribe(onNext: { [weak self] (val) in
 				self?.lastSentTransactionHash = val
-
-//				self?.sections.value = self?.createSections() ?? []
-//				let rec = self?.sendToSubject.value ?? ""
-//				let address = self?.addressSubject.value ?? ""
 
 				if let sentViewModel = self?.sentViewModel() {
 					let popup = PopupRouter.sentPopupViewCointroller(viewModel: sentViewModel)
@@ -337,7 +343,8 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 	}
 
 	func clear() {
-		// TODO: -
+		emailSubject.onNext(nil)
+		clearPayloadSubject.onNext(nil)
 	}
 	
 	private func commission(isDelegate: Bool = false) -> Decimal {
@@ -402,7 +409,7 @@ extension ReceiveViewModel {
 
 		selectedAddress = account.address
 		viewModel.addressTitle = "Mx" + account.address
-		viewModel.title = "EMAIL".localized()
+		viewModel.title = " "
 		viewModel.emailFeeCurrencyTitle = emailFeeCurrency
 		viewModel.buttonTitle = "SEND".localized()
 		viewModel.cancelTitle = "CANCEL".localized()

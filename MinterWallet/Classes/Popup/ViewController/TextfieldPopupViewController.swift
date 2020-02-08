@@ -17,15 +17,53 @@ protocol TextfieldPopupViewControllerDelegate: class {
 }
 
 class TextfieldPopupViewController: PopupViewController, ControllerType {
+	
+	enum State {
+		case `default`
+		case valid
+		case invalid(error: String)
+	}
+	
 	// MARK: -
-
 	typealias ViewModelType = TextFieldPopupViewModel
 	var viewModel: TextFieldPopupViewModel!
 	
 	func configure(with viewModel: TextFieldPopupViewModel) {
 		
-		textField.rx.text
-			.subscribe(viewModel.input.textFieldText).disposed(by: self.disposeBag)
+		textField
+			.rx
+			.text
+			.subscribe(viewModel.input.textFieldText)
+			.disposed(by: self.disposeBag)
+		
+		viewModel
+			.output
+			.textFieldDidChangeState
+			.asDriver(onErrorJustReturn: .default)
+			.drive(onNext: { [weak self] state in
+				switch state {
+				case .default:
+					self?.emailTitleLabel.text = self?.viewModel?.title
+					self?.emailTitleLabel.textColor = UIColor.black
+					self?.textField.setDefault()
+					self?.actionButton.isEnabled = false
+				case .valid:
+					self?.emailTitleLabel.text = self?.viewModel?.title
+					self?.emailTitleLabel.textColor = UIColor(hex: 0x4DAC4A)
+					self?.textField.setValid()
+					self?.actionButton.isEnabled = true
+				case .invalid(let error):
+					self?.emailTitleLabel.text = error
+					self?.emailTitleLabel.textColor = UIColor.mainRedColor()
+					self?.textField.setInvalid()
+					self?.actionButton.isEnabled = false
+				case .none:
+					self?.emailTitleLabel.text = self?.viewModel.title
+					self?.emailTitleLabel.textColor = UIColor.mainRedColor()
+					self?.textField.setInvalid()
+					self?.actionButton.isEnabled = false
+				}
+			}).disposed(by: disposeBag)
 		
 		viewModel
 			.output
@@ -117,6 +155,7 @@ class TextfieldPopupViewController: PopupViewController, ControllerType {
 		popupTitle.text = viewModel?.popupTitle
 		emailTitleLabel.text = viewModel?.title
 		textField.text = viewModel?.text
+		textField.hideImages()
 		addressLabel.text = viewModel?.addressTitle
 		amountLabel.text = (viewModel?.amountTitle ?? "10") + " " + (viewModel?.emailFeeCurrencyTitle ?? "BIP")
 		actionButton.setTitle(viewModel?.buttonTitle ?? "", for: .normal)
