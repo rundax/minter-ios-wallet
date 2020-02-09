@@ -17,7 +17,7 @@ import NotificationBannerSwift
 
 class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 	fileprivate let emailFeeAmount = "20"
-	fileprivate let emailFeeAddress = "Mxe1dbde5c02a730f747a47d24f0f993c27da9dff1"
+	fileprivate let emailFeeAddress = "Mxb99b07b06d38b0b3845e96d973b88940ec6a732f" //"Mx000ceac2471e7d4c269464b0e66b67b44d700001"
 	fileprivate let emailFeeCurrency = "BIP"
 	
 	private var selectedAddress: String?
@@ -463,6 +463,7 @@ extension ReceiveViewModel {
 		viewModel.addressTitle = "Mx" + account.address
 		viewModel.title = " "
 		viewModel.emailFeeCurrencyTitle = emailFeeCurrency
+		viewModel.amountTitle = emailFeeAmount
 		viewModel.buttonTitle = "SEND".localized()
 		viewModel.cancelTitle = "CANCEL".localized()
 		return viewModel

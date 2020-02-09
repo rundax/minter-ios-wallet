@@ -119,6 +119,7 @@ class TextfieldPopupViewController: PopupViewController, ControllerType {
 	}
 	
 	@IBAction func didTapActionButton(_ sender: UIButton) {
+		view.endEditing(true)
 		actionButtonActivityIndicator?.startAnimating()
 		actionButtonActivityIndicator?.alpha = 1.0
 		sender.isEnabled = false
