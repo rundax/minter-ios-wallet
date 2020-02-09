@@ -12,6 +12,8 @@ import MinterMy
 import BigInt
 import MinterCore
 import RxRelay
+import SwiftOTP
+import NotificationBannerSwift
 
 class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 	fileprivate let emailFeeAmount = "20"
@@ -19,6 +21,7 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 	fileprivate let emailFeeCurrency = "BIP"
 	
 	private var selectedAddress: String?
+	private var textFieldPopup: TextFieldPopupViewModel?
 	
 	// MARK: - ViewModelProtocol
 
@@ -189,50 +192,42 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 //		}).disposed(by: disposeBag)
 
 		let email = (try? self.emailSubject.value()) as? String
-		let attachVM = self.attachEmailPopupViewModel(textFieldText: email)
+		textFieldPopup = self.attachEmailPopupViewModel(textFieldText: email)
 		
-		attachVM.output.didTapActionButton.asObservable().subscribe(onNext: { _ in
+		textFieldPopup?.output.didTapActionButton.asObservable().subscribe(onNext: { _ in
 			self.sendAttachEmailTransaction()
 		}).disposed(by: disposeBag)
 
-		attachVM.output.didTapCancel.asObservable().subscribe(onNext: { _ in
+		textFieldPopup?.output.didTapCancel.asObservable().subscribe(onNext: { _ in
 			self.clear()
 		}).disposed(by: disposeBag)
 
-		attachVM.output.textFieldDidChange.asObservable().subscribe({ text in
+		textFieldPopup?.output.textFieldDidChange.asObservable().subscribe({ text in
 			guard let email = text.element as? String else { return }
 			if email == "" {
-				attachVM.input.textFieldDidChangeState.onNext(.default)
+				self.textFieldPopup?.input.textFieldDidChangeState.onNext(.default)
 				return
 			}
 
 			if email.isValidEmail() {
-				attachVM.input.textFieldDidChangeState.onNext(.default)
+				self.textFieldPopup?.input.textFieldDidChangeState.onNext(.valid)
 				self.emailSubject.onNext(text.element ?? "")
 			} else {
-				attachVM.input.textFieldDidChangeState.onNext(.invalid(error: "Email is incorrect".localized()))
+				self.textFieldPopup?.input.textFieldDidChangeState.onNext(.invalid(error: "Email is incorrect".localized()))
 			}
 		}).disposed(by: disposeBag)
 		
-// 		TODO: - attach 2FA support after refactoring
-//		if let secretCode = accountManager.secretCode() {
-//				confirmWithSecretCode(secretCode, sendVM: attachVM)
-//		} else {
-//				let sendPopup = Storyboards.Popup.instantiateInitialViewController()
-//				sendPopup.viewModel = sendVM
-//				self.popupSubject.onNext(sendPopup)
-//		}
-		
 		let attachPopup = Storyboards.Popup.instantiateTextfieldPopupViewController()
-		attachPopup.viewModel = attachVM
+		attachPopup.viewModel = textFieldPopup
 		self.popupSubject.onNext(attachPopup)
 	}
 	
 	private func sendAttachEmailTransaction() {
 		guard let email = (try? self.emailSubject.value()) as? String else { return }
 		if !email.isValidEmail() { return }
-
-		Observable
+		
+		func sendTx() {
+			Observable
 			.combineLatest(
 				GateManager.shared.nonce(address: selectedAddress!),
 				GateManager.shared.minGas()
@@ -271,11 +266,27 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 					Session.shared.loadDelegatedBalance()
 				})
 				self?.clear()
+				self?.textFieldPopup?.input.activityIndicator.onNext(false)
 			}, onError: { [weak self] (error) in
 				self?.handle(error: error)
+				self?.textFieldPopup?.input.activityIndicator.onNext(false)
 			}, onCompleted: { [weak self] in
 				self?.isLoadingNonceSubject.onNext(false)
+				self?.textFieldPopup?.input.activityIndicator.onNext(false)
 			}).disposed(by: disposeBag)
+		}
+		
+		if let secretCode = accountManager.secretCode() {
+			confirmWithSecretCode(secretCode) { isConfirmed in
+				if isConfirmed {
+					sendTx()
+				} else {
+					self.textFieldPopup?.input.activityIndicator.onNext(false)
+				}
+			}
+		} else {
+				sendTx()
+		}
 	}
 	
 	// MARK: -
@@ -315,6 +326,46 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 			}
 	}
 	
+	func confirmWithSecretCode(_ secretCode: String, completion: ((Bool) -> Void)? = nil) {
+		let alert = BaseAlertController(title: "Enter 6 digit code", message: nil, preferredStyle: .alert)
+		let yesAction = UIAlertAction(title: "OK", style: .default) { action in
+			let firstTextField = alert.textFields![0] as UITextField
+			guard let data = base32DecodeToData(secretCode) else {
+				return
+			}
+
+			guard let totp = TOTP(secret: data, digits: 6, timeInterval: 30, algorithm: .sha1) else {
+				return
+			}
+			let otpString = totp.generate(time: Date())
+
+			if otpString == firstTextField.text {
+				completion?(true)
+			} else {
+				let banner = NotificationBanner(title: "Wrong code!",subtitle: "", style: .danger)
+				banner.show()
+				completion?(false)
+			}
+		}
+		let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel)
+		alert.addTextField(configurationHandler: { (textField) in
+			textField.placeholder = "Enter 6 digit code"
+			textField.keyboardType = .numberPad
+			textField.maxLength = 6
+		})
+		alert.addAction(yesAction)
+		alert.addAction(cancelAction)
+		alert.view.tintColor = UIColor.mainColor()
+				
+		if var topController = UIApplication.shared.keyWindow?.rootViewController {
+			while let presentedViewController = topController.presentedViewController {
+				topController = presentedViewController
+			}
+
+			topController.present(alert, animated: true)
+		}
+	}
+	
 	func rawTransaction(nonce: BigUInt,
 											gasCoin: String,
 											recipient: String,
@@ -343,7 +394,8 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 	}
 
 	func clear() {
-		emailSubject.onNext(nil)
+		let cashedRecipient = JSONStorage<Recipient>(storageType: .permanent, filename: Session.shared.accounts.value.first(where: { $0.isMain })?.address ?? "")
+		emailSubject.asObserver().onNext(cashedRecipient.storedValue?.email)
 		clearPayloadSubject.onNext(nil)
 	}
 	
@@ -421,7 +473,8 @@ extension ReceiveViewModel {
 		viewModel.actionButtonTitle = "VIEW TRANSACTION".localized()
 		viewModel.avatarImageURL = MinterMyAPIURL.avatarAddress(address: self.emailFeeAddress).url()
 		viewModel.secondButtonTitle = "CLOSE".localized()
-		viewModel.username = self.emailFeeAddress
+		viewModel.desc = "Check your email to verify ownership".localized()
+		viewModel.username = (try? self.emailSubject.value()) as? String
 		viewModel.title = "Success!".localized()
 		return viewModel
 	}

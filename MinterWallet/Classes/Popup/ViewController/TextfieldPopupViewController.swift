@@ -44,13 +44,14 @@ class TextfieldPopupViewController: PopupViewController, ControllerType {
 				switch state {
 				case .default:
 					self?.emailTitleLabel.text = self?.viewModel?.title
-					self?.emailTitleLabel.textColor = UIColor.black
+					self?.emailTitleLabel.textColor = .black
 					self?.textField.setDefault()
 					self?.actionButton.isEnabled = false
 				case .valid:
 					self?.emailTitleLabel.text = self?.viewModel?.title
-					self?.emailTitleLabel.textColor = UIColor(hex: 0x4DAC4A)
-					self?.textField.setValid()
+					self?.emailTitleLabel.textColor = .black
+					// do not use setValid() as green color do not match design
+					self?.textField.setDefault()
 					self?.actionButton.isEnabled = true
 				case .invalid(let error):
 					self?.emailTitleLabel.text = error

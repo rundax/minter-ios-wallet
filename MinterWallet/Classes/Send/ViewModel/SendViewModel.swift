@@ -825,44 +825,47 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 		self.txErrorNotificationSubject.onNext(notification)
 	}
     
-    private func confirmWithSecretCode(_ secretCode: String, sendVM: SendPopupViewModel) {
-        let alert = BaseAlertController(title: "Enter 6 digit code", message: nil, preferredStyle: .alert)
-        let yesAction = UIAlertAction(title: "OK", style: .default) { action in
-            let firstTextField = alert.textFields![0] as UITextField
-            guard let data = base32DecodeToData(secretCode) else {
-                return
-            }
+	private func confirmWithSecretCode(_ secretCode: String, sendVM: SendPopupViewModel) {
+		let alert = BaseAlertController(title: "Enter 6 digit code", message: nil, preferredStyle: .alert)
+		let yesAction = UIAlertAction(title: "OK", style: .default) { action in
+			let firstTextField = alert.textFields![0] as UITextField
+			guard let data = base32DecodeToData(secretCode) else {
+				return
+			}
 
-            guard let totp = TOTP(secret: data, digits: 6, timeInterval: 30, algorithm: .sha1) else {
-                return
-            }
-            let otpString = totp.generate(time: Date())
+			guard let totp = TOTP(secret: data, digits: 6, timeInterval: 30, algorithm: .sha1) else {
+				return
+			}
+			let otpString = totp.generate(time: Date())
 
-            if otpString == firstTextField.text {
-                let sendPopup = Storyboards.Popup.instantiateInitialViewController()
-                sendPopup.viewModel = sendVM
-                self.popupSubject.onNext(sendPopup)
-            } else {
-                let banner = NotificationBanner(title: "Wrong code!",subtitle: "", style: .danger)
-                banner.show()
-            }
-        }
-        let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel)
-        alert.addTextField(configurationHandler: { (textField) in
-            textField.placeholder = "Enter 6 digit code"
-        })
-        alert.addAction(yesAction)
-        alert.addAction(cancelAction)
-        alert.view.tintColor = UIColor.mainColor()
-            
-         if var topController = UIApplication.shared.keyWindow?.rootViewController {
-             while let presentedViewController = topController.presentedViewController {
-                 topController = presentedViewController
-             }
+			if otpString == firstTextField.text {
+				let sendPopup = Storyboards.Popup.instantiateInitialViewController()
+				sendPopup.viewModel = sendVM
+				self.popupSubject.onNext(sendPopup)
+			} else {
+				let banner = NotificationBanner(title: "Wrong code!",subtitle: "", style: .danger)
+				banner.show()
+			}
+		}
 
-            topController.present(alert, animated: true)
-         }
-    }
+		let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel)
+		alert.addTextField(configurationHandler: { textField in
+			textField.placeholder = "Enter 6 digit code"
+			textField.keyboardType = .numberPad
+			textField.maxLength = 6
+		})
+		alert.addAction(yesAction)
+		alert.addAction(cancelAction)
+		alert.view.tintColor = UIColor.mainColor()
+				
+		if var topController = UIApplication.shared.keyWindow?.rootViewController {
+			while let presentedViewController = topController.presentedViewController {
+				topController = presentedViewController
+			}
+
+			topController.present(alert, animated: true)
+		}
+	}
 }
 
 extension SendViewModel {

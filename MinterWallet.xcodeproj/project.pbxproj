@@ -34,6 +34,8 @@
 		308CD03623DA424B0049C69B /* JSONStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CD03423DA424B0049C69B /* JSONStorage.swift */; };
 		308CD03823DA48A10049C69B /* ReceiveEmailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CD03723DA48A10049C69B /* ReceiveEmailTableViewCell.swift */; };
 		308CD03923DA48A10049C69B /* ReceiveEmailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CD03723DA48A10049C69B /* ReceiveEmailTableViewCell.swift */; };
+		308FA5CD23F0582500186F79 /* UITextfield+Length.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FA5CC23F0582500186F79 /* UITextfield+Length.swift */; };
+		308FA5CE23F0582500186F79 /* UITextfield+Length.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FA5CC23F0582500186F79 /* UITextfield+Length.swift */; };
 		309920A42394764100220323 /* MinterWalletTestnet-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 309920A32394764100220323 /* MinterWalletTestnet-Info.plist */; };
 		309920A52394764100220323 /* MinterWalletTestnet-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 309920A32394764100220323 /* MinterWalletTestnet-Info.plist */; };
 		332EB812C95C0592C6924E65 /* CoinsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A13B58DCBBFF6DC3A2EC4B /* CoinsViewController.swift */; };
@@ -636,6 +638,7 @@
 		3075CDFE23E08352007FE2CF /* TextFieldPopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldPopupViewModel.swift; sourceTree = "<group>"; };
 		308CD03423DA424B0049C69B /* JSONStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONStorage.swift; sourceTree = "<group>"; };
 		308CD03723DA48A10049C69B /* ReceiveEmailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveEmailTableViewCell.swift; sourceTree = "<group>"; };
+		308FA5CC23F0582500186F79 /* UITextfield+Length.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextfield+Length.swift"; sourceTree = "<group>"; };
 		309920A32394764100220323 /* MinterWalletTestnet-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MinterWalletTestnet-Info.plist"; sourceTree = "<group>"; };
 		309920A62394772400220323 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		33CCC11E350993C29DD8EE53 /* Pods-MinterWalletTestnet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MinterWalletTestnet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MinterWalletTestnet/Pods-MinterWalletTestnet.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1982,6 +1985,7 @@
 				FA64E280234770EF00436BFE /* RawTransaction+RLPDecodable.swift */,
 				FA39488023507BB2002AD8DE /* UIApplication+AppDelegate.swift */,
 				FA5DB808236198C7008A8E47 /* ImpactProtocol.swift */,
+				308FA5CC23F0582500186F79 /* UITextfield+Length.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -3190,6 +3194,7 @@
 				FA333029224A4B3C003B4763 /* SendViewModel.swift in Sources */,
 				FA33302A224A4B3C003B4763 /* NextGrowingTextView.swift in Sources */,
 				FA33302B224A4B3C003B4763 /* AccordionTableViewController.swift in Sources */,
+				308FA5CD23F0582500186F79 /* UITextfield+Length.swift in Sources */,
 				FA33302C224A4B3C003B4763 /* QRCodeReaderView.swift in Sources */,
 				FA33302D224A4B3C003B4763 /* ValidatableCellProtocol.swift in Sources */,
 				FA33302E224A4B3C003B4763 /* EmailEditViewController.swift in Sources */,
@@ -3421,6 +3426,7 @@
 				EFCE6415FD145CE2E62EF813 /* SendViewModel.swift in Sources */,
 				FA0AF8DD21B5297E000B571B /* NextGrowingTextView.swift in Sources */,
 				FA2F56B8210B31E1002C72DC /* AccordionTableViewController.swift in Sources */,
+				308FA5CE23F0582500186F79 /* UITextfield+Length.swift in Sources */,
 				FA0F296A21B1740800E10F5E /* QRCodeReaderView.swift in Sources */,
 				FA79F5FE20C81A9E007876ED /* ValidatableCellProtocol.swift in Sources */,
 				FAA2606C20931A56009FF3DE /* EmailEditViewController.swift in Sources */,
