@@ -417,7 +417,9 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 				completion?(false)
 			}
 		}
-		let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel)
+		let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel) { _ in
+			self.textFieldPopup?.input.activityIndicator.onNext(false)
+		}
 		alert.addTextField(configurationHandler: { (textField) in
 			textField.placeholder = "Enter 6 digit code"
 			textField.keyboardType = .numberPad
