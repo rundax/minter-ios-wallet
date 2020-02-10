@@ -74,6 +74,8 @@ class SendViewController:
 		configure(with: viewModel)
 		setUpTestnetToolbar()
 		automaticallyAdjustsScrollViewInsets = true
+    tableView.beginUpdates()
+    tableView.endUpdates()
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -148,7 +150,7 @@ class SendViewController:
 
 extension SendViewController {
 
-	func configure(with viewModel: SendViewModel) {
+	func configure(with viewModel: SendViewModel) {// swiftlint:disable:this type_body_length cyclomatic_complexity function_body_length
 		txScanButton
 			.rx
 			.tap
@@ -263,6 +265,23 @@ extension SendViewController {
 			.subscribe({ [weak self] (_) in
 				self?.present(self!.readerVC, animated: true, completion: nil)
 			}).disposed(by: disposeBag)
+
+    viewModel
+      .output
+      .openAppSettings
+      .asDriver(onErrorJustReturn: ())
+      .drive(onNext: { [weak self] in
+        self?.openAppSpecificSettings()
+      }).disposed(by: disposeBag)
+
+    viewModel
+      .output
+      .updateTableHeight
+      .asDriver(onErrorJustReturn: ())
+      .drive(onNext: { [weak self] (_) in
+        self?.tableView.beginUpdates()
+        self?.tableView.endUpdates()
+      }).disposed(by: disposeBag)
 
 		readerVC.completionBlock = { [weak self] (result: QRCodeReaderResult?) in
 			self?.readerVC.stopScanning()

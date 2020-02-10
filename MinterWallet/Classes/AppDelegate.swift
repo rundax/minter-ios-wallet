@@ -22,26 +22,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
 		UITextViewWorkaround.executeWorkaround()
+		let isUITesting = ProcessInfo.processInfo.arguments.contains("UITesting")
 
 		let conf = Configuration()
-
-		if ProcessInfo.processInfo.arguments.contains("UITesting") {
+		if isUITesting {
 			MinterGateBaseURLString = "https://qa.gate-api.minter.network"
-			MinterCoreSDK.initialize(urlString: conf.environment.nodeBaseURL, network: isTestnet ? .testnet : .mainnet)
-			MinterExplorerSDK.initialize(APIURLString: conf.environment.testExplorerAPIBaseURL,
-																	 WEBURLString: conf.environment.testExplorerWebURL,
-																	 websocketURLString: conf.environment.testExplorerWebsocketURL)
 		} else {
 			if !isTestnet {
 				MinterGateBaseURLString = "https://gate.apps.minter.network"
+			} else {
+				MinterGateBaseURLString = "https://texasnet.gate-api.minter.network"
 			}
-			MinterCoreSDK.initialize(urlString: conf.environment.nodeBaseURL, network: isTestnet ? .testnet : .mainnet)
-			MinterExplorerSDK.initialize(APIURLString: conf.environment.explorerAPIBaseURL,
-																	 WEBURLString: conf.environment.explorerWebURL,
-																	 websocketURLString: conf.environment.explorerWebsocketURL)
 		}
+		MinterCoreSDK.initialize(urlString: conf.environment.nodeBaseURL, network: isTestnet ? .testnet : .mainnet)
+		MinterExplorerSDK.initialize(APIURLString: isUITesting ? conf.environment.testExplorerAPIBaseURL : conf.environment.explorerAPIBaseURL,
+																 WEBURLString: conf.environment.explorerWebURL,
+																 websocketURLString: conf.environment.explorerWebsocketURL)
 		MinterMySDK.initialize(network: isTestnet ? .testnet : .mainnet)
-        FirebaseApp.configure()
+		FirebaseApp.configure()
 		
 		// this line is important
 		self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -72,6 +70,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func applicationWillTerminate(_ application: UIApplication) {
 	}
+
+  func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+    if let url = userActivity.webpageURL {
+      var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
+      components?.host = ""
+
+      if let newURL = try? components?.asURL() {
+        applicationOpenWithURL.onNext(())
+        (window?.rootViewController as? RootViewController)?.viewModel.input.proceedURL.onNext(newURL)
+      }
+    }
+    return true
+  }
 
 	var applicationOpenWithURL = PublishSubject<Void>()
 	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
@@ -117,11 +128,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		UITabBarItem.appearance().setTitleTextAttributes([
 			NSAttributedStringKey.foregroundColor: UIColor(hex: 0x8A8A8F)!,
-			NSAttributedStringKey.font : UIFont.mediumFont(of: 11.0)
+			NSAttributedStringKey.font: UIFont.mediumFont(of: 11.0)
 		], for: .normal)
 		UITabBarItem.appearance().setTitleTextAttributes([
-			NSAttributedStringKey.foregroundColor : UIColor.mainColor(),
-			NSAttributedStringKey.font : UIFont.mediumFont(of: 11.0)
+			NSAttributedStringKey.foregroundColor: UIColor.mainColor(),
+			NSAttributedStringKey.font: UIFont.mediumFont(of: 11.0)
 		], for: .selected)
 	}
 }

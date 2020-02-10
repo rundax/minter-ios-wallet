@@ -4,9 +4,9 @@ use_frameworks!
 platform :ios, '10.0'
 
 def shared_pods
-	pod 'MinterCore', :path => '../minter-ios-core'
-	pod 'MinterMy', :path => '../minter-ios-my'
-	pod 'MinterExplorer', :path => '../minter-ios-explorer'
+	pod 'MinterCore', :git => 'https://github.com/MinterTeam/minter-ios-core.git', :branch => 'texas'
+	pod 'MinterMy'#, :path => '../../minter-ios-my'
+	pod 'MinterExplorer'#, :path => '../../minter-ios-explorer'
 	pod 'Alamofire'
 	pod 'AlamofireImage'
 	pod 'RxSwift'
@@ -33,6 +33,7 @@ def shared_pods
 	pod 'CryptoSwift', '~> 1.0'
 	pod 'SwiftLint'
   pod 'SwiftOTP'
+  pod 'DeckTransition', '~> 2.0'
 end
 
 target 'MinterWallet' do

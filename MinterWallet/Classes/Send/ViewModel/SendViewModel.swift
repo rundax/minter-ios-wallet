@@ -17,6 +17,7 @@ import RxBiBinding
 import RxRelay
 import SwiftOTP
 import NotificationBannerSwift
+import AVFoundation
 
 struct AccountPickerItem {
 	var title: String?
@@ -37,18 +38,23 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 	var input: SendViewModel.Input!
 	var output: SendViewModel.Output!
 	var dependency: SendViewModel.Dependency!
+
 	struct Input {
 		var payload: AnyObserver<String?>
 		var txScanButtonDidTap: AnyObserver<Void>
 		var didScanQR: AnyObserver<String?>
 		var recipient: AnyObserver<Recipient?>
 	}
+
 	struct Output {
 		var errorNotification: Observable<NotifiableError?>
 		var txErrorNotification: Observable<NotifiableError?>
 		var popup: Observable<PopupViewController?>
 		var showViewController: Observable<UIViewController?>
+    var openAppSettings: Observable<Void>
+    var updateTableHeight: Observable<Void>
 	}
+
 	struct Dependency {
 //		var gate: SendViewModelGateProtocol
 //		var info: SendViewModelInfoProtocol
@@ -61,11 +67,15 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 	}
 
 	typealias FormChangedObservable = (String?, String?, String?, String?)
+
+  private let updateTableHeight = PublishSubject<Void>()
 	private let coinSubject = BehaviorRelay<String?>(value: "")
 	private let sendToSubject = BehaviorRelay<String?>(value: "")
 	private let addressSubject = BehaviorRelay<String?>(value: "")
 	private var recipientSelectedSubject = BehaviorRelay<Recipient?>(value: nil)
 	private let amountSubject = BehaviorRelay<String?>(value: "")
+  //used to update input amount value
+  private let clearAmountBehavior = BehaviorRelay<String?>(value: "")
 	private var formChangedObservable: Observable<FormChangedObservable> {
 		return Observable.combineLatest(coinSubject.asObservable(),
 																		addressSubject.asObservable(),
@@ -74,6 +84,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 																		}).asObservable(),
 																		payloadSubject.asObservable())
 	}
+  private let openAppSettingsSubject = PublishSubject<Void>()
 
 	let fakePK = Data(hex: "678b3252ce9b013cef922687152fb71d45361b32f8f9a57b0d11cc340881c999").toHexString()
 
@@ -191,10 +202,24 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 		self.output = Output(errorNotification: errorNotificationSubject.asObservable(),
 												 txErrorNotification: txErrorNotificationSubject.asObservable(),
 												 popup: popupSubject.asObservable(),
-												 showViewController: showViewControllerSubject.asObservable())
+												 showViewController: showViewControllerSubject.asObservable(),
+                         openAppSettings: openAppSettingsSubject.asObservable(),
+                         updateTableHeight: updateTableHeight.asObservable())
 		self.dependency = dependency
 
 		super.init()
+
+    amountSubject
+      .asObservable()
+      .distinctUntilChanged()
+      .throttle(1.0, scheduler: MainScheduler.instance)
+      .subscribe(onNext: { [weak self] (val) in
+        if (val ?? "") == "," || (val ?? "") == "." {
+          self?.amountSubject.accept("0.")
+        } else {
+          self?.amountSubject.accept(val)
+        }
+    }).disposed(by: disposeBag)
 
 		payloadSubject.asObservable().subscribe(onNext: { (payld) in
 			let data = (payld ?? "").data(using: .utf8) ?? Data()
@@ -215,7 +240,8 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 			self?.clearPayloadSubject.onNext(val)
 		}).disposed(by: disposeBag)
 
-		Session.shared
+		Session
+      .shared
 			.allBalances
 			.asObservable()
 			.distinctUntilChanged()
@@ -251,6 +277,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 				let url = URL(string: val ?? "")
 				if true == val?.isValidPublicKey() || true == val?.isValidAddress() {
 					self?.sendToSubject.accept(val)
+					return
 				} else if
 					let url = url,
 					let rawViewController = RawTransactionRouter.rawTransactionViewController(with: url) {
@@ -352,12 +379,33 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 						self?.addressSubject.accept(addr)
 						self?.addressStateSubject.onNext(.default)
 					}
-					break
+
 				case .error(_):
 					self?.addressStateSubject.onNext(.invalid(error: "USERNAME CAN NOT BE FOUND".localized()))
-					break
+
 				}
-			}).disposed(by: disposeBag)
+    }).disposed(by: disposeBag)
+
+    txScanButtonDidTap.asObservable().subscribe(onNext: { [weak self] (_) in
+      switch AVCaptureDevice.authorizationStatus(for: .video) {
+      case .notDetermined:
+        AVCaptureDevice.requestAccess(for: .video) { granted in
+          if granted {} else {
+            self?.openAppSettingsSubject.onNext(())
+          }
+        }
+      case .denied:
+        self?.openAppSettingsSubject.onNext(())
+        return
+
+      case .restricted:
+        self?.openAppSettingsSubject.onNext(())
+        return
+
+      default:
+        return
+      }
+      }).disposed(by: disposeBag)
 	}
 	
 	func getEmails(_ rec: String?, completion: (([Recipient]?) -> Void)?) {
@@ -410,7 +458,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 		amount.title = "AMOUNT".localized()
 		amount.stateObservable = amountStateSubject.asObservable()
 		amount.keyboardType = .decimalPad
-		(amount.text <-> amountSubject).disposed(by: disposeBag)
+    (amount.text <-> amountSubject).disposed(by: disposeBag)
 		amount
 			.output?
 			.didTapUseMax
@@ -421,12 +469,15 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 				self?.amountSubject.accept(selectedAmount)
 			}).disposed(by: disposeBag)
 
-		let payload = TextViewTableViewCellItem(reuseIdentifier: "SendPayloadTableViewCell",
-																						identifier: "SendPayloadTableViewCell_Payload")
-		payload.title = "PAYLOAD MESSAGE (max 1024 symbols)".localized()
+		let payload = SendPayloadTableViewCellItem(reuseIdentifier: "SendPayloadTableViewCell",
+                                               identifier: "SendPayloadTableViewCell_Payload")
+		payload.title = "MESSAGE (max 1024 bytes)".localized()
 		payload.keybordType = .default
 		payload.stateObservable = payloadStateObservable.asObservable()
 		payload.titleObservable = clearPayloadSubject.asObservable()
+    payload.didTapAddMessage.subscribe(onNext: { [weak self] _ in
+      self?.updateTableHeight.onNext(())
+      }).disposed(by: disposeBag)
 
 		let fee = TwoTitleTableViewCellItem(reuseIdentifier: "TwoTitleTableViewCell",
 																				identifier: CellIdentifierPrefix.fee.rawValue)

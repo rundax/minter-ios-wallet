@@ -7,45 +7,57 @@
 //
 
 import RxSwift
-import MinterExplorer
-import MinterMy
-import BigInt
+import RxCocoa
+import PassKit
 import MinterCore
+import MinterMy
+import MinterExplorer
+import BigInt
 import RxRelay
 import SwiftOTP
 import NotificationBannerSwift
 
 class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 	fileprivate let emailFeeAmount = "20"
-	fileprivate let emailFeeAddress = "Mxb99b07b06d38b0b3845e96d973b88940ec6a732f" //"Mx000ceac2471e7d4c269464b0e66b67b44d700001"
-	fileprivate let emailFeeCurrency = "BIP"
+	fileprivate let emailFeeAddress = "Mx000ceac2471e7d4c269464b0e66b67b44d700001"
+	fileprivate let emailFeeCurrency = UIApplication.realAppDelegate()!.isTestnet ? "MNT" : "BIP"
 	
 	private var selectedAddress: String?
 	private var textFieldPopup: TextFieldPopupViewModel?
 	
 	// MARK: - ViewModelProtocol
 
-	var input: ReceiveViewModel.Input!
-	var output: ReceiveViewModel.Output!
-	struct Input {
-		var email: AnyObserver<String?>
-		var attachEmailButtonDidTap: AnyObserver<Void>
-	}
-	struct Output {
-		var errorNotification: Observable<NotifiableError?>
-		var txErrorNotification: Observable<NotifiableError?>
-		var popup: Observable<PopupViewController?>
-		var showViewController: Observable<UIViewController?>
-	}
-	struct Dependency {}
-	
-	let fakePK = Data(hex: "678b3252ce9b013cef922687152fb71d45361b32f8f9a57b0d11cc340881c999").toHexString()
+		struct Dependency {
+			var accounts: Observable<[Account]>
+		}
 
-	var title: String {
-		get {
+		struct Input {
+			var didTapAddPass: AnyObserver<Void>
+			var email: AnyObserver<String?>
+			var attachEmailButtonDidTap: AnyObserver<Void>
+		}
+
+		struct Output {
+			var showViewController: Observable<UIViewController?>
+			var errorNotification: Observable<NotifiableError?>
+			var isLoadingPass: Observable<Bool>
+			var shouldShowPass: Observable<Bool>
+
+			var txErrorNotification: Observable<NotifiableError?>
+			var popup: Observable<PopupViewController?>
+		}
+
+		var dependencies: ReceiveViewModel.Dependency!
+		var input: ReceiveViewModel.Input!
+		var output: ReceiveViewModel.Output!
+
+		// MARK: -
+
+		var title: String {
 			return "Receive Coins".localized()
 		}
-	}
+	
+	let fakePK = Data(hex: "678b3252ce9b013cef922687152fb71d45361b32f8f9a57b0d11cc340881c999").toHexString()
 	
 	var baseCoinBalance: Decimal {
 		let balances = Session.shared.allBalances.value
@@ -88,20 +100,47 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 
 	var sections = Variable([BaseTableSectionItem]())
 
+  private var didTapAddPassSubject = PublishSubject<Void>()
+  private var isLoadingPassSubject = PublishSubject<Bool>()
+  private var shouldShowPassSubject = BehaviorRelay(value: PKPassLibrary.isPassLibraryAvailable())
+
 	// MARK: -
 
 	var sectionsObservable: Observable<[BaseTableSectionItem]> {
 		return self.sections.asObservable()
 	}
 
-	override init() {
-		self.input = Input(email: emailSubject.asObserver(), attachEmailButtonDidTap: attachEmailButtonDidTap.asObserver())
-		self.output = Output(errorNotification: errorNotificationSubject.asObservable(),
-												 txErrorNotification: txErrorNotificationSubject.asObservable(),
-												 popup: popupSubject.asObservable(),
-												 showViewController: showViewControllerSubject.asObservable())
-
+  init(dependency: Dependency) {
 		super.init()
+
+    self.dependencies = dependency
+
+		input = Input(didTapAddPass: didTapAddPassSubject.asObserver(), email: emailSubject.asObserver(), attachEmailButtonDidTap: attachEmailButtonDidTap.asObserver())
+    output = Output(showViewController: showViewControllerSubject.asObservable(),
+                    errorNotification: errorNotificationSubject.asObservable(),
+                    isLoadingPass: isLoadingPassSubject.asObservable(),
+										shouldShowPass: shouldShowPassSubject.asObservable(), txErrorNotification: txErrorNotificationSubject.asObservable(), popup: popupSubject.asObservable())
+
+    bind()
+	}
+
+  var accounts: [Account] = [] {
+    didSet {
+      self.createSections()
+    }
+  }
+
+  func bind() {
+
+    didTapAddPassSubject.asObservable().subscribe(onNext: { [weak self] (_) in
+      self?.getPass()
+    }).disposed(by: disposeBag)
+
+    dependencies
+      .accounts.asObservable()
+      .subscribe(onNext: { [weak self] (accounts) in
+        self?.accounts = accounts
+    }).disposed(by: disposeBag)
 		
 		Session.shared.accounts.asDriver().drive(onNext: { [weak self] (accounts) in
 			self?.createSections()
@@ -110,24 +149,29 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 		attachEmailButtonDidTap.asObservable().subscribe { [weak self] _ in
 			self?.attachEmailButtonTaped()
 		}.disposed(by: disposeBag)
-	}
+  }
+
+  // MARK: -
 
 	func createSections() {
-		guard let accounts = Session.shared.accounts.value.first else {
+		guard let accounts = accounts.first else {
 			return
 		}
 
 		let sctns = [accounts].map { (account) -> BaseTableSectionItem in
 			let sectionId = account.address
 
-			let separator = SeparatorTableViewCellItem(reuseIdentifier: "SeparatorTableViewCell", identifier: "SeparatorTableViewCell_1\(sectionId)")
+			let separator = SeparatorTableViewCellItem(reuseIdentifier: "SeparatorTableViewCell",
+                                                 identifier: "SeparatorTableViewCell_1\(sectionId)")
 
-			let address = AddressTableViewCellItem(reuseIdentifier: "AddressTableViewCell", identifier: "AddressTableViewCell_" + sectionId)
+			let address = AddressTableViewCellItem(reuseIdentifier: "AddressTableViewCell",
+                                             identifier: "AddressTableViewCell_" + sectionId)
 			address.address = "Mx" + account.address
 			address.buttonTitle = "Copy".localized()
 
-			let qr = QRTableViewCellItem(reuseIdentifier: "QRTableViewCell", identifier: "QRTableViewCell")
-			qr.string = "Mx" + account.address
+			let qrCell = QRTableViewCellItem(reuseIdentifier: "QRTableViewCell",
+                                   identifier: "QRTableViewCell")
+			qrCell.string = "Mx" + account.address
 
 			let cashedRecipient = JSONStorage<Recipient>(storageType: .permanent, filename: Session.shared.accounts.value.first(where: { $0.isMain })?.address ?? "")
 			let email = ReceiveEmailTableViewCellItem(reuseIdentifier: "ReceiveEmailTableViewCell", identifier: "ReceiveEmailTableViewCell_" + sectionId)
@@ -138,17 +182,17 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 			var section = BaseTableSectionItem(header: "YOUR CREDENTIALS".localized())
 			section.identifier = sectionId
 
-			section.items = [email, address, separator, qr]
+			section.items = [email, address, separator, qrCell]
 			return section
 		}
 
 		self.sections.value = sctns
 	}
-	
+
 	// MARK: - Share
 
 	func activities() -> [Any]? {
-		guard let account = Session.shared.accounts.value.first else {
+		guard let account = accounts.first else {
 			return nil
 		}
 
@@ -173,6 +217,32 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 	func cellItem(section: Int, row: Int) -> BaseCellItem? {
 		return sections.value[safe: section]?.items[safe: row]
 	}
+
+	// MARK: -
+
+  let passbookManager = PassbookManager()
+
+  func getPass() {
+    guard let account = accounts.first else {
+      return
+    }
+
+    let address = account.address
+    isLoadingPassSubject.onNext(true)
+    passbookManager.pass(with: "Mx" + address) { [weak self] (data, error) in
+      self?.isLoadingPassSubject.onNext(false)
+      guard let passData = data else {
+        //show error
+        return
+      }
+      var errorPointer: NSError?
+      let pass = PKPass(data: passData, error: &errorPointer)
+      if errorPointer == nil {
+        let controller = PKAddPassesViewController(pass: pass)
+        self?.showViewControllerSubject.onNext(controller)
+      }
+    }
+  }
 	
 	// MARK: -
 

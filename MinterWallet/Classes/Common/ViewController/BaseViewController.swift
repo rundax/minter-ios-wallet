@@ -180,9 +180,7 @@ extension UIViewController: TestnetToolbarProtocol {
 	@objc func didTapTestnetToolbar() {
 		let conf = Configuration()
 		if let url = URL(string: conf.environment.appstoreURLString) {
-			UIApplication.shared.open(url, options: [:]) { (res) in
-				
-			}
+			UIApplication.shared.open(url, options: [:]) { (res) in}
 		}
 	}
 }
@@ -236,4 +234,17 @@ extension UIViewController {
 			self.tabBarController?.present(viewController, animated: true, completion: nil)
 		}
 	}
+}
+
+extension UIViewController {
+
+  @objc func openAppSpecificSettings() {
+    guard let url = URL(string: UIApplicationOpenSettingsURLString), UIApplication.shared.canOpenURL(url) else {
+            return
+    }
+
+    let optionsKeyDictionary = [UIApplication.OpenExternalURLOptionsKey(string: "universalLinksOnly"): NSNumber(value: true)]
+    UIApplication.shared.open(url, options: optionsKeyDictionary as [String: Any], completionHandler: nil)
+  }
+
 }
