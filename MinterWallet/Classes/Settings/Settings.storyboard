@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qYw-04-4Gc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qYw-04-4Gc">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Ubuntu-M.ttf">
+            <string>Ubuntu-Medium</string>
+        </array>
         <array key="Ubuntu-R.ttf">
             <string>Ubuntu</string>
         </array>
@@ -82,6 +86,49 @@
                                         <connections>
                                             <outlet property="avatarImageView" destination="SPb-JB-hBQ" id="nkh-mO-RXC"/>
                                             <outlet property="changeAvatarButton" destination="01D-QP-fpg" id="hzZ-77-Z8M"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountPickerTableViewCell" rowHeight="75" id="mLY-qq-10t" customClass="PickerTableViewCell" customModule="MinterWallet" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="145.5" width="375" height="75"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mLY-qq-10t" id="8Xd-fo-jgv">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAD-K1-GOO">
+                                                    <rect key="frame" x="20" y="2" width="0.0" height="0.0"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" id="F8l-nq-MZG"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="11"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rll-Jg-kXj" customClass="ValidatableTextField" customModule="MinterWallet" customModuleProvider="target">
+                                                    <rect key="frame" x="10" y="10" width="355" height="55"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="46" id="RU9-SH-GOK"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="16"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="mLY-qq-10t" id="qd8-fL-xb5"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="rll-Jg-kXj" firstAttribute="top" secondItem="cAD-K1-GOO" secondAttribute="bottom" constant="8" id="HyO-L2-7yL"/>
+                                                <constraint firstAttribute="trailing" secondItem="rll-Jg-kXj" secondAttribute="trailing" constant="10" id="KZO-bM-gJ1"/>
+                                                <constraint firstItem="rll-Jg-kXj" firstAttribute="leading" secondItem="8Xd-fo-jgv" secondAttribute="leading" constant="10" id="Ru9-OH-ohS"/>
+                                                <constraint firstItem="cAD-K1-GOO" firstAttribute="top" secondItem="8Xd-fo-jgv" secondAttribute="top" constant="2" id="Xn1-Hn-mK8"/>
+                                                <constraint firstItem="cAD-K1-GOO" firstAttribute="leading" secondItem="rll-Jg-kXj" secondAttribute="leading" constant="10" id="ukD-xo-xpp"/>
+                                                <constraint firstAttribute="bottom" secondItem="rll-Jg-kXj" secondAttribute="bottom" constant="10" id="uzq-OP-e2b"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <viewLayoutGuide key="safeArea" id="jFe-su-xxv"/>
+                                        <connections>
+                                            <outlet property="label" destination="cAD-K1-GOO" id="qEI-ew-gne"/>
+                                            <outlet property="selectField" destination="rll-Jg-kXj" id="Cl2-k0-3wB"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

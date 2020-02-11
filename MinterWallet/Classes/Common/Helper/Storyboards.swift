@@ -683,10 +683,13 @@ extension SettingsViewController {
 
     enum Reusable: String, CustomStringConvertible, ReusableViewProtocol {
         case SettingsAvatarTableViewCell_ = "SettingsAvatarTableViewCell"
+        case AccountPickerTableViewCell = "AccountPickerTableViewCell"
 
         var kind: ReusableKind? {
             switch self {
             case .SettingsAvatarTableViewCell_:
+                return ReusableKind(rawValue: "tableViewCell")
+            case .AccountPickerTableViewCell:
                 return ReusableKind(rawValue: "tableViewCell")
             }
         }
@@ -695,6 +698,8 @@ extension SettingsViewController {
             switch self {
             case .SettingsAvatarTableViewCell_:
                 return SettingsAvatarTableViewCell.self
+            case .AccountPickerTableViewCell:
+                return PickerTableViewCell.self
             }
         }
 

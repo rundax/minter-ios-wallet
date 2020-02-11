@@ -50,6 +50,7 @@ class PickerTableViewCell: BaseCell, UITextFieldDelegate {
 			selectField.layer.borderColor = UIColor.mainGreyColor(alpha: 0.4).cgColor
 			selectField.rightView = rightView
 			selectField.rightViewMode = .always
+			selectField.rightPadding = imageView.frame.width + 10
 		}
 	}
 
@@ -79,7 +80,18 @@ class PickerTableViewCell: BaseCell, UITextFieldDelegate {
 		if let pickerItem = item as? PickerTableViewCellItem {
 			self.label.text = pickerItem.title
 			if let selected = pickerItem.selected {
-				self.selectField.text = selected.title
+				guard let title = selected.title else { return }
+				if title.count >= 42 {
+					let attributedString = NSMutableAttributedString(string: selected.title ?? "")
+					let paragraphStyle = NSMutableParagraphStyle()
+					paragraphStyle.lineBreakMode = .byTruncatingMiddle
+					attributedString.addAttribute(.paragraphStyle,
+																				value: paragraphStyle,
+																				range: NSMakeRange(0, attributedString.length))
+					self.selectField.attributedText = attributedString
+				} else {
+					self.selectField.text = title
+				}
 			}
 		}
 

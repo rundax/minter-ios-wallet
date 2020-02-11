@@ -32,7 +32,7 @@ class AccountManager {
 	//TODO: rename
 	private let passwordKey = "AccountPassword"
 	private let iv = Data(bytes: "Minter seed".bytes).setLengthRight(16)
-    private let secretCodeKey = "secretPairedCodeKey"
+	private let secretCodeKey = "secretPairedCodeKey"
 
 	// MARK: -
 	//Account with seed

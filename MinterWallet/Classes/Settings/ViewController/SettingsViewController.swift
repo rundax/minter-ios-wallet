@@ -23,9 +23,6 @@ class SettingsViewController: BaseViewController, UITableViewDelegate, UITableVi
 			tableView.estimatedRowHeight = 54.0
 		}
 	}
-	@IBAction func logButton(_ sender: Any) {
-		viewModel.rightButtonTapped()
-	}
 	@IBOutlet var bottomView: UIView!
 	@IBOutlet weak var infoLabel: UILabel!
 
@@ -127,11 +124,16 @@ class SettingsViewController: BaseViewController, UITableViewDelegate, UITableVi
 
 		if self.shouldShowTestnetToolbar {
 			self.view.addSubview(self.testnetToolbarView)
-			self.tableView.contentInset = UIEdgeInsets(top: 57,
+			self.tableView.contentInset = UIEdgeInsets(top: 40,
 																								 left: 0,
 																								 bottom: 0,
 																								 right: 0)
-			self.tableView.contentOffset = CGPoint(x: 0, y: -57)
+			self.tableView.contentOffset = CGPoint(x: 0, y: -40)
+		} else {
+			self.tableView.contentInset = UIEdgeInsets(top: -16,
+																								 left: 0,
+																								 bottom: 0,
+																								 right: 0)
 		}
 	}
 
@@ -155,6 +157,8 @@ class SettingsViewController: BaseViewController, UITableViewDelegate, UITableVi
 											 forCellReuseIdentifier: "SwitchTableViewCell")
 		tableView.register(UINib(nibName: "DefaultHeader", bundle: nil),
 											 forHeaderFooterViewReuseIdentifier: "DefaultHeader")
+		tableView.register(UINib(nibName: "PickerTableViewCell", bundle: nil),
+											 forCellReuseIdentifier: "PickerTableViewCell")
 	}
 
 	// MARK: - TableView
@@ -334,7 +338,16 @@ extension SettingsViewController: ButtonTableViewCellDelegate {
 		AnalyticsHelper.defaultAnalytics.track(event: .settingsLogoutButton)
 
 		SoundHelper.playSoundIfAllowed(type: .cancel)
-		viewModel.rightButtonTapped()
+		
+		if let indexPath = tableView.indexPath(for: cell),
+		let item = viewModel.cellItem(section: indexPath.section, row: indexPath.row) {
+			if item.identifier == "ButtonTableViewCell_Account" {
+				// add account
+			} else {
+				// log out
+				viewModel.rightButtonTapped()
+			}
+		}
 	}
 }
 

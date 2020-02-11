@@ -188,6 +188,21 @@ class SettingsViewModel: BaseViewModel, ViewModelProtocol {
 			section.items = items
 			sctns.append(section)
 		}
+		
+		let account = PickerTableViewCellItem(reuseIdentifier: "AccountPickerTableViewCell",
+																			 identifier: "PickerTableViewCell_Account")
+		let address = Session.shared.accounts.value.first(where: { $0.isMain })?.address ?? ""
+		let pickerItem = PickerTableViewCellPickerItem(title: "Mx" + address, object: address)
+		account.selected = pickerItem
+		
+		let addAccountButton = ButtonTableViewCellItem(reuseIdentifier: "ButtonTableViewCell",
+																				 identifier: "ButtonTableViewCell_Account")
+		addAccountButton.buttonPattern = "blank"
+		addAccountButton.title = "ADD ACCOUNT".localized()
+		
+		var section0 = BaseTableSectionItem(header: "ACCOUNTS".localized())
+		section0.items = [account, addAccountButton]
+		sctns.append(section0)
 
 		let addresses = DisclosureTableViewCellItem(reuseIdentifier: "DisclosureTableViewCell",
 																								identifier: "DisclosureTableViewCell_Addresses")
