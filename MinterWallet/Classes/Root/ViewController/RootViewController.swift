@@ -203,7 +203,9 @@ class RootViewController: UIViewController, ControllerType {
 				}
 			} else {
 				//has local accounts, show wallet
-				tabbarVC.selectedIndex = 0
+				if accounts.count == 1 {
+					tabbarVC.selectedIndex = 0
+				}
 				self.showViewControllerWith(tabbarVC, usingAnimation: .up) { [weak self] in
 					self?.presenting = false
 				}

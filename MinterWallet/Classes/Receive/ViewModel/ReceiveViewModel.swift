@@ -154,11 +154,8 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
   // MARK: -
 
 	func createSections() {
-		guard let accounts = accounts.first else {
-			return
-		}
 
-		let sctns = [accounts].map { (account) -> BaseTableSectionItem in
+		let sctns = accounts.map { (account) -> BaseTableSectionItem in
 			let sectionId = account.address
 
 			let separator = SeparatorTableViewCellItem(reuseIdentifier: "SeparatorTableViewCell",
@@ -170,10 +167,10 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 			address.buttonTitle = "Copy".localized()
 
 			let qrCell = QRTableViewCellItem(reuseIdentifier: "QRTableViewCell",
-                                   identifier: "QRTableViewCell")
+                                   identifier: "QRTableViewCell_" + sectionId)
 			qrCell.string = "Mx" + account.address
 
-			let cashedRecipient = JSONStorage<Recipient>(storageType: .permanent, filename: Session.shared.accounts.value.first(where: { $0.isMain })?.address ?? "")
+			let cashedRecipient = JSONStorage<Recipient>(storageType: .permanent, filename: accounts.first(where: { $0.isMain })?.address ?? "")
 			let email = ReceiveEmailTableViewCellItem(reuseIdentifier: "ReceiveEmailTableViewCell", identifier: "ReceiveEmailTableViewCell_" + sectionId)
 			email.recipient = cashedRecipient.storedValue
 			email.buttonTitle = "Copy".localized()
@@ -192,7 +189,7 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 	// MARK: - Share
 
 	func activities() -> [Any]? {
-		guard let account = accounts.first else {
+		guard let account = accounts.first(where: { $0.isMain }) else {
 			return nil
 		}
 
@@ -223,7 +220,7 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
   let passbookManager = PassbookManager()
 
   func getPass() {
-    guard let account = accounts.first else {
+    guard let account = accounts.first(where: { $0.isMain }) else {
       return
     }
 
@@ -525,7 +522,7 @@ extension ReceiveViewModel {
 			viewModel = TextFieldPopupViewModel(popupTitle: "Change your email for your address".localized())
 		}
 
-		guard let account = Session.shared.accounts.value.first else {
+		guard let account = accounts.first(where: { $0.isMain }) else {
 			print("ERROR! No accounts found!")
 			Session.shared.logout()
 			return viewModel

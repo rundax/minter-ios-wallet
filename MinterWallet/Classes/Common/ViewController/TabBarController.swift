@@ -19,12 +19,21 @@ class TabBarController: UITabBarController {
 		super.viewDidLoad()
 
 		Session.shared.accounts.asObservable().distinctUntilChanged().filter({ (val) -> Bool in
-			return val.count == 0
+			return val.count != 0
 		}).subscribe(onNext: { [weak self] _ in
 
 			self?.viewControllers?.forEach({ (vc) in
 				if let nav = vc as? UINavigationController {
-					nav.popToRootViewController(animated: false)
+					let containsAddressScreen = nav.childViewControllers.contains(where: { vc in
+						if vc.isKind(of: AddressViewController.self) {
+							nav.popToViewController(vc, animated: true)
+							return true
+						}
+						return false
+					})
+					if !containsAddressScreen {
+						nav.popToRootViewController(animated: false)
+					}
 				}
 			})
 		}).disposed(by: disposeBag)

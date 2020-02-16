@@ -292,35 +292,32 @@ class Session {
 	}
 
 	func loadDelegatedBalance() {
-		let addresses = accounts.value.map({ (account) -> String in
-			return "Mx" + account.address.stripMinterHexPrefix()
-		})
-
-		guard addresses.count > 0 else {
-			return
-		}
-
-		ExplorerAddressManager.default
-			.delegations(address: addresses.first!)
-			.subscribe(onNext: { [weak self] (delegation, total) in
-				self?.allDelegatedBalance.onNext(delegation ?? [])
-				if total != nil {
-					self?.delegatedBalance.onNext(total ?? 0.0)
-				} else {
-					let delegated = delegation?.reduce(0) { $0 + ($1.bipValue ?? 0.0) }
-					self?.delegatedBalance.onNext(delegated ?? 0.0)
+		let addresses = accounts.value
+					.compactMap ({ "Mx" + $0.address.stripMinterHexPrefix() })
+		
+		Observable.combineLatest(addresses.map { ExplorerAddressManager.default
+			.delegations(address: $0) }).subscribe( { [weak self] values in
+				var total: Decimal = 0.0
+				for idx in 0..<addresses.count {
+					if values.element?[idx].1 != nil {
+						total = total + (values.element?[idx].1 ?? 0.0)
+					} else {
+						let delegated = values.element?[idx].0?.reduce(0) { $0 + ($1.bipValue ?? 0.0) }
+						total = total + (delegated ?? 0.0)
+					}
 				}
-			}).disposed(by: disposeBag)
+				
+				self?.delegatedBalance.onNext(total)
+			})
+			.disposed(by: disposeBag)
 	}
 
 	func loadBalances() {
-		guard let address = accounts.value.map({ (account) -> String in
-			return "Mx" + account.address.stripMinterHexPrefix()
-		}).first else {
-			return
-		}
-
-		addressManager.address(address: address, withSum: true) { [weak self] (response, err) in
+		let addresses = accounts.value
+			.compactMap ({ "Mx" + $0.address.stripMinterHexPrefix() })
+		if addresses.count == 0 { return }
+		
+		addressManager.addresses(addresses: addresses, withSum: true) { [weak self] (response, err) in
 			guard (self?.isLoggedIn.value ?? false) || (self?.accounts.value ?? []).count > 0 else {
 				return
 			}
@@ -330,49 +327,50 @@ class Session {
 			}
 
 			var newMainCoinBalance = Decimal(0.0)
-
-			let address = response ?? [:]
-			guard let ads = (address["address"] as? String)?.stripMinterHexPrefix(),
-				let coins = address["balances"] as? [[String: Any]] else {
-				return
-			}
-
-			if let totalBalanceBaseCoin = address["total_balance_sum"] as? String,
-				let totalBalance = Decimal(string: totalBalanceBaseCoin) {
-				self?.totalMainCoinBalance.onNext(totalBalance)
-			}
-
-			if let totalBalanceUSD = address["total_balance_sum_usd"] as? String,
-				let totalBalance = Decimal(string: totalBalanceUSD) {
-				self?.totalUSDBalance.onNext(totalBalance)
-			}
-
-			let baseCoinBalance = coins.filter({ (dict) -> Bool in
-				return ((dict["coin"] as? String) ?? "").uppercased() == Coin.baseCoin().symbol!.uppercased()
-			}).map({ (dict) -> Decimal in
-				return Decimal(string: (dict["amount"] as? String) ?? "0.0") ?? 0.0
-			}).reduce(0, +)
-
-			self?.baseCoinBalances.value[ads] = baseCoinBalance
-
-			newMainCoinBalance += baseCoinBalance
-
-			var newAllBalances = self?.allBalances.value
-
-			var blncs = [String: Decimal]()
-			if let defaultCoin = Coin.baseCoin().symbol {
-				blncs[defaultCoin] = 0.0
-			}
-			coins.forEach({ (dict) in
-				if let key = dict["coin"] as? String {
-					let amnt = Decimal(string: (dict["amount"] as? String) ?? "0.0") ?? 0.0
-					blncs[key.uppercased()] = amnt
+			
+			for address in response ?? [] {
+				guard let ads = (address["address"] as? String)?.stripMinterHexPrefix(),
+					let coins = address["balances"] as? [[String: Any]] else {
+					return
 				}
-			})
 
-			newAllBalances?[ads] = blncs
-			self?.allBalances.value = newAllBalances ?? [:]
-			self?.mainCoinBalance.value = newMainCoinBalance
+				if let totalBalanceBaseCoin = address["total_balance_sum"] as? String,
+					let totalBalance = Decimal(string: totalBalanceBaseCoin) {
+					self?.totalMainCoinBalance.onNext(totalBalance)
+				}
+
+				if let totalBalanceUSD = address["total_balance_sum_usd"] as? String,
+					let totalBalance = Decimal(string: totalBalanceUSD) {
+					self?.totalUSDBalance.onNext(totalBalance)
+				}
+
+				let baseCoinBalance = coins.filter({ (dict) -> Bool in
+					return ((dict["coin"] as? String) ?? "").uppercased() == Coin.baseCoin().symbol!.uppercased()
+				}).map({ (dict) -> Decimal in
+					return Decimal(string: (dict["amount"] as? String) ?? "0.0") ?? 0.0
+				}).reduce(0, +)
+
+				self?.baseCoinBalances.value[ads] = baseCoinBalance
+
+				newMainCoinBalance += baseCoinBalance
+
+				var newAllBalances = self?.allBalances.value
+
+				var blncs = [String: Decimal]()
+				if let defaultCoin = Coin.baseCoin().symbol {
+					blncs[defaultCoin] = 0.0
+				}
+				coins.forEach({ (dict) in
+					if let key = dict["coin"] as? String {
+						let amnt = Decimal(string: (dict["amount"] as? String) ?? "0.0") ?? 0.0
+						blncs[key.uppercased()] = amnt
+					}
+				})
+
+				newAllBalances?[ads] = blncs
+				self?.allBalances.value = newAllBalances ?? [:]
+				self?.mainCoinBalance.value = newMainCoinBalance
+			}
 		}
 	}
 

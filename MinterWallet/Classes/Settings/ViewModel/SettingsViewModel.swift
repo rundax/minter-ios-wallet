@@ -189,26 +189,20 @@ class SettingsViewModel: BaseViewModel, ViewModelProtocol {
 			sctns.append(section)
 		}
 		
-		let account = PickerTableViewCellItem(reuseIdentifier: "AccountPickerTableViewCell",
-																			 identifier: "PickerTableViewCell_Account")
-		let address = Session.shared.accounts.value.first(where: { $0.isMain })?.address ?? ""
-		let pickerItem = PickerTableViewCellPickerItem(title: "Mx" + address, object: address)
-		account.selected = pickerItem
-		
-		let addAccountButton = ButtonTableViewCellItem(reuseIdentifier: "ButtonTableViewCell",
-																				 identifier: "ButtonTableViewCell_Account")
-		addAccountButton.buttonPattern = "blank"
-		addAccountButton.title = "ADD ACCOUNT".localized()
-		
-		var section0 = BaseTableSectionItem(header: "ACCOUNTS".localized())
-		section0.items = [account, addAccountButton]
-		sctns.append(section0)
-
 		let addresses = DisclosureTableViewCellItem(reuseIdentifier: "DisclosureTableViewCell",
 																								identifier: "DisclosureTableViewCell_Addresses")
 		addresses.title = "My Addresses".localized()
 		addresses.value = nil
 		addresses.placeholder = "Manage"
+
+		let addAddressButton = ButtonTableViewCellItem(reuseIdentifier: "ButtonTableViewCell",
+																				 identifier: "ButtonTableViewCell_Account")
+		addAddressButton.buttonPattern = "blank"
+		addAddressButton.title = "ADD ADDRESS".localized()
+
+		var section0 = BaseTableSectionItem(header: "GENERAL".localized())
+		section0.items = [addresses, addAddressButton]
+		sctns.append(section0)
 
 		let button = ButtonTableViewCellItem(reuseIdentifier: "ButtonTableViewCell",
 																				 identifier: "ButtonTableViewCell_Logout")
@@ -350,6 +344,13 @@ class SettingsViewModel: BaseViewModel, ViewModelProtocol {
 				Session.shared.loadUser()
 			})
 		}
+	}
+	
+	func getAccountItems() -> [PickerTableViewCellPickerItem] {
+		let accountManager = AccountManager()
+		let accounts = accountManager.loadLocalAccounts()
+		let items = accounts?.compactMap( { PickerTableViewCellPickerItem(title: "Mx" + $0.address, object: $0) } )
+		return items ?? []
 	}
 }
 

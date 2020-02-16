@@ -159,6 +159,8 @@
                         <segue destination="O93-i3-TIF" kind="show" identifier="showEmail" id="axf-MO-W6z"/>
                         <segue destination="B23-sc-34k" kind="show" identifier="showPassword" id="2ii-bV-X3Q"/>
                         <segue destination="WAu-Ow-htb" kind="show" identifier="showPIN" id="1Lp-zU-5Km"/>
+                        <segue destination="UR8-Ul-Qer" kind="show" identifier="showPairedMode" id="2YV-1K-Znr"/>
+                        <segue destination="00D-ru-Tme" kind="show" identifier="showAdvancedMode" id="FTO-PR-1EX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bNW-24-diw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -181,7 +183,7 @@
                     </constraints>
                 </view>
             </objects>
-            <point key="canvasLocation" x="1096.8" y="169.56521739130437"/>
+            <point key="canvasLocation" x="1106" y="94"/>
         </scene>
         <!--Address-->
         <scene sceneID="ZQb-c7-qm1">
@@ -365,6 +367,26 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WXR-wQ-e6z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2598" y="1877"/>
+        </scene>
+        <!--PairedMode-->
+        <scene sceneID="YnO-Kc-egW">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PairedMode" id="UR8-Ul-Qer" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="vDh-eB-pT1"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VeC-H1-k6a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1856" y="250"/>
+        </scene>
+        <!--AdvancedMode-->
+        <scene sceneID="2Vf-O0-PPb">
+            <objects>
+                <viewControllerPlaceholder storyboardName="AdvancedMode" id="00D-ru-Tme" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="xZN-ln-zvS"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1BX-rK-LyC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1870" y="296"/>
         </scene>
     </scenes>
     <resources>

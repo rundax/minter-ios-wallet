@@ -1,5 +1,5 @@
 //
-//  AddressAddressViewController.swift
+//  AddressViewController.swift
 //  MinterWallet
 //
 //  Created by Alexey Sidorov on 20/04/2018.
@@ -95,7 +95,7 @@ class AddressViewController: BaseViewController, UITableViewDelegate {
 
 		self.navigationController?.navigationItem.rightBarButtonItem = nil
 
-		tableView.contentInset = UIEdgeInsetsMake(-15, 0, 0, 0)
+		tableView.contentInset = UIEdgeInsetsMake(-30, 0, 0, 0)
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -112,27 +112,21 @@ class AddressViewController: BaseViewController, UITableViewDelegate {
 		tableView.register(UINib(nibName: "SeparatorTableViewCell", bundle: nil), forCellReuseIdentifier: "SeparatorTableViewCell")
 		tableView.register(UINib(nibName: "DisclosureTableViewCell", bundle: nil), forCellReuseIdentifier: "DisclosureTableViewCell")
 		tableView.register(UINib(nibName: "DefaultHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "DefaultHeader")
+		tableView.register(UINib(nibName: "ButtonTableViewCell", bundle: nil),
+				forCellReuseIdentifier: "ButtonTableViewCell")
 	}
 	
 	// MARK: -
 
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
-		if section == 0 {
-			return nil
-		}
-
-		let sectionNum = section + 1
-
-		guard let section = viewModel.section(index: section) else {
-			return UIView()
-		}
-
 		let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "DefaultHeader")
 		if let defaultHeader = header as? DefaultHeader {
-			defaultHeader.titleLabel.text = "MAIN ADDRESS".localized()
-			if sectionNum > 1 {
-				defaultHeader.titleLabel.text = "ADDRESS #\(sectionNum)".localized()
+			if section == 0 {
+				defaultHeader.titleLabel.text = "MAIN ADDRESS".localized()
+			} else if section == viewModel.sectionsCount() - 1 {
+				defaultHeader.titleLabel.text = ""
+			} else {
+				defaultHeader.titleLabel.text = "ADDRESS #\(section)".localized()
 			}
 		}
 		return header
@@ -140,21 +134,19 @@ class AddressViewController: BaseViewController, UITableViewDelegate {
 
 	func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
 
-		if section == 0 {
-			return
-		}
-
-		let sectionNum = section
 		if let defaultHeader = view as? DefaultHeader {
-			defaultHeader.titleLabel.text = "MAIN ADDRESS".localized()
-			if sectionNum > 1 {
-				defaultHeader.titleLabel.text = "ADDRESS #\(sectionNum)".localized()
+			if section == 0 {
+				defaultHeader.titleLabel.text = "MAIN ADDRESS".localized()
+			} else if section == viewModel.sectionsCount() - 1 {
+				defaultHeader.titleLabel.text = ""
+			} else {
+				defaultHeader.titleLabel.text = "ADDRESS #\(section)".localized()
 			}
 		}
 	}
 
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		if section == 0 {
+		if section == viewModel.sectionsCount() - 1 {
 			return 0.1
 		}
 		return 52
@@ -182,6 +174,12 @@ class AddressViewController: BaseViewController, UITableViewDelegate {
 				return
 			}
 			switchCell.switch.setOn(item.isOn.value, animated: true)
+			switchCell.switch.isEnabled = !item.isOn.value
+		}
+		
+		if let buttonCell = cell as? ButtonTableViewCell {
+			buttonCell.delegate = self
+			buttonCell.backgroundColor = .clear
 		}
 	}
 
@@ -213,16 +211,22 @@ extension AddressViewController : SwitchTableViewCellDelegate {
 	func didSwitch(isOn: Bool, cell: SwitchTableViewCell) {
 		if let ip = tableView.indexPath(for: cell), let cellItem = viewModel.cellItem(section: ip.section, row: ip.row) {
 			if isOn {
-				viewModel.setMainAccount(isMain: isOn, cellItem: cellItem)
+
+				// Set switch off for previous main address
+				let switchCell = tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as? SwitchTableViewCell
+				switchCell?.switch.setOn(false, animated: true)
+				switchCell?.switch.isEnabled = true
+				(tableView.headerView(forSection: 0) as? DefaultHeader)?.titleLabel.text = "ADDRESS #\(ip.section)".localized()
 				
-				UIView.animate(withDuration: 0.3,
-											 delay: 0.0,
-											 options: [.allowUserInteraction, .beginFromCurrentState, .curveEaseInOut],
-											 animations: { [weak self] in
+				// Set switch on for current main address
+				(self.tableView.headerView(forSection: ip.section) as? DefaultHeader)?.titleLabel.text = "MAIN ADDRESS".localized()
+				let newMainSwitchCell = self.tableView.cellForRow(at: ip) as? SwitchTableViewCell
+				newMainSwitchCell?.switch.isEnabled = false
 
-												self?.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
-				}) { (completed) in
+				viewModel.setMainAccount(isMain: isOn, cellItem: cellItem)
 
+				DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+					self.tableView.setContentOffset(CGPoint(x: 0, y: -50), animated: true)
 				}
 			}
 		}
@@ -236,4 +240,47 @@ extension AddressViewController: AdvancedModeViewControllerDelegate {
 		self.navigationController?.popToViewController(self, animated: true)
 	}
 
+}
+
+extension AddressViewController: ButtonTableViewCellDelegate {
+	func buttonTableViewCellDidTap(_ cell: ButtonTableViewCell) {
+		hardImpactFeedbackGenerator.prepare()
+		hardImpactFeedbackGenerator.impactOccurred()
+
+//	AnalyticsHelper.defaultAnalytics.track(event: .settingsLogoutButton)
+
+		SoundHelper.playSoundIfAllowed(type: .cancel)
+		
+		tableView.endEditing(true)
+
+		let seedMode = PickerTableViewCellPickerItem(title: "SEED MODE".localized(), object: "showAdvancedMode")
+		let pairedMode = PickerTableViewCellPickerItem(title: "PAIRED MODE".localized(), object: "showPairedMode")
+		let items = [seedMode, pairedMode]
+
+		let data: [[String]] = [items.map({ (item) -> String in
+			return item.title ?? ""
+		})]
+
+		let picker = McPicker(data: data)
+		picker.toolbarButtonsColor = .white
+		picker.toolbarDoneButtonColor = .white
+		picker.toolbarBarTintColor = UIColor(hex: 0x4225A4)
+		picker.toolbarItemsFont = UIFont.mediumFont(of: 16.0)
+		let label = UILabel()
+		label.font = UIFont.boldFont(of: 22)
+		label.textAlignment = .center
+		picker.label = label
+		picker.show { [weak self] (selected) in
+			guard let coin = selected[0] else {
+				return
+			}
+			//self?.selectField.text = coin
+
+			if let item = items.filter({ (item) -> Bool in
+				return item.title == coin
+			}).first {
+				self?.performSegue(withIdentifier: item.object as! String, sender: self)
+			}
+		}
+	}
 }

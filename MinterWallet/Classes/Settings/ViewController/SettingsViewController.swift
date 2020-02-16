@@ -11,6 +11,7 @@ import RxSwift
 import RxAppState
 import NotificationBannerSwift
 import Photos
+import MinterMy
 
 class SettingsViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, ControllerType {
 
@@ -124,11 +125,10 @@ class SettingsViewController: BaseViewController, UITableViewDelegate, UITableVi
 
 		if self.shouldShowTestnetToolbar {
 			self.view.addSubview(self.testnetToolbarView)
-			self.tableView.contentInset = UIEdgeInsets(top: 40,
+			self.tableView.contentInset = UIEdgeInsets(top: 55,
 																								 left: 0,
 																								 bottom: 0,
 																								 right: 0)
-			self.tableView.contentOffset = CGPoint(x: 0, y: -40)
 		} else {
 			self.tableView.contentInset = UIEdgeInsets(top: -16,
 																								 left: 0,
@@ -181,6 +181,12 @@ class SettingsViewController: BaseViewController, UITableViewDelegate, UITableVi
 		}
 
 		cell.configure(item: item)
+		
+		if let pickerCell = cell as? PickerTableViewCell {
+			pickerCell.dataSource = self
+			pickerCell.delegate = self
+			pickerCell.updateRightViewMode()
+		}
 
 		if let buttonCell = cell as? ButtonTableViewCell {
 			buttonCell.delegate = self
@@ -342,7 +348,38 @@ extension SettingsViewController: ButtonTableViewCellDelegate {
 		if let indexPath = tableView.indexPath(for: cell),
 		let item = viewModel.cellItem(section: indexPath.section, row: indexPath.row) {
 			if item.identifier == "ButtonTableViewCell_Account" {
-				// add account
+				tableView.endEditing(true)
+				// AnalyticsHelper.defaultAnalytics.track(event: .sendCoinsChooseCoinButton)
+
+				let seedMode = PickerTableViewCellPickerItem(title: "SEED MODE".localized(), object: "showAdvancedMode")
+				let pairedMode = PickerTableViewCellPickerItem(title: "PAIRED MODE".localized(), object: "showPairedMode")
+				let items = [seedMode, pairedMode]
+
+				let data: [[String]] = [items.map({ (item) -> String in
+					return item.title ?? ""
+				})]
+
+				let picker = McPicker(data: data)
+				picker.toolbarButtonsColor = .white
+				picker.toolbarDoneButtonColor = .white
+				picker.toolbarBarTintColor = UIColor(hex: 0x4225A4)
+				picker.toolbarItemsFont = UIFont.mediumFont(of: 16.0)
+				let label = UILabel()
+				label.font = UIFont.boldFont(of: 22)
+				label.textAlignment = .center
+				picker.label = label
+				picker.show { [weak self] (selected) in
+					guard let coin = selected[0] else {
+						return
+					}
+					//self?.selectField.text = coin
+
+					if let item = items.filter({ (item) -> Bool in
+						return item.title == coin
+					}).first {
+						self?.performSegue(withIdentifier: item.object as! String, sender: self)
+					}
+				}
 			} else {
 				// log out
 				viewModel.rightButtonTapped()
@@ -406,5 +443,32 @@ extension SettingsViewController: PINViewControllerDelegate {
 		let pinVC = PINRouter.PINViewController(with: viewModel)
 		pinVC?.delegate = self
 		return pinVC
+	}
+}
+
+extension SettingsViewController: PickerTableViewCellDelegate {
+
+	func didFinish(with item: PickerTableViewCellPickerItem?) {
+		
+		let accounts = Session.shared.accounts.value.map({ (account) -> Account in
+			var acc = account
+			acc.isMain = false
+			if account.address == (item?.object as? Account)?.address {
+				AccountManager().setMain(isMain: true, account: &acc)
+			}
+			return acc
+		})
+		Session.shared.accounts.accept(accounts)
+	}
+
+	func willShowPicker() {
+		tableView.endEditing(true)
+		AnalyticsHelper.defaultAnalytics.track(event: .sendCoinsChooseCoinButton)
+	}
+}
+
+extension SettingsViewController: PickerTableViewCellDataSource {
+	func pickerItems(for cell: PickerTableViewCell) -> [PickerTableViewCellPickerItem] {
+		return viewModel.getAccountItems()
 	}
 }

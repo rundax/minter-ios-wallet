@@ -26,7 +26,7 @@ class AddressViewModel: BaseViewModel {
 
 	private var sections = Variable([BaseTableSectionItem]())
 
-	let accounts = Session.shared.accounts.value.sorted { (acc1, acc2) -> Bool in
+	var accounts = Session.shared.accounts.value.sorted { (acc1, acc2) -> Bool in
 		return acc1.isMain && !acc2.isMain
 	}
 
@@ -38,6 +38,9 @@ class AddressViewModel: BaseViewModel {
 		super.init()
 
 		Session.shared.accounts.asObservable().subscribe(onNext: { [weak self] (accounts) in
+			self?.accounts = Session.shared.accounts.value.sorted { (acc1, acc2) -> Bool in
+				return acc1.isMain && !acc2.isMain
+			}
 			self?.createSections()
 		}).disposed(by: disposableBag)
 
@@ -55,7 +58,7 @@ class AddressViewModel: BaseViewModel {
 	private func createSections() {
 
 		var addressNum = 0
-		let sctns = accounts.map { (account) -> BaseTableSectionItem in
+		var sctns = accounts.map { (account) -> BaseTableSectionItem in
 			addressNum += 1
 
 			let sectionId = account.address
@@ -85,18 +88,15 @@ class AddressViewModel: BaseViewModel {
 
 			let secured = DisclosureTableViewCellItem(reuseIdentifier: "DisclosureTableViewCell",
 																								identifier: "DisclosureTableViewCell_Secured_2\(sectionId)")
-			secured.title = "Secured by".localized()
+			secured.title = "Paired mode".localized()
 
-			switch account.encryptedBy {
-			case .bipWallet:
-				secured.value = "BIP Wallet".localized()
-				break
-
-			case .me:
-				secured.value = "You".localized()
-				break
+			if accountManager.secretCode() == nil {
+				secured.value = "OFF".localized()
+			} else {
+				secured.value = "ON".localized()
 			}
-			secured.placeholder = "Change".localized()
+
+			//secured.placeholder = "Change".localized()
 			secured.showIndicator = false
 
 			let setMain = SwitchTableViewCellItem(reuseIdentifier: "SettingsSwitchTableViewCell",
@@ -119,6 +119,16 @@ class AddressViewModel: BaseViewModel {
 
 			return section
 		}
+		
+		let addAddressButton = ButtonTableViewCellItem(reuseIdentifier: "ButtonTableViewCell",
+																				 identifier: "ButtonTableViewCell_Account")
+		addAddressButton.buttonPattern = "purple"
+		addAddressButton.title = "ADD ADDRESS".localized()
+		
+		var sectionLast = BaseTableSectionItem(header: "")
+		sectionLast.items = [addAddressButton]
+		sctns.append(sectionLast)
+
 		sections.value = sctns
 	}
 

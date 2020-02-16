@@ -45,8 +45,7 @@ class DelegatedViewModel: BaseViewModel, ViewModelProtocol {
 
 	// MARK: -
 
-	//start with second page because we already have first page results
-	private var page = 2
+	private var page = 1
 	private var isLoading = false
 	private var canLoadMore = true
 	private var sections = PublishSubject<[BaseTableSectionItem]>()
@@ -135,8 +134,8 @@ class DelegatedViewModel: BaseViewModel, ViewModelProtocol {
 	}
 
 	func loadDelegatedBalance() {
-		let addresses = Session.shared.accounts.value.map({ (account) -> String in
-			return "Mx" + account.address.stripMinterHexPrefix()
+		let addresses = Session.shared.accounts.value.compactMap({ (account) -> String? in
+			return account.isMain ? "Mx" + account.address.stripMinterHexPrefix() : nil
 		})
 
 		guard addresses.count > 0 else {

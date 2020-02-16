@@ -73,6 +73,8 @@ All funds are received and sent from Main Address which is linked to your profil
                     <connections>
                         <outlet property="tableView" destination="l7Q-eZ-ez1" id="DI9-PA-EfX"/>
                         <segue destination="5RV-5V-HNQ" kind="show" identifier="showBalance" id="y8B-MW-yqr"/>
+                        <segue destination="FPZ-Vi-iKB" kind="show" identifier="showPairedMode" id="y38-PT-PBa"/>
+                        <segue destination="n0s-0E-shV" kind="show" identifier="showAdvancedMode" id="tqX-rI-fNR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fea-8I-qGe" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -86,6 +88,26 @@ All funds are received and sent from Main Address which is linked to your profil
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dr2-l2-G6H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="894" y="164"/>
+        </scene>
+        <!--PairedMode-->
+        <scene sceneID="kVG-It-yrV">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PairedMode" id="FPZ-Vi-iKB" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Ld9-SW-rwS"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lqZ-UI-LKn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="893" y="253"/>
+        </scene>
+        <!--AdvancedMode-->
+        <scene sceneID="gQm-J3-cI5">
+            <objects>
+                <viewControllerPlaceholder storyboardName="AdvancedMode" id="n0s-0E-shV" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="9Re-Xn-viY"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VbW-Iz-UfQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="906" y="300"/>
         </scene>
     </scenes>
 </document>

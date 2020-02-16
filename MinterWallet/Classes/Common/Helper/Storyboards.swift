@@ -644,6 +644,8 @@ extension SettingsViewController {
         case showEmail
         case showPassword
         case showPIN
+        case showPairedMode
+        case showAdvancedMode
 
         var kind: SegueKind? {
             switch self {
@@ -656,6 +658,10 @@ extension SettingsViewController {
             case .showPassword:
                 return SegueKind(rawValue: "show")
             case .showPIN:
+                return SegueKind(rawValue: "show")
+            case .showPairedMode:
+                return SegueKind(rawValue: "show")
+            case .showAdvancedMode:
                 return SegueKind(rawValue: "show")
             }
         }
@@ -921,10 +927,16 @@ extension AddressViewController {
 
     enum Segue: String, CustomStringConvertible, SegueProtocol {
         case showBalance
+        case showPairedMode
+        case showAdvancedMode
 
         var kind: SegueKind? {
             switch self {
             case .showBalance:
+                return SegueKind(rawValue: "show")
+            case .showPairedMode:
+                return SegueKind(rawValue: "show")
+            case .showAdvancedMode:
                 return SegueKind(rawValue: "show")
             }
         }

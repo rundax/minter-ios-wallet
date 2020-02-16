@@ -427,6 +427,7 @@ extension McPicker : UIPickerViewDelegate {
                 pickerLabel?.textColor = goodLabel.textColor
                 pickerLabel?.backgroundColor = goodLabel.backgroundColor
                 pickerLabel?.numberOfLines = goodLabel.numberOfLines
+								pickerLabel?.lineBreakMode = goodLabel.lineBreakMode
             } else {
                 pickerLabel?.textAlignment = .center
                 pickerLabel?.font = UIFont.systemFont(ofSize: self.fontSize)
