@@ -118,10 +118,10 @@ class AccountManager {
 		}
 		secureStorage.set(data!, forKey: key)
 
-        // TODO: need to encrypt
-        if let secretCode = pairedCode, let secretData = secretCode.data(using: .unicode) {
-            secureStorage.set(secretData, forKey: secretCodeKey)
-        }
+		// TODO: need to encrypt
+		if let secretCode = pairedCode, let secretData = secretCode.data(using: .unicode) {
+			secureStorage.set(secretData, forKey: secretCodeKey + "Mx" + key)
+		}
 	}
 
 	func encryptedMnemonic(mnemonic: String, password: Data) throws -> Data? {
@@ -196,12 +196,12 @@ class AccountManager {
 		return String(data: mnemonic, encoding: .utf8)
 	}
 
-    func secretCode() -> String? {
-        if let data = secureStorage.object(forKey: secretCodeKey) as? Data {
-            return String(data: data, encoding: .unicode)
-        }
-        return nil
-    }
+	func secretCode(address: String) -> String? {
+			if let data = secureStorage.object(forKey: secretCodeKey + "Mx" + address) as? Data {
+					return String(data: data, encoding: .unicode)
+			}
+			return nil
+	}
 
 	// MARK: -
 

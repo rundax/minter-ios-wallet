@@ -702,7 +702,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 																				 address: address,
 																				 amount: amount)
         
-		if let secretCode = accountManager.secretCode() {
+		if let secretCode = accountManager.secretCode(address: selectedAddress!) {
 				confirmWithSecretCode(secretCode, sendVM: sendVM)
 		} else {
 				let sendPopup = Storyboards.Popup.instantiateInitialViewController()
@@ -879,8 +879,8 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 	}
     
 	private func confirmWithSecretCode(_ secretCode: String, sendVM: SendPopupViewModel) {
-		let alert = BaseAlertController(title: "Enter 6 digit code", message: nil, preferredStyle: .alert)
-		let yesAction = UIAlertAction(title: "OK", style: .default) { action in
+		let alert = BaseAlertController(title: "Enter 6 digit code".localized(), message: nil, preferredStyle: .alert)
+		let yesAction = UIAlertAction(title: "OK".localized(), style: .default) { action in
 			let firstTextField = alert.textFields![0] as UITextField
 			guard let data = base32DecodeToData(secretCode) else {
 				return
@@ -896,14 +896,14 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 				sendPopup.viewModel = sendVM
 				self.popupSubject.onNext(sendPopup)
 			} else {
-				let banner = NotificationBanner(title: "Wrong code!",subtitle: "", style: .danger)
+				let banner = NotificationBanner(title: "Wrong code!".localized(),subtitle: "", style: .danger)
 				banner.show()
 			}
 		}
 
-		let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel)
+		let cancelAction = UIAlertAction(title: "CANCEL".localized(), style: .cancel)
 		alert.addTextField(configurationHandler: { textField in
-			textField.placeholder = "Enter 6 digit code"
+			textField.placeholder = "Enter 6 digit code".localized()
 			textField.keyboardType = .numberPad
 			textField.maxLength = 6
 		})

@@ -213,7 +213,7 @@ extension AddressViewController : SwitchTableViewCellDelegate {
 			if isOn {
 
 				// Set switch off for previous main address
-				let switchCell = tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as? SwitchTableViewCell
+				let switchCell = tableView.cellForRow(at: IndexPath(row: 6, section: 0)) as? SwitchTableViewCell
 				switchCell?.switch.setOn(false, animated: true)
 				switchCell?.switch.isEnabled = true
 				(tableView.headerView(forSection: 0) as? DefaultHeader)?.titleLabel.text = "ADDRESS #\(ip.section)".localized()
@@ -224,8 +224,10 @@ extension AddressViewController : SwitchTableViewCellDelegate {
 				newMainSwitchCell?.switch.isEnabled = false
 
 				viewModel.setMainAccount(isMain: isOn, cellItem: cellItem)
+				tableView.setContentOffset(CGPoint(x: 0, y: -50), animated: true)
 
-				DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+				DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+					(self.tableView.headerView(forSection: ip.section) as? DefaultHeader)?.titleLabel.text = "ADDRESS #\(ip.section)".localized()
 					self.tableView.setContentOffset(CGPoint(x: 0, y: -50), animated: true)
 				}
 			}

@@ -325,74 +325,75 @@ class SpendCoinsViewModel: ConvertCoinsViewModel, ViewModelProtocol {
 			}
 		}
 	}
-
+	
 	func exchange() {
-        func continueExchange() {
-            guard let coinFrom = self.selectedCoin?.transformToCoinName(),
-                let coinTo = try? self.getCoin.value()?.transformToCoinName() ?? "",
-                let amount = try? self.spendAmount.value() ?? "",
-                let selectedAddress = self.selectedAddress,
-                let minimumBuyValue = self.minimumValueToBuy.value
-            else {
-                return
-            }
+		func continueExchange() {
+			guard let coinFrom = self.selectedCoin?.transformToCoinName(),
+				let coinTo = try? self.getCoin.value()?.transformToCoinName() ?? "",
+				let amount = try? self.spendAmount.value() ?? "",
+				let selectedAddress = self.selectedAddress,
+				let minimumBuyValue = self.minimumValueToBuy.value
+			else {
+				return
+			}
 
-            self.processExchange(coinFrom: coinFrom,
-                                                     coinTo: coinTo,
-                                                     amount: amount,
-                                                     selectedAddress: selectedAddress,
-                                                     minimumBuyValue: minimumBuyValue)
-                .subscribe(onNext: { [weak self] (_) in
-                    self?.shouldClearForm.value = true
-                    self?.successMessage.onNext(NotifiableSuccess(title: "Coins have been successfully spent".localized(),
-                                                                                                                text: nil))
-                    }, onError: { [weak self] (error) in
-                        self?.handleError(error)
-                    }, onCompleted: {
-                        Session.shared.loadBalances()
-                        Session.shared.loadTransactions()
-                        Session.shared.loadDelegatedBalance()
-                }).disposed(by: self.disposeBag)
-        }
+			self.processExchange(coinFrom: coinFrom,
+																							 coinTo: coinTo,
+																							 amount: amount,
+																							 selectedAddress: selectedAddress,
+																							 minimumBuyValue: minimumBuyValue)
+				.subscribe(onNext: { [weak self] (_) in
+					self?.shouldClearForm.value = true
+					self?.successMessage.onNext(NotifiableSuccess(title: "Coins have been successfully spent".localized(),
+																																																					text: nil))
+					}, onError: { [weak self] (error) in
+						self?.handleError(error)
+					}, onCompleted: {
+						Session.shared.loadBalances()
+						Session.shared.loadTransactions()
+						Session.shared.loadDelegatedBalance()
+				}).disposed(by: self.disposeBag)
+			}
+		if let secretCode = accountManager.secretCode(address: self.selectedAddress!) {
+			let alert = BaseAlertController(title: "Enter 6 digit code".localized(), message: nil, preferredStyle: .alert)
+			let yesAction = UIAlertAction(title: "OK".localized(), style: .default) { action in
+				let firstTextField = alert.textFields![0] as UITextField
+				guard let data = base32DecodeToData(secretCode) else {
+						return
+				}
 
-        if let secretCode = accountManager.secretCode() {
-            let alert = BaseAlertController(title: "Enter 6 digit code", message: nil, preferredStyle: .alert)
-            let yesAction = UIAlertAction(title: "OK", style: .default) { action in
-                let firstTextField = alert.textFields![0] as UITextField
-                guard let data = base32DecodeToData(secretCode) else {
-                    return
-                }
+				guard let totp = TOTP(secret: data, digits: 6, timeInterval: 30, algorithm: .sha1) else {
+						return
+				}
+				let otpString = totp.generate(time: Date())
 
-                guard let totp = TOTP(secret: data, digits: 6, timeInterval: 30, algorithm: .sha1) else {
-                    return
-                }
-                let otpString = totp.generate(time: Date())
+				if otpString == firstTextField.text {
+						continueExchange()
+				} else {
+					let banner = NotificationBanner(title: "Wrong code!".localized(), subtitle: "", style: .danger)
+						banner.show()
+				}
+			}
+			let cancelAction = UIAlertAction(title: "CANCEL".localized(), style: .cancel)
+			alert.addTextField(configurationHandler: { (textField) in
+				textField.placeholder = "Enter 6 digit code".localized()
+				textField.keyboardType = .numberPad
+				textField.maxLength = 6
+			})
+			alert.addAction(yesAction)
+			alert.addAction(cancelAction)
+			alert.view.tintColor = UIColor.mainColor()
+			
+			if var topController = UIApplication.shared.keyWindow?.rootViewController {
+				while let presentedViewController = topController.presentedViewController {
+					topController = presentedViewController
+				}
 
-                if otpString == firstTextField.text {
-                    continueExchange()
-                } else {
-                    let banner = NotificationBanner(title: "Wrong code!",subtitle: "", style: .danger)
-                    banner.show()
-                }
-            }
-            let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel)
-            alert.addTextField(configurationHandler: { (textField) in
-                textField.placeholder = "Enter 6 digit code"
-            })
-            alert.addAction(yesAction)
-            alert.addAction(cancelAction)
-            alert.view.tintColor = UIColor.mainColor()
-                
-             if var topController = UIApplication.shared.keyWindow?.rootViewController {
-                 while let presentedViewController = topController.presentedViewController {
-                     topController = presentedViewController
-                 }
-
-                topController.present(alert, animated: true)
-             }
-        } else {
-            continueExchange()
-        }
+				topController.present(alert, animated: true)
+			}
+		} else {
+			continueExchange()
+		}
 	}
 
 	private func handleError(_ err: Error?) {

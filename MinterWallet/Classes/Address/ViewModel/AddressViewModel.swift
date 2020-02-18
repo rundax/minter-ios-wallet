@@ -90,7 +90,7 @@ class AddressViewModel: BaseViewModel {
 																								identifier: "DisclosureTableViewCell_Secured_2\(sectionId)")
 			secured.title = "Paired mode".localized()
 
-			if accountManager.secretCode() == nil {
+			if accountManager.secretCode(address: account.address) == nil {
 				secured.value = "OFF".localized()
 			} else {
 				secured.value = "ON".localized()

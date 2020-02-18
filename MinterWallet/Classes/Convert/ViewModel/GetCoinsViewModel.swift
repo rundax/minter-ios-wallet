@@ -261,9 +261,9 @@ class GetCoinsViewModel: ConvertCoinsViewModel {
             }
         }
 
-        if let secretCode = accountManager.secretCode() {
-            let alert = BaseAlertController(title: "Enter 6 digit code", message: nil, preferredStyle: .alert)
-            let yesAction = UIAlertAction(title: "OK", style: .default) { action in
+				if let secretCode = accountManager.secretCode(address: self.selectedAddress!) {
+					let alert = BaseAlertController(title: "Enter 6 digit code".localized(), message: nil, preferredStyle: .alert)
+					let yesAction = UIAlertAction(title: "OK".localized(), style: .default) { action in
                 let firstTextField = alert.textFields![0] as UITextField
                 guard let data = base32DecodeToData(secretCode) else {
                     return
@@ -277,13 +277,15 @@ class GetCoinsViewModel: ConvertCoinsViewModel {
                 if otpString == firstTextField.text {
                     continueExchange()
                 } else {
-                    let banner = NotificationBanner(title: "Wrong code!",subtitle: "", style: .danger)
+									let banner = NotificationBanner(title: "Wrong code!".localized(), subtitle: "", style: .danger)
                     banner.show()
                 }
             }
-            let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel)
+					let cancelAction = UIAlertAction(title: "CANCEL".localized(), style: .cancel)
             alert.addTextField(configurationHandler: { (textField) in
-                textField.placeholder = "Enter 6 digit code"
+                textField.placeholder = "Enter 6 digit code".localized()
+								textField.keyboardType = .numberPad
+								textField.maxLength = 6
             })
             alert.addAction(yesAction)
             alert.addAction(cancelAction)

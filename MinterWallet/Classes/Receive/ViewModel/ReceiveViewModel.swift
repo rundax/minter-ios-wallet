@@ -343,7 +343,7 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 			}).disposed(by: disposeBag)
 		}
 		
-		if let secretCode = accountManager.secretCode() {
+		if let secretCode = accountManager.secretCode(address: selectedAddress!) {
 			confirmWithSecretCode(secretCode) { isConfirmed in
 				if isConfirmed {
 					sendTx()
@@ -394,8 +394,8 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 	}
 	
 	func confirmWithSecretCode(_ secretCode: String, completion: ((Bool) -> Void)? = nil) {
-		let alert = BaseAlertController(title: "Enter 6 digit code", message: nil, preferredStyle: .alert)
-		let yesAction = UIAlertAction(title: "OK", style: .default) { action in
+		let alert = BaseAlertController(title: "Enter 6 digit code".localized(), message: nil, preferredStyle: .alert)
+		let yesAction = UIAlertAction(title: "OK".localized(), style: .default) { action in
 			let firstTextField = alert.textFields![0] as UITextField
 			guard let data = base32DecodeToData(secretCode) else {
 				return
@@ -409,16 +409,16 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 			if otpString == firstTextField.text {
 				completion?(true)
 			} else {
-				let banner = NotificationBanner(title: "Wrong code!",subtitle: "", style: .danger)
+				let banner = NotificationBanner(title: "Wrong code!".localized(), subtitle: "", style: .danger)
 				banner.show()
 				completion?(false)
 			}
 		}
-		let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel) { _ in
+		let cancelAction = UIAlertAction(title: "CANCEL".localized(), style: .cancel) { _ in
 			self.textFieldPopup?.input.activityIndicator.onNext(false)
 		}
 		alert.addTextField(configurationHandler: { (textField) in
-			textField.placeholder = "Enter 6 digit code"
+			textField.placeholder = "Enter 6 digit code".localized()
 			textField.keyboardType = .numberPad
 			textField.maxLength = 6
 		})
