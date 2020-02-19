@@ -31,7 +31,8 @@ struct SpendCoinPickerItem {
 
 	init(coin: String, balance: Decimal, address: String, formatter: NumberFormatter) {
 		let balanceString = CurrencyNumberFormatter.formattedDecimal(with: balance, formatter: formatter)
-		self.title = coin + " (" + balanceString + ")"
+		let titleAddress = (Session.shared.accounts.value.count > 1) ? "Mx" + address.prefix(4) + "..." + address.suffix(4) : ""
+		self.title = coin + " (" + balanceString + ") " + titleAddress
 		self.coin = coin
 		self.address = address
 		self.balance = balance
@@ -128,9 +129,11 @@ class ConvertCoinsViewModel: BaseViewModel {
 
 	var spendCoinText: String {
 		let selected = (selectedCoin ?? "")
+		let address = selectedAddress ?? ""
 		let bal = CurrencyNumberFormatter.formattedDecimal(with: (selectedBalance ?? 0.0),
 																											 formatter: formatter)
-		return selected + " (" + bal + ")"
+		let titleAddress = (Session.shared.accounts.value.count > 1) ? "Mx" + address.prefix(4) + "..." + address.suffix(4) : ""
+		return selected + " (" + bal + ") " + titleAddress
 	}
 
 	// MARK: -

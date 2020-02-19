@@ -226,6 +226,10 @@ UITextFieldDelegate {
 		picker.toolbarDoneButtonColor = .white
 		picker.toolbarBarTintColor = UIColor(hex: 0x4225A4)
 		picker.toolbarItemsFont = UIFont.mediumFont(of: 16.0)
+		let label = UILabel()
+		label.font = UIFont.boldFont(of: 22)
+		label.textAlignment = .center
+		picker.label = label
 		picker.show { [weak self] (selected) in
 			self?.spendCoinTextField.text = selected.first?.value
 			self?.spendCoinTextField.sendActions(for: .valueChanged)
