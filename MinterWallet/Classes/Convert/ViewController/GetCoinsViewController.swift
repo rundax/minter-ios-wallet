@@ -197,7 +197,7 @@ class GetCoinsViewController: ConvertCoinsViewController, IndicatorInfoProvider,
 			let balanceString = CurrencyNumberFormatter
 				.formattedDecimal(with: (item.balance ?? 0),
 													formatter: coinFormatter)
-			return (item.coin ?? "") + " (" + balanceString + ")"
+			return (item.coin ?? "") + " (" + balanceString + ") " + (item.address ?? "").shortenedAddress()
 		})]
 
 		let picker = McPicker(data: data)
@@ -205,6 +205,10 @@ class GetCoinsViewController: ConvertCoinsViewController, IndicatorInfoProvider,
 		picker.toolbarDoneButtonColor = .white
 		picker.toolbarBarTintColor = UIColor(hex: 0x4225A4)
 		picker.toolbarItemsFont = UIFont.mediumFont(of: 16.0)
+		let label = UILabel()
+		label.font = UIFont.boldFont(of: 22)
+		label.textAlignment = .center
+		picker.label = label
 		picker.show { [weak self] (selected) in
 			guard let coin = selected[0] else {
 				return
@@ -212,7 +216,8 @@ class GetCoinsViewController: ConvertCoinsViewController, IndicatorInfoProvider,
 			if let item = items.filter({ (item) -> Bool in
 				let balanceString = CurrencyNumberFormatter.formattedDecimal(with: (item.balance ?? 0),
 																																		 formatter: self!.coinFormatter)
-				return (item.coin ?? "") + " (" + balanceString + ")" == coin
+				let title = (item.coin ?? "") + " (" + balanceString + ") " + (item.address ?? "").shortenedAddress()
+				return title == coin
 			}).first {
 				self?.vm.selectedAddress = item.address
 				self?.vm.selectedCoin = item.coin

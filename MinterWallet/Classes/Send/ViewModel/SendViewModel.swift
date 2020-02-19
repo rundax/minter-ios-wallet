@@ -566,8 +566,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 			blns?.forEach({ (coin) in
 				let balance = (balances[address]?[coin] ?? 0.0)
 				let balanceString = coinFormatter.formattedDecimal(with: balance)
-				let titleAddress = (balances.keys.count > 1) ? "Mx" + address.prefix(4) + "..." + address.suffix(4) : ""
-				let title = coin + " (" + balanceString + ") " + titleAddress
+				let title = coin + " (" + balanceString + ") " + address.shortenedAddress()
 				let item = AccountPickerItem(title: title,
 																		 address: address,
 																		 balance: balance,
@@ -590,8 +589,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 				return nil
 		}
 		let balanceString = coinFormatter.formattedDecimal(with: balance)
-		let titleAddress = (Session.shared.accounts.value.count > 1) ? "Mx" + adrs.prefix(4) + "..." + adrs.suffix(4) : ""
-		let title = coin + " (" + balanceString + ") " + titleAddress
+		let title = coin + " (" + balanceString + ") " + adrs.shortenedAddress()
 		let item = AccountPickerItem(title: title,
 																 address: adrs,
 																 balance: balance,

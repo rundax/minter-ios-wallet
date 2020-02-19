@@ -42,3 +42,17 @@ extension BidirectionalCollection {
 		return self[idx]
 	}
 }
+
+extension String {
+	func shortenedAddress() -> String {
+		if self == "" {
+			return ""
+		}
+		
+		if Session.shared.accounts.value.count <= 1 {
+			return ""
+		}
+
+		return "Mx" + self.prefix(4) + ".." + self.suffix(4)
+	}
+}
