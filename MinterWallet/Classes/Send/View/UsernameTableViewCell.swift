@@ -8,18 +8,22 @@
 
 import UIKit
 
-class UsernameTableViewCellItem: TextViewTableViewCellItem {}
+class UsernameTableViewCellItem: TextViewTableViewCellItem {
+	var giftButtonText: String?
+}
 
 protocol UsernameTextViewTableViewCellDelegate: class {
 	func textViewDidChange(_ textView: UITextView)
 	func textViewDidEndEditing(_ textView: UITextView)
+	func didTapGiftButton()
 }
 
 class UsernameTableViewCell: TextViewTableViewCell {
 
 	var borderLayer: CAShapeLayer?
 	weak var textViewDelegate: UsernameTextViewTableViewCellDelegate?
-
+	@IBOutlet weak var giftButton: UIButton!
+	
 	// MARK: -
 
 	var maxLength = 110
@@ -28,6 +32,10 @@ class UsernameTableViewCell: TextViewTableViewCell {
 		super.init(coder: aDecoder)
 	}
 
+	@IBAction func didTapGiftButton(_ sender: Any) {
+		textViewDelegate?.didTapGiftButton()
+	}
+	
 	override func awakeFromNib() {
 		super.awakeFromNib()
 

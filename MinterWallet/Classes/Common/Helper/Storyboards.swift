@@ -232,6 +232,31 @@ struct Storyboards {
         }
     }
 
+    struct Gifts: Storyboard {
+
+        static let identifier = "Gifts"
+
+        static var storyboard: UIStoryboard {
+            return UIStoryboard(name: self.identifier, bundle: nil)
+        }
+
+        static func instantiateInitialViewController() -> GiftsViewController {
+            return self.storyboard.instantiateInitialViewController() as! GiftsViewController
+        }
+
+        static func instantiateViewController(withIdentifier identifier: String) -> UIViewController {
+            return self.storyboard.instantiateViewController(withIdentifier: identifier)
+        }
+
+        static func instantiateViewController<T: UIViewController>(ofType type: T.Type) -> T? where T: IdentifiableProtocol {
+            return self.storyboard.instantiateViewController(ofType: type)
+        }
+
+        static func instantiateGiftsViewController() -> GiftsViewController {
+            return self.storyboard.instantiateViewController(withIdentifier: "GiftsViewController") as! GiftsViewController
+        }
+    }
+
     struct PairedMode: Storyboard {
 
         static let identifier = "PairedMode"
@@ -646,6 +671,7 @@ extension SettingsViewController {
         case showPIN
         case showPairedMode
         case showAdvancedMode
+        case showGifts
 
         var kind: SegueKind? {
             switch self {
@@ -662,6 +688,8 @@ extension SettingsViewController {
             case .showPairedMode:
                 return SegueKind(rawValue: "show")
             case .showAdvancedMode:
+                return SegueKind(rawValue: "show")
+            case .showGifts:
                 return SegueKind(rawValue: "show")
             }
         }
@@ -910,6 +938,16 @@ extension TransactionsViewController: TransactionsViewControllerIdentifiableProt
 extension IdentifiableProtocol where Self: TransactionsViewController {
     var storyboardIdentifier: String? { return "TransactionsViewController" }
     static var storyboardIdentifier: String? { return "TransactionsViewController" }
+}
+
+// MARK: - GiftsViewController
+protocol GiftsViewControllerIdentifiableProtocol: IdentifiableProtocol { }
+
+extension GiftsViewController: GiftsViewControllerIdentifiableProtocol { }
+
+extension IdentifiableProtocol where Self: GiftsViewController {
+    var storyboardIdentifier: String? { return "GiftsViewController" }
+    static var storyboardIdentifier: String? { return "GiftsViewController" }
 }
 
 // MARK: - PairedModeViewController

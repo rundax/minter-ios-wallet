@@ -41,7 +41,7 @@ class SentPopupViewController: PopupViewController, ControllerType {
 		}
 	}
 	@IBOutlet weak var actionButton: DefaultButton!
-	@IBOutlet weak var seconActionButton: DefaultButton!
+	@IBOutlet weak var secondActionButton: DefaultButton!
 	@IBOutlet weak var secondButton: DefaultButton!
 	@IBOutlet weak var avatarWrapper: UIView! {
 		didSet {
@@ -89,6 +89,7 @@ class SentPopupViewController: PopupViewController, ControllerType {
 			return
 		}
 
+		self.title = vm.title
 		self.receiverLabel.text = vm.username
 		self.avatarImageView.image = UIImage(named: "AvatarPlaceholderImage")
 		if let url = vm.avatarImageURL {
@@ -105,6 +106,7 @@ class SentPopupViewController: PopupViewController, ControllerType {
 			descTitle.text = desc
 		}
 		self.actionButton.setTitle(vm.actionButtonTitle, for: .normal)
+		self.secondActionButton.setTitle(vm.secondActionButtomTitle, for: .normal)
 		self.secondButton.setTitle(vm.secondButtonTitle, for: .normal)
 	}
 

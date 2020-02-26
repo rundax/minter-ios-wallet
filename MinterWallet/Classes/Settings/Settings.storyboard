@@ -161,6 +161,7 @@
                         <segue destination="WAu-Ow-htb" kind="show" identifier="showPIN" id="1Lp-zU-5Km"/>
                         <segue destination="UR8-Ul-Qer" kind="show" identifier="showPairedMode" id="2YV-1K-Znr"/>
                         <segue destination="00D-ru-Tme" kind="show" identifier="showAdvancedMode" id="FTO-PR-1EX"/>
+                        <segue destination="cpr-rs-qKj" kind="show" identifier="showGifts" id="CCe-1O-hPm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bNW-24-diw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -255,7 +256,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f5P-pr-YrG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="157.59999999999999" y="169.56521739130437"/>
+            <point key="canvasLocation" x="298" y="93"/>
         </scene>
         <!--Mobile Edit View Controller-->
         <scene sceneID="y2F-pE-U1l">
@@ -387,6 +388,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1BX-rK-LyC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1870" y="296"/>
+        </scene>
+        <!--Gifts-->
+        <scene sceneID="phn-fE-ErI">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Gifts" id="cpr-rs-qKj" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="I76-zV-Te0"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mpm-Ea-8Qe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1840" y="343"/>
         </scene>
     </scenes>
     <resources>

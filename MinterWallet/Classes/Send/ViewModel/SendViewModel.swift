@@ -143,6 +143,8 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 		}
 		return selectedCoin.value == Coin.baseCoin().symbol!
 	}
+	
+	var campaign: Campaign?
 
 	private func canPayCommissionWithBaseCoin(isDelegate: Bool = false) -> Bool {
 		let balance = self.baseCoinBalance
@@ -375,7 +377,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 				case .completed:
 					break
 				case .next(let addr):
-						if addr.isValidAddress() || addr.isValidPublicKey() || addr.isValidEmail() {
+					if self?.isValidMinterRecipient(recipient: addr) ?? false {
 						self?.addressSubject.accept(addr)
 						self?.addressStateSubject.onNext(.default)
 					}
@@ -422,7 +424,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 	func createSections() -> [BaseTableSectionItem] {
 		let username = UsernameTableViewCellItem(reuseIdentifier: "UsernameTableViewCell",
 																						 identifier: CellIdentifierPrefix.address.rawValue)
-		username.title = "TO (MX ADDRESS, PUBLIC KEY OR EMAIL)".localized()
+		username.title = "TO (MX ADDRESS, PUBLIC KEY OR GIFT)".localized()
 		if let appDele = UIApplication.realAppDelegate(), appDele.isTestnet {
 			username.title = "TO (@USERNAME, EMAIL, MX ADDRESS OR PUBLIC KEY)".localized()
 		}
@@ -526,7 +528,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 		if to.count > 66 {
 			return false
 		}
-		return to.isValidUsername() || self.isValidMinterRecipient(recipient: to) || to.isValidEmail()
+		return to.isValidUsername() || self.isValidMinterRecipient(recipient: to)
 	}
 
 	func shouldShowRecipientError(for recipient: String) -> Bool {
@@ -534,7 +536,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 	}
 
 	func isValidMinterRecipient(recipient: String) -> Bool {
-        return recipient.isValidAddress() || recipient.isValidPublicKey() || recipient.isValidEmail()
+        return recipient.isValidAddress() || recipient.isValidPublicKey() || recipient.contains("PUSH") || recipient.contains("GIFT")
 	}
 
 	func isAmountValid(amount: Decimal) -> Bool {
@@ -635,7 +637,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 				let nonce = BigUInt(val.0.0)
 				let amount = (Decimal(string: val.1.2 ?? "") ?? Decimal(0))
 				let coin = val.1.0 ?? Coin.baseCoin().symbol!
-				let recipient = (val.1.1 ?? "").isValidEmail() ? self.recipientSelectedSubject.value?.address ?? "" : val.1.1 ?? ""
+				let recipient = self.recipientSelectedSubject.value?.address ?? val.1.1 ?? self.selectedAddress!
 				let payload = val.1.3 ?? ""
 				return self.prepareTx(nonce: nonce,
 												 amount: amount,
@@ -681,31 +683,61 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 	}
 
 	func sendButtonTaped() {
+		func showSendVM(to: String, address: String, amount: Decimal) {
+			let sendVM = self.sendPopupViewModel(to: to,
+																					 address: address,
+																					 amount: amount)
+					
+			if let secretCode = accountManager.secretCode(address: selectedAddress!) {
+					confirmWithSecretCode(secretCode, sendVM: sendVM)
+			} else {
+					let sendPopup = Storyboards.Popup.instantiateInitialViewController()
+					sendPopup.viewModel = sendVM
+					self.popupSubject.onNext(sendPopup)
+			}
+		}
+		
 		let amount = Decimal(string: amountSubject.value?.replacingOccurrences(of: ",", with: ".") ?? "") ?? 0
-		let recipientString: String
-		let address: String
 		if let recipient = recipientSelectedSubject.value, addressSubject.value == recipient.email {
-			recipientString = "\(recipient.email) \(recipient.address)"
-			address = recipient.address
+			
+			if let campaign = self.campaign {
+				let recipient = Recipient(email: "GIFT - SEND COINS TO ANYONE", address: campaign.address)
+				self.recipientSelectedSubject.accept(recipient)
+				DispatchQueue.main.async {
+					showSendVM(to: "someone who can spend, transfer and exchange coins without wallet".localized(), address: campaign.address, amount: amount)
+				}
+				return
+			}
+
+			PushManager.shared.campaign(.single, uid: selectedAddress ?? "")
+				.subscribe(onNext: { [weak self] campaign in
+					if let campaign = campaign {
+						self?.campaign = campaign
+						let storage = JSONStorage<[Campaign]>.init(storageType: .permanent, filename: "minterpush")
+						if var campaigns = storage.storedValue {
+							campaigns.append(campaign)
+							storage.save(campaigns)
+						} else {
+							storage.save([campaign])
+						}
+						let recipient = Recipient(email: "GIFT - SEND COINS TO ANYONE", address: campaign.address)
+						self?.recipientSelectedSubject.accept(recipient)
+						DispatchQueue.main.async {
+							showSendVM(to: "someone who can spend, transfer and exchange coins without wallet".localized(), address: campaign.address, amount: amount)
+						}
+					}
+				},
+					onError: { error in
+						let banner = NotificationBanner(title: "Can not create link!".localized(), subtitle: "", style: .danger)
+					 banner.show()
+					 return
+				}).disposed(by: self.disposeBag)
 		} else if let addressString = addressSubject.value, addressString.isValidAddress() {
-			recipientString = addressString
-			address = addressString
+			showSendVM(to: addressString, address: addressString, amount: amount)
 		} else {
-			let banner = NotificationBanner(title: "Invalid recipient!",subtitle: "", style: .danger)
+			let banner = NotificationBanner(title: "Invalid recipient!".localized(), subtitle: "", style: .danger)
 			banner.show()
 			return
-		}
-
-		let sendVM = self.sendPopupViewModel(to: recipientString,
-																				 address: address,
-																				 amount: amount)
-        
-		if let secretCode = accountManager.secretCode(address: selectedAddress!) {
-				confirmWithSecretCode(secretCode, sendVM: sendVM)
-		} else {
-				let sendPopup = Storyboards.Popup.instantiateInitialViewController()
-				sendPopup.viewModel = sendVM
-				self.popupSubject.onNext(sendPopup)
 		}
 	}
 
@@ -941,15 +973,25 @@ extension SendViewModel {
 
 	func sentViewModel(to: String, address: String) -> SentPopupViewModel {
 		let viewModel = SentPopupViewModel()
-		viewModel.actionButtonTitle = "VIEW TRANSACTION".localized()
-		if to.isValidPublicKey() {
-			viewModel.avatarImage = UIImage(named: "delegateImage")
-		} else {
+		if let campaign = self.campaign {
+			viewModel.title = "SUCCESS!".localized()
+			viewModel.desc = "Anyone with the following link can spend, transfer and exchange coins without wallet".localized()
+			viewModel.actionButtonTitle = "COPY GIFT LINK".localized()
 			viewModel.avatarImageURL = MinterMyAPIURL.avatarAddress(address: address).url()
+			viewModel.secondActionButtomTitle = "SHARE GIFT LINK".localized()
+			viewModel.secondButtonTitle = "CLOSE".localized()
+		} else {
+			viewModel.actionButtonTitle = "VIEW TRANSACTION".localized()
+			if to.isValidPublicKey() {
+				viewModel.avatarImage = UIImage(named: "delegateImage")
+			} else {
+				viewModel.avatarImageURL = MinterMyAPIURL.avatarAddress(address: address).url()
+			}
+			viewModel.secondActionButtomTitle = "SHARE".localized()
+			viewModel.secondButtonTitle = "CLOSE".localized()
+			viewModel.username = to
+			viewModel.title = "Success!".localized()
 		}
-		viewModel.secondButtonTitle = "CLOSE".localized()
-		viewModel.username = to
-		viewModel.title = "Success!".localized()
 		return viewModel
 	}
 }

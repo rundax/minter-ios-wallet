@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Ubuntu-B.ttf">
+            <string>Ubuntu-Bold</string>
+        </array>
         <array key="Ubuntu-M.ttf">
             <string>Ubuntu-Medium</string>
         </array>
@@ -41,16 +44,28 @@
                         <rect key="frame" x="10" y="24" width="864" height="259"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YPg-BO-AmF" customClass="AddressTextView" customModule="MinterWallet" customModuleProvider="target">
-                                <rect key="frame" x="10" y="6" width="843" height="246"/>
+                                <rect key="frame" x="10" y="6" width="782" height="246"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pTD-Lg-RgJ">
+                                <rect key="frame" x="804" y="115" width="32" height="28"/>
+                                <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="14"/>
+                                <state key="normal" title="GIFT">
+                                    <color key="titleColor" red="0.94117647058823528" green="0.34509803921568627" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapGiftButton:" destination="Hq9-AV-cbI" eventType="touchUpInside" id="8qq-Ju-Yay"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="pTD-Lg-RgJ" firstAttribute="centerY" secondItem="YPg-BO-AmF" secondAttribute="centerY" id="BDT-6r-Uwt"/>
                             <constraint firstAttribute="bottom" secondItem="YPg-BO-AmF" secondAttribute="bottom" constant="7" id="Bb5-1g-wYv"/>
                             <constraint firstItem="YPg-BO-AmF" firstAttribute="top" secondItem="mbc-jw-Kgv" secondAttribute="top" constant="6" id="G3h-TG-kvv"/>
+                            <constraint firstItem="pTD-Lg-RgJ" firstAttribute="leading" secondItem="YPg-BO-AmF" secondAttribute="trailing" constant="12" id="IQe-V2-DeK"/>
                             <constraint firstItem="YPg-BO-AmF" firstAttribute="leading" secondItem="mbc-jw-Kgv" secondAttribute="leading" constant="10" id="WAj-la-Ngc"/>
-                            <constraint firstAttribute="trailing" secondItem="YPg-BO-AmF" secondAttribute="trailing" constant="11" id="uyM-hx-wfz"/>
+                            <constraint firstAttribute="trailing" secondItem="pTD-Lg-RgJ" secondAttribute="trailing" constant="28" id="qcn-QD-JlE"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -69,6 +84,7 @@
             <viewLayoutGuide key="safeArea" id="FOl-ef-VpS"/>
             <connections>
                 <outlet property="errorTitle" destination="4sV-v6-h8c" id="iX3-kh-7uK"/>
+                <outlet property="giftButton" destination="pTD-Lg-RgJ" id="VaM-Zd-pzY"/>
                 <outlet property="textView" destination="YPg-BO-AmF" id="o19-9o-jop"/>
                 <outlet property="title" destination="Yt2-Ox-ZWa" id="bVe-rW-R7X"/>
             </connections>

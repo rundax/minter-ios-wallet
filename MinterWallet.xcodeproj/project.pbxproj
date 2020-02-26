@@ -24,6 +24,12 @@
 		30328C1D2368764C00443D8D /* PairedModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30328C172368764C00443D8D /* PairedModeViewController.swift */; };
 		30328C1E2368764C00443D8D /* PairedMode.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30328C182368764C00443D8D /* PairedMode.storyboard */; };
 		30328C1F2368764C00443D8D /* PairedMode.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30328C182368764C00443D8D /* PairedMode.storyboard */; };
+		3066C21F2405510400583B13 /* Gifts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3066C20D2405510300583B13 /* Gifts.storyboard */; };
+		3066C2202405510400583B13 /* Gifts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3066C20D2405510300583B13 /* Gifts.storyboard */; };
+		3066C22E240551CD00583B13 /* GiftsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3066C22D240551CC00583B13 /* GiftsViewController.swift */; };
+		3066C22F240551CD00583B13 /* GiftsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3066C22D240551CC00583B13 /* GiftsViewController.swift */; };
+		3066C231240551D900583B13 /* GiftsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3066C230240551D800583B13 /* GiftsViewModel.swift */; };
+		3066C232240551D900583B13 /* GiftsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3066C230240551D800583B13 /* GiftsViewModel.swift */; };
 		3067F39123956316002DC97C /* EmailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067F39023956316002DC97C /* EmailManager.swift */; };
 		3067F39223956316002DC97C /* EmailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067F39023956316002DC97C /* EmailManager.swift */; };
 		3075CDFC23E07C44007FE2CF /* TextfieldPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075CDFB23E07C44007FE2CF /* TextfieldPopupViewController.swift */; };
@@ -38,6 +44,12 @@
 		308FA5CE23F0582500186F79 /* UITextfield+Length.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FA5CC23F0582500186F79 /* UITextfield+Length.swift */; };
 		309920A42394764100220323 /* MinterWalletTestnet-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 309920A32394764100220323 /* MinterWalletTestnet-Info.plist */; };
 		309920A52394764100220323 /* MinterWalletTestnet-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 309920A32394764100220323 /* MinterWalletTestnet-Info.plist */; };
+		30DDDE1223FE9747007E9C02 /* PushManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DDDE1123FE9746007E9C02 /* PushManager.swift */; };
+		30DDDE1323FE9747007E9C02 /* PushManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DDDE1123FE9746007E9C02 /* PushManager.swift */; };
+		30DDDE1523FE9CE2007E9C02 /* Campaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DDDE1423FE9CE2007E9C02 /* Campaign.swift */; };
+		30DDDE1623FE9CE2007E9C02 /* Campaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DDDE1423FE9CE2007E9C02 /* Campaign.swift */; };
+		30DDDE1823FEC778007E9C02 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DDDE1723FEC778007E9C02 /* Codable+Dictionary.swift */; };
+		30DDDE1923FEC779007E9C02 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DDDE1723FEC778007E9C02 /* Codable+Dictionary.swift */; };
 		332EB812C95C0592C6924E65 /* CoinsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A13B58DCBBFF6DC3A2EC4B /* CoinsViewController.swift */; };
 		35C28F738CF2110198FBDD3C /* CreateWalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088EC129B1FBF3EE83B23AE0 /* CreateWalletViewModel.swift */; };
 		3A2FF1E94AD830202FF84725 /* Convert.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EB9FDE7FE8682F706D3A2E4 /* Convert.storyboard */; };
@@ -636,6 +648,9 @@
 		30328C142368764C00443D8D /* PairedModeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairedModeViewModel.swift; sourceTree = "<group>"; };
 		30328C172368764C00443D8D /* PairedModeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairedModeViewController.swift; sourceTree = "<group>"; };
 		30328C182368764C00443D8D /* PairedMode.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PairedMode.storyboard; sourceTree = "<group>"; };
+		3066C20D2405510300583B13 /* Gifts.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Gifts.storyboard; sourceTree = "<group>"; };
+		3066C22D240551CC00583B13 /* GiftsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftsViewController.swift; sourceTree = "<group>"; };
+		3066C230240551D800583B13 /* GiftsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftsViewModel.swift; sourceTree = "<group>"; };
 		3067F39023956316002DC97C /* EmailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailManager.swift; sourceTree = "<group>"; };
 		3075CDFB23E07C44007FE2CF /* TextfieldPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextfieldPopupViewController.swift; sourceTree = "<group>"; };
 		3075CDFE23E08352007FE2CF /* TextFieldPopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldPopupViewModel.swift; sourceTree = "<group>"; };
@@ -644,6 +659,9 @@
 		308FA5CC23F0582500186F79 /* UITextfield+Length.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextfield+Length.swift"; sourceTree = "<group>"; };
 		309920A32394764100220323 /* MinterWalletTestnet-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MinterWalletTestnet-Info.plist"; sourceTree = "<group>"; };
 		309920A62394772400220323 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		30DDDE1123FE9746007E9C02 /* PushManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushManager.swift; sourceTree = "<group>"; };
+		30DDDE1423FE9CE2007E9C02 /* Campaign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Campaign.swift; sourceTree = "<group>"; };
+		30DDDE1723FEC778007E9C02 /* Codable+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Dictionary.swift"; sourceTree = "<group>"; };
 		33CCC11E350993C29DD8EE53 /* Pods-MinterWalletTestnet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MinterWalletTestnet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MinterWalletTestnet/Pods-MinterWalletTestnet.debug.xcconfig"; sourceTree = "<group>"; };
 		3BA1EA41241735BB83566B6A /* PopupViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		3F0861B418A65F5CA32B8596 /* Root.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = Root.storyboard; sourceTree = "<group>"; };
@@ -1144,6 +1162,41 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
+		3066C2072405510300583B13 /* Gifts */ = {
+			isa = PBXGroup;
+			children = (
+				3066C20E2405510300583B13 /* View */,
+				3066C2082405510300583B13 /* ViewModel */,
+				3066C2122405510300583B13 /* ViewController */,
+				3066C20D2405510300583B13 /* Gifts.storyboard */,
+			);
+			name = Gifts;
+			path = Classes/Gifts;
+			sourceTree = "<group>";
+		};
+		3066C2082405510300583B13 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3066C230240551D800583B13 /* GiftsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3066C20E2405510300583B13 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3066C2122405510300583B13 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3066C22D240551CC00583B13 /* GiftsViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		32F3EFD7F6AC32D1CE8F9B79 /* Root */ = {
 			isa = PBXGroup;
 			children = (
@@ -1441,7 +1494,6 @@
 			isa = PBXGroup;
 			children = (
 				598428AD646702E1411A72BC /* Router */,
-				D2261E45D9004D9A74F4ADEC /* View */,
 				B8BED980FC2C715F7CFA524F /* ViewController */,
 				BA9641C538C8648B80E9CB45 /* ViewModel */,
 				C09A4EE7A2D51CB839CAABFF /* Popup.storyboard */,
@@ -1529,13 +1581,6 @@
 				088EC129B1FBF3EE83B23AE0 /* CreateWalletViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		D2261E45D9004D9A74F4ADEC /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		D3EA22F321CEB1682D7BD3FA /* ViewController */ = {
@@ -1822,6 +1867,7 @@
 				FAB0D35422CCA5A9002945E2 /* PINManager.swift */,
 				3067F39023956316002DC97C /* EmailManager.swift */,
 				FA3CD61C23ABC138004DDF29 /* PassbookManager.swift */,
+				30DDDE1123FE9746007E9C02 /* PushManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1877,6 +1923,7 @@
 				B13ED4E39699830E535550EC /* Popup */,
 				F7385C5EE7CFAD97F88CD529 /* Receive */,
 				B05CA668FCAFDF33550C9139 /* Settings */,
+				3066C2072405510300583B13 /* Gifts */,
 				FAF9C50222AA6931000BF80A /* Delegated */,
 				94002D0AFFF4C5E044485CB9 /* Address */,
 				30328C122368764C00443D8D /* PairedMode */,
@@ -1995,6 +2042,7 @@
 				FA39488023507BB2002AD8DE /* UIApplication+AppDelegate.swift */,
 				FA5DB808236198C7008A8E47 /* ImpactProtocol.swift */,
 				308FA5CC23F0582500186F79 /* UITextfield+Length.swift */,
+				30DDDE1723FEC778007E9C02 /* Codable+Dictionary.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -2186,6 +2234,7 @@
 				FA61EF45209B003600A6FB62 /* Account.swift */,
 				FAC4BA1320DA49E2005A1B90 /* Notifiable.swift */,
 				FA670A3A20E291C0000A5169 /* TransactionItem.swift */,
+				30DDDE1423FE9CE2007E9C02 /* Campaign.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2479,6 +2528,7 @@
 				FA672DF82316C6170028FE29 /* UsernameTableViewCell.xib in Resources */,
 				FA333064224A4B3C003B4763 /* pop_hi.wav in Resources */,
 				FA333067224A4B3C003B4763 /* Main.storyboard in Resources */,
+				3066C21F2405510400583B13 /* Gifts.storyboard in Resources */,
 				FA333068224A4B3C003B4763 /* pop_zap.wav in Resources */,
 				FA333069224A4B3C003B4763 /* Ubuntu-R.ttf in Resources */,
 				FA33306A224A4B3C003B4763 /* CoinTableViewCell.xib in Resources */,
@@ -2552,6 +2602,7 @@
 				FA672DF92316C6170028FE29 /* UsernameTableViewCell.xib in Resources */,
 				FADD8F2521930E8C00463F66 /* pop_hi.wav in Resources */,
 				FA669B70207239F200AD110A /* Main.storyboard in Resources */,
+				3066C2202405510400583B13 /* Gifts.storyboard in Resources */,
 				FADD8F2721930E9F00463F66 /* pop_zap.wav in Resources */,
 				FA669BC52072483100AD110A /* Ubuntu-R.ttf in Resources */,
 				FAA26052208E30AC009FF3DE /* CoinTableViewCell.xib in Resources */,
@@ -3174,11 +3225,13 @@
 				FA333010224A4B3C003B4763 /* RootViewController.swift in Sources */,
 				FA333011224A4B3C003B4763 /* McPickerBarButtonItem.swift in Sources */,
 				FA333012224A4B3C003B4763 /* URLRequst+NoCache.swift in Sources */,
+				3066C231240551D900583B13 /* GiftsViewModel.swift in Sources */,
 				FA333013224A4B3C003B4763 /* QRCodeReaderViewContainer.swift in Sources */,
 				FA333014224A4B3C003B4763 /* DelegateTransactionTableViewCell.swift in Sources */,
 				FA333015224A4B3C003B4763 /* UIImageViewExtension.swift in Sources */,
 				FA333016224A4B3C003B4763 /* AccordionTableViewCell.swift in Sources */,
 				FA333017224A4B3C003B4763 /* RootViewModel.swift in Sources */,
+				30DDDE1523FE9CE2007E9C02 /* Campaign.swift in Sources */,
 				FA333018224A4B3C003B4763 /* AccountManager.swift in Sources */,
 				FA333019224A4B3C003B4763 /* ProfileManager+Rx.swift in Sources */,
 				FA33301B224A4B3C003B4763 /* CoinManager+Rx.swift in Sources */,
@@ -3221,6 +3274,7 @@
 				FA333034224A4B3C003B4763 /* RootConvertViewController.swift in Sources */,
 				FAC1A74D2368A22F0018399D /* RawTransactionViewModelProtocol.swift in Sources */,
 				FA333035224A4B3C003B4763 /* PopupViewModel.swift in Sources */,
+				30DDDE1223FE9747007E9C02 /* PushManager.swift in Sources */,
 				FAC5394422C37C8A0077E181 /* PINViewModel.swift in Sources */,
 				FA333036224A4B3C003B4763 /* McPickerPopoverViewController.swift in Sources */,
 				FA333037224A4B3C003B4763 /* GenerateAddressLabelTableViewCell.swift in Sources */,
@@ -3232,6 +3286,7 @@
 				FA33303C224A4B3C003B4763 /* ToggleTorchButton.swift in Sources */,
 				FA5DB80C2361D017008A8E47 /* SendRouter.swift in Sources */,
 				FA33303D224A4B3C003B4763 /* SettingsViewController.swift in Sources */,
+				30DDDE1823FEC778007E9C02 /* Codable+Dictionary.swift in Sources */,
 				FA33303E224A4B3C003B4763 /* GetCoinsViewController.swift in Sources */,
 				FA33303F224A4B3C003B4763 /* SettingsViewModel.swift in Sources */,
 				FA333040224A4B3C003B4763 /* QRCodeReaderViewControllerBuilder.swift in Sources */,
@@ -3257,6 +3312,7 @@
 				FA33304C224A4B3C003B4763 /* AdvancedModeViewController.swift in Sources */,
 				FA33304D224A4B3C003B4763 /* CoinAutocompleteCell.swift in Sources */,
 				FA33304E224A4B3C003B4763 /* AmountTextFieldTableViewCell.swift in Sources */,
+				3066C22E240551CD00583B13 /* GiftsViewController.swift in Sources */,
 				FA21E04C234C718800AE0353 /* UIColor+Default.swift in Sources */,
 				FA5D7DDB230BFCEE00945A66 /* BaseTransactionCell.swift in Sources */,
 				FA33304F224A4B3C003B4763 /* AddressTableViewCell.swift in Sources */,
@@ -3406,11 +3462,13 @@
 				D08EF152AB24CD864B6F2E40 /* RootViewController.swift in Sources */,
 				FA0F297921B179BB00E10F5E /* McPickerBarButtonItem.swift in Sources */,
 				FAB85B4620DB980500782AFB /* URLRequst+NoCache.swift in Sources */,
+				3066C232240551D900583B13 /* GiftsViewModel.swift in Sources */,
 				FA0F296321B1740800E10F5E /* QRCodeReaderViewContainer.swift in Sources */,
 				FAE43C9321539F2A002027D4 /* DelegateTransactionTableViewCell.swift in Sources */,
 				FA0AF8E521B534EF000B571B /* UIImageViewExtension.swift in Sources */,
 				FA2F56B7210B31DE002C72DC /* AccordionTableViewCell.swift in Sources */,
 				94B58309D085DACB65260018 /* RootViewModel.swift in Sources */,
+				30DDDE1623FE9CE2007E9C02 /* Campaign.swift in Sources */,
 				FA61EF49209B037700A6FB62 /* AccountManager.swift in Sources */,
 				FA17817121EF7D1F00FECDED /* ProfileManager+Rx.swift in Sources */,
 				FA83186A21FF003F007F268D /* CoinManager+Rx.swift in Sources */,
@@ -3453,6 +3511,7 @@
 				FAD0F6C220FCAFB2009A5936 /* RootConvertViewController.swift in Sources */,
 				FAC1A74E2368A22F0018399D /* RawTransactionViewModelProtocol.swift in Sources */,
 				4CAD2C40F3ECF43BAE855D20 /* PopupViewModel.swift in Sources */,
+				30DDDE1323FE9747007E9C02 /* PushManager.swift in Sources */,
 				FAC5394522C37C8A0077E181 /* PINViewModel.swift in Sources */,
 				FA0F297B21B179BB00E10F5E /* McPickerPopoverViewController.swift in Sources */,
 				FAA2607F20935C36009FF3DE /* GenerateAddressLabelTableViewCell.swift in Sources */,
@@ -3464,6 +3523,7 @@
 				FA0F296221B1740800E10F5E /* ToggleTorchButton.swift in Sources */,
 				FA5DB80D2361D017008A8E47 /* SendRouter.swift in Sources */,
 				AF44D30C07B56ACF70021D25 /* SettingsViewController.swift in Sources */,
+				30DDDE1923FEC779007E9C02 /* Codable+Dictionary.swift in Sources */,
 				FA04028D20FDD5DF00F1689F /* GetCoinsViewController.swift in Sources */,
 				DF1E9909F9D644AEBBBED0DF /* SettingsViewModel.swift in Sources */,
 				FA0F296821B1740800E10F5E /* QRCodeReaderViewControllerBuilder.swift in Sources */,
@@ -3489,6 +3549,7 @@
 				932D4DBEAAA04834E8868AAF /* AdvancedModeViewController.swift in Sources */,
 				FA11EA62214ABFB300C8DFB0 /* CoinAutocompleteCell.swift in Sources */,
 				FA4DF4B02108FA1500E64F1B /* AmountTextFieldTableViewCell.swift in Sources */,
+				3066C22F240551CD00583B13 /* GiftsViewController.swift in Sources */,
 				FA21E04D234C718800AE0353 /* UIColor+Default.swift in Sources */,
 				FA5D7DDC230BFCEE00945A66 /* BaseTransactionCell.swift in Sources */,
 				FAA2606120923634009FF3DE /* AddressTableViewCell.swift in Sources */,

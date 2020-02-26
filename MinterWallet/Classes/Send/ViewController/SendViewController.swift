@@ -60,7 +60,6 @@ class SendViewController:
 	}()
 
 	weak var usernameTextView: UITextView?
-	var recipient: Recipient?
 	
 	@IBOutlet weak var autocompleteView: AutocompleteView!
 
@@ -354,6 +353,13 @@ extension SendViewController {
 		hardImpactFeedbackGenerator.prepare()
 		hardImpactFeedbackGenerator.impactOccurred()
 		AnalyticsHelper.defaultAnalytics.track(event: .sentCoinPopupViewTransactionButton)
+		if let campaign = viewModel.campaign {
+			UIPasteboard.general.string = campaign.url
+			let banner = NotificationBanner(title: "COPIED!".localized(), subtitle: "", style: .info)
+			banner.show()
+			return
+		}
+
 		viewController.dismiss(animated: true) { [weak self] in
 			if let url = self?.viewModel.lastTransactionExplorerURL() {
 				let vc = BaseSafariViewController(url: url)
@@ -368,6 +374,13 @@ extension SendViewController {
 		lightImpactFeedbackGenerator.impactOccurred()
 		AnalyticsHelper.defaultAnalytics.track(event: .sentCoinPopupShareTransactionButton)
 		viewController.dismiss(animated: true) { [weak self] in
+			if let campaign = self?.viewModel.campaign {
+				let vc = ActivityRouter.activityViewController(activities: [campaign.url], sourceView: self!.view)
+				self?.present(vc, animated: true, completion: nil)
+				self?.viewModel.campaign = nil
+				return
+			}
+
 			if let url = self?.viewModel.lastTransactionExplorerURL() {
 				let vc = ActivityRouter.activityViewController(activities: [url], sourceView: self!.view)
 				self?.present(vc, animated: true, completion: nil)
@@ -380,6 +393,7 @@ extension SendViewController {
 		lightImpactFeedbackGenerator.prepare()
 		AnalyticsHelper.defaultAnalytics.track(event: .sentCoinPopupCloseButton)
 		viewController.dismiss(animated: true, completion: nil)
+		viewModel.campaign = nil
 	}
 
 	// MARK: -
@@ -510,33 +524,37 @@ extension SendViewController {
 extension SendViewController {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		if tableView == autocompleteView.tableView {
-			self.recipient = autocompleteView.elements[indexPath.row]
-			self.usernameTextView?.text = self.recipient?.email
+			let recipient = autocompleteView.elements[indexPath.row]
+			self.usernameTextView?.text = recipient.email
 			view.endEditing(true)
 			self.autocompleteView.isHidden = true
-			self.viewModel.input.recipient.onNext(self.recipient)
+			self.viewModel.input.recipient.onNext(recipient)
 		}
 	}
 }
 
 extension SendViewController: UsernameTextViewTableViewCellDelegate {
 	public func textViewDidChange(_ textView: UITextView) {
-		viewModel.getEmails(textView.text) { [weak self] recipients in
-			guard let recipientList = recipients else {
-				return
-			}
-			self?.autocompleteView.elements = recipientList
-
-			DispatchQueue.main.async { [weak self] in
-				self?.autocompleteView.isHidden = false
-				let usernameTextViewBounds = self?.usernameTextView?.convert(self!.usernameTextView!.bounds, to: self!.view)
-				let frame = CGRect(x: 10, y: usernameTextViewBounds!.origin.y + usernameTextViewBounds!.size.height + 16, width: self!.usernameTextView!.frame.width, height: CGFloat(recipientList.count) * 45)
-				self?.autocompleteView.frame = frame
-			}
+		guard let text = textView.text?.lowercased() else { return }
+		
+		if text.prefix(4).contains("g") || text.prefix(4).contains("gi") {
+			autocompleteView.elements = [Recipient(email: "GIFT - SEND COINS TO ANYONE", address: "")]
+			autocompleteView.isHidden = false
+			let usernameTextViewBounds = usernameTextView?.convert(usernameTextView!.bounds, to: view)
+			let frame = CGRect(x: 10, y: usernameTextViewBounds!.origin.y + usernameTextViewBounds!.size.height + 16, width: usernameTextView!.frame.width, height: CGFloat(autocompleteView.elements.count) * 45)
+			autocompleteView.frame = frame
 		}
 	}
 	
 	public func textViewDidEndEditing(_ textView: UITextView) {
 		autocompleteView.isHidden = true
+	}
+	
+	func didTapGiftButton() {
+		let recipient = Recipient(email: "GIFT - SEND COINS TO ANYONE", address: "")
+		self.usernameTextView?.text = recipient.email
+		view.endEditing(true)
+		self.autocompleteView.isHidden = true
+		self.viewModel.input.recipient.onNext(recipient)
 	}
 }

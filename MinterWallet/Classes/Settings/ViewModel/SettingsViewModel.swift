@@ -253,10 +253,20 @@ class SettingsViewModel: BaseViewModel, ViewModelProtocol {
 		}
 
 		sctns.append(section1)
+		
+		let gifts = DisclosureTableViewCellItem(reuseIdentifier: "DisclosureTableViewCell",
+																								identifier: "DisclosureTableViewCell_Gifts")
+		gifts.title = "Gift links".localized()
+		gifts.value = nil
+		gifts.placeholder = "Manage"
 
-		var section2 = BaseTableSectionItem(header: "NOTIFICATIONS".localized())
-		section2.items = [switchItem, blank, button]
+		var section2 = BaseTableSectionItem(header: "PUSH GIFTS".localized())
+		section2.items = [gifts]
 		sctns.append(section2)
+
+		var section3 = BaseTableSectionItem(header: "NOTIFICATIONS".localized())
+		section3.items = [switchItem, blank, button]
+		sctns.append(section3)
 
 		sections = sctns
 	}

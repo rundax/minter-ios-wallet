@@ -115,4 +115,18 @@ enum Environment: String {
     }
   }
 
+	var pushBaseAPIURL: String {
+		switch self {
+			case .dev: return "https://api-dev.push.gifts/"
+			case .prod: return "https://api.push.gifts/"
+		}
+	}
+	
+	var pushBaseURL: String {
+		switch self {
+			case .dev: return "https://dev.push.gifts/"
+			case .prod: return "https://push.gifts/"
+		}
+	}
+	
 }

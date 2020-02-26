@@ -27,5 +27,6 @@ class SentPopupViewModel: PopupViewModel, ViewModelProtocol {
 	var noAvatar: Bool = false
 	var username: String?
 	var actionButtonTitle: String?
+	var secondActionButtomTitle: String?
 	var secondButtonTitle: String?
 }

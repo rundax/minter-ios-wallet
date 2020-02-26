@@ -245,6 +245,8 @@ class SettingsViewController: BaseViewController, UITableViewDelegate, UITableVi
 		} else if item.identifier == "DisclosureTableViewCell_ChangePIN" {
 			viewModel.settingPIN = true
 			self.performSegue(withIdentifier: SettingsViewController.Segue.showPIN.rawValue, sender: self)
+		} else if item.identifier == "DisclosureTableViewCell_Gifts" {
+			self.performSegue(withIdentifier: SettingsViewController.Segue.showGifts.rawValue, sender: self)
 		}
 	}
 

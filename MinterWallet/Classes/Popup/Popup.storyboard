@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fsb-YM-YKJ">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,22 +19,22 @@
         <!--Send Popup View Controller-->
         <scene sceneID="yep-JS-rEC">
             <objects>
-                <viewController storyboardIdentifier="SendPopupViewController" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fsb-YM-YKJ" customClass="SendPopupViewController" customModule="Rundax" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SendPopupViewController" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fsb-YM-YKJ" customClass="SendPopupViewController" customModule="MinterWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vfB-m7-Bto">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x86-ro-9Lg">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="NOD-R3-o9e">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dc8-FK-Mm0" customClass="DroppableView" customModule="Rundax" customModuleProvider="target">
-                                            <rect key="frame" x="140" y="70" width="320" height="380.5"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dc8-FK-Mm0" customClass="DroppableView" customModule="MinterWallet" customModuleProvider="target">
+                                            <rect key="frame" x="47" y="218.5" width="320" height="379"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tV1-KQ-pfy">
-                                                    <rect key="frame" x="10" y="10" width="300" height="360.5"/>
+                                                    <rect key="frame" x="10" y="10" width="300" height="359"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d66-Ev-bW4">
                                                             <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
@@ -53,19 +55,19 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.245 BIP" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cv6-0d-M6o">
-                                                            <rect key="frame" x="5" y="80" width="290" height="28"/>
+                                                            <rect key="frame" x="5" y="80" width="290" height="27"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="24"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zZ9-w6-FEV">
-                                                            <rect key="frame" x="144" y="118" width="12.5" height="16"/>
+                                                            <rect key="frame" x="143" y="117" width="14" height="16"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rer-ZR-RJL">
-                                                            <rect key="frame" x="125" y="144" width="50" height="50"/>
+                                                            <rect key="frame" x="125" y="143" width="50" height="50"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AvatarPlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="e9J-AW-NRL">
                                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -84,13 +86,13 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0wF-bw-Idp">
-                                                            <rect key="frame" x="25" y="204" width="250" height="16.5"/>
+                                                            <rect key="frame" x="25" y="203" width="250" height="16"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yhr-iR-Vgl" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
-                                                            <rect key="frame" x="10" y="240.5" width="280" height="50"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yhr-iR-Vgl" customClass="DefaultButton" customModule="MinterWallet" customModuleProvider="target">
+                                                            <rect key="frame" x="10" y="239" width="280" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="umC-Cq-Syk"/>
                                                             </constraints>
@@ -102,8 +104,8 @@
                                                                 <action selector="didTapActionButton:" destination="fsb-YM-YKJ" eventType="touchUpInside" id="CYG-jr-u5F"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sV6-os-OKN" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
-                                                            <rect key="frame" x="10" y="300.5" width="280" height="50"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sV6-os-OKN" customClass="DefaultButton" customModule="MinterWallet" customModuleProvider="target">
+                                                            <rect key="frame" x="10" y="299" width="280" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="vsu-h1-p9h"/>
                                                             </constraints>
@@ -116,7 +118,7 @@
                                                             </connections>
                                                         </button>
                                                         <activityIndicatorView opaque="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="bUA-Yc-3Dh">
-                                                            <rect key="frame" x="131.5" y="247" width="37" height="37"/>
+                                                            <rect key="frame" x="131.5" y="245.5" width="37" height="37"/>
                                                         </activityIndicatorView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -199,22 +201,22 @@
         <!--Sent Popup View Controller-->
         <scene sceneID="zkP-Gr-tW2">
             <objects>
-                <viewController storyboardIdentifier="SentPopupViewController" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bWo-dA-5gC" customClass="SentPopupViewController" customModule="Rundax" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SentPopupViewController" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bWo-dA-5gC" customClass="SentPopupViewController" customModule="MinterWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1Q5-FM-YMT">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DsO-9x-xZj">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="7Hc-NN-Y3H">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Il-XT-rwG" customClass="DroppableView" customModule="Rundax" customModuleProvider="target">
-                                            <rect key="frame" x="150" y="104" width="300" height="392.5"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Il-XT-rwG" customClass="DroppableView" customModule="MinterWallet" customModuleProvider="target">
+                                            <rect key="frame" x="57" y="252" width="300" height="392"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ha-rn-GNz">
-                                                    <rect key="frame" x="10" y="10" width="280" height="372.5"/>
+                                                    <rect key="frame" x="10" y="10" width="280" height="372"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CqZ-j3-nfM">
                                                             <rect key="frame" x="0.0" y="0.0" width="280" height="50"/>
@@ -235,8 +237,8 @@
                                                                 <constraint firstItem="twk-kn-uvE" firstAttribute="centerY" secondItem="CqZ-j3-nfM" secondAttribute="centerY" id="uDj-5Z-t3u"/>
                                                             </constraints>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coins are received by" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6U-TR-Z3p">
-                                                            <rect key="frame" x="72.5" y="70" width="135.5" height="16"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coins are received by" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6U-TR-Z3p">
+                                                            <rect key="frame" x="16" y="70" width="248" height="16"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -261,13 +263,13 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eX8-4T-odh">
-                                                            <rect key="frame" x="25" y="156" width="230" height="16.5"/>
+                                                            <rect key="frame" x="25" y="156" width="230" height="16"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OQs-Ri-1BK" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
-                                                            <rect key="frame" x="10" y="192.5" width="260" height="50"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OQs-Ri-1BK" customClass="DefaultButton" customModule="MinterWallet" customModuleProvider="target">
+                                                            <rect key="frame" x="10" y="192" width="260" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="w2q-EH-gE7"/>
                                                             </constraints>
@@ -279,8 +281,8 @@
                                                                 <action selector="actionBtnDidTap:" destination="bWo-dA-5gC" eventType="touchUpInside" id="0kb-Sk-hMg"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7sq-up-q09" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
-                                                            <rect key="frame" x="10" y="312.5" width="260" height="50"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7sq-up-q09" customClass="DefaultButton" customModule="MinterWallet" customModuleProvider="target">
+                                                            <rect key="frame" x="10" y="312" width="260" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="P6N-z0-vH1"/>
                                                             </constraints>
@@ -292,8 +294,8 @@
                                                                 <action selector="secondButtonDidTap:" destination="bWo-dA-5gC" eventType="touchUpInside" id="BWE-yp-r5n"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Rf-Ag-NSL" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
-                                                            <rect key="frame" x="10" y="252.5" width="260" height="50"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Rf-Ag-NSL" customClass="DefaultButton" customModule="MinterWallet" customModuleProvider="target">
+                                                            <rect key="frame" x="10" y="252" width="260" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="dIi-pQ-8ei"/>
                                                             </constraints>
@@ -308,6 +310,7 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="h6U-TR-Z3p" secondAttribute="trailing" constant="16" id="0Qd-7p-4nC"/>
                                                         <constraint firstItem="h6U-TR-Z3p" firstAttribute="top" secondItem="CqZ-j3-nfM" secondAttribute="bottom" constant="20" id="1Em-Z9-fjS"/>
                                                         <constraint firstAttribute="trailing" secondItem="eX8-4T-odh" secondAttribute="trailing" constant="25" id="4yC-iC-DvQ"/>
                                                         <constraint firstItem="h6U-TR-Z3p" firstAttribute="centerX" secondItem="9Ha-rn-GNz" secondAttribute="centerX" id="7Uo-cd-qJA"/>
@@ -325,6 +328,7 @@
                                                         <constraint firstAttribute="bottom" secondItem="7sq-up-q09" secondAttribute="bottom" constant="10" id="jZT-rK-26z"/>
                                                         <constraint firstItem="7sq-up-q09" firstAttribute="trailing" secondItem="OQs-Ri-1BK" secondAttribute="trailing" id="kFM-dQ-aCW"/>
                                                         <constraint firstItem="OQs-Ri-1BK" firstAttribute="leading" secondItem="9Ha-rn-GNz" secondAttribute="leading" constant="10" id="ksO-iC-BFL"/>
+                                                        <constraint firstItem="h6U-TR-Z3p" firstAttribute="leading" secondItem="9Ha-rn-GNz" secondAttribute="leading" constant="16" id="qiG-dK-j8R"/>
                                                         <constraint firstItem="EWP-Xi-TlV" firstAttribute="centerX" secondItem="9Ha-rn-GNz" secondAttribute="centerX" id="tak-PY-ElA"/>
                                                         <constraint firstItem="7sq-up-q09" firstAttribute="leading" secondItem="OQs-Ri-1BK" secondAttribute="leading" id="uxH-7k-TMS"/>
                                                         <constraint firstItem="7Rf-Ag-NSL" firstAttribute="top" secondItem="OQs-Ri-1BK" secondAttribute="bottom" constant="10" id="wts-Gu-y3H"/>
@@ -374,7 +378,7 @@
                         <outlet property="popupTitle" destination="twk-kn-uvE" id="KZT-hX-d10"/>
                         <outlet property="popupView" destination="8Il-XT-rwG" id="WOk-UD-TgN"/>
                         <outlet property="receiverLabel" destination="eX8-4T-odh" id="Pi0-bg-lNV"/>
-                        <outlet property="seconActionButton" destination="7Rf-Ag-NSL" id="NyL-1O-p6D"/>
+                        <outlet property="secondActionButton" destination="7Rf-Ag-NSL" id="NyL-1O-p6D"/>
                         <outlet property="secondButton" destination="7sq-up-q09" id="Co8-66-cyR"/>
                     </connections>
                 </viewController>
@@ -385,19 +389,19 @@
         <!--Confirm Popup View Controller-->
         <scene sceneID="KuB-Ok-b5a">
             <objects>
-                <viewController storyboardIdentifier="ConfirmPopupViewController" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="36E-x9-lAM" customClass="ConfirmPopupViewController" customModule="Rundax" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConfirmPopupViewController" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="36E-x9-lAM" customClass="ConfirmPopupViewController" customModule="MinterWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g2g-ac-nkj">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBW-aS-dWt">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="QhT-BT-eGC">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AQh-XW-UEA" customClass="DroppableView" customModule="Rundax" customModuleProvider="target">
-                                            <rect key="frame" x="140" y="140.5" width="320" height="239.5"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AQh-XW-UEA" customClass="DroppableView" customModule="MinterWallet" customModuleProvider="target">
+                                            <rect key="frame" x="47" y="288.5" width="320" height="239.5"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dHe-wr-8vX">
                                                     <rect key="frame" x="10" y="10" width="300" height="219.5"/>
@@ -420,7 +424,7 @@
                                                                 <constraint firstItem="zlk-nn-QTK" firstAttribute="centerY" secondItem="WfP-qk-qrX" secondAttribute="centerY" id="tdc-Jp-dz8"/>
                                                             </constraints>
                                                         </view>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1bH-Xm-Zuz" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1bH-Xm-Zuz" customClass="DefaultButton" customModule="MinterWallet" customModuleProvider="target">
                                                             <rect key="frame" x="10" y="99.5" width="280" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="UwK-Zy-wyJ"/>
@@ -433,7 +437,7 @@
                                                                 <action selector="actionBtnDidTap:" destination="36E-x9-lAM" eventType="touchUpInside" id="yL0-Do-S9d"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mTY-8Y-uEb" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mTY-8Y-uEb" customClass="DefaultButton" customModule="MinterWallet" customModuleProvider="target">
                                                             <rect key="frame" x="10" y="159.5" width="280" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="6Zz-uT-ytZ"/>
@@ -526,22 +530,22 @@
         <!--Textfield Popup View Controller-->
         <scene sceneID="FaN-QD-zOB">
             <objects>
-                <viewController storyboardIdentifier="TextfieldPopupViewController" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HmV-ua-bos" customClass="TextfieldPopupViewController" customModule="Rundax" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TextfieldPopupViewController" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HmV-ua-bos" customClass="TextfieldPopupViewController" customModule="MinterWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zpI-dM-QSR">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PtO-HZ-ttB">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="WHX-C6-1Bj">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eGa-xG-mEu" customClass="DroppableView" customModule="Rundax" customModuleProvider="target">
-                                            <rect key="frame" x="140" y="87.5" width="320" height="425"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eGa-xG-mEu" customClass="DroppableView" customModule="MinterWallet" customModuleProvider="target">
+                                            <rect key="frame" x="47" y="236.5" width="320" height="423"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nst-ze-Cdf">
-                                                    <rect key="frame" x="10" y="10" width="300" height="405"/>
+                                                    <rect key="frame" x="10" y="10" width="300" height="403"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sv8-c6-qVh">
                                                             <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
@@ -562,7 +566,7 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.245 BIP" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VzN-Hh-gbh">
-                                                            <rect key="frame" x="5" y="172" width="290" height="28"/>
+                                                            <rect key="frame" x="5" y="172" width="290" height="27"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="24"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -574,13 +578,13 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mx..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wq2-OZ-nU1">
-                                                            <rect key="frame" x="25" y="248.5" width="250" height="16.5"/>
+                                                            <rect key="frame" x="25" y="247" width="250" height="16"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mbs-Sf-Lra" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
-                                                            <rect key="frame" x="10" y="285" width="280" height="50"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mbs-Sf-Lra" customClass="DefaultButton" customModule="MinterWallet" customModuleProvider="target">
+                                                            <rect key="frame" x="10" y="283" width="280" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="FCQ-eA-m09"/>
                                                             </constraints>
@@ -593,8 +597,8 @@
                                                                 <action selector="didTapActionButton:" destination="fsb-YM-YKJ" eventType="touchUpInside" id="5x1-Bh-mgV"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OTw-QM-lzT" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
-                                                            <rect key="frame" x="10" y="345" width="280" height="50"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OTw-QM-lzT" customClass="DefaultButton" customModule="MinterWallet" customModuleProvider="target">
+                                                            <rect key="frame" x="10" y="343" width="280" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="Qe2-bm-xuB"/>
                                                             </constraints>
@@ -608,9 +612,9 @@
                                                             </connections>
                                                         </button>
                                                         <activityIndicatorView opaque="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="yn2-1N-a7O">
-                                                            <rect key="frame" x="131.5" y="291.5" width="37" height="37"/>
+                                                            <rect key="frame" x="131.5" y="289.5" width="37" height="37"/>
                                                         </activityIndicatorView>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nBd-Av-q5Z" customClass="ValidatableTextField" customModule="Rundax" customModuleProvider="target">
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nBd-Av-q5Z" customClass="ValidatableTextField" customModule="MinterWallet" customModuleProvider="target">
                                                             <rect key="frame" x="10" y="78" width="280" height="46"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="46" id="lum-Bv-hpT"/>
@@ -619,7 +623,7 @@
                                                             <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" textContentType="email"/>
                                                         </textField>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="to attach email above to your address" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8w-6B-Z0G">
-                                                            <rect key="frame" x="31.5" y="216" width="237" height="16.5"/>
+                                                            <rect key="frame" x="31" y="215" width="238.5" height="16"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
