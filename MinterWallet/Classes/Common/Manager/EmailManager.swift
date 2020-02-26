@@ -11,11 +11,11 @@ import Alamofire
 import RxSwift
 
 struct Recipient: Equatable, Codable {
-	let email: String
+	let title: String
 	let address: String
 	
 	public static func == (lhs: Recipient, rhs: Recipient) -> Bool {
-		return lhs.email == rhs.email && lhs.address == rhs.address
+		return lhs.title == rhs.title && lhs.address == rhs.address
 	}
 }
 
@@ -35,7 +35,7 @@ class EmailManager {
 											if let array = JSON as? Array<[String:String]> {
 													var entities: Array<Recipient> = []
 													for item in array {
-															entities.append(Recipient(email: item["email"]!, address: item["address"]!))
+															entities.append(Recipient(title: item["email"]!, address: item["address"]!))
 													}
 													observer.onNext(entities)
 													observer.onCompleted()
@@ -65,7 +65,7 @@ class EmailManager {
 						if let array = JSON as? Array<[String:String]> {
 							var entities: Array<Recipient> = []
 							for item in array {
-									entities.append(Recipient(email: item["email"]!, address: item["address"]!))
+									entities.append(Recipient(title: item["email"]!, address: item["address"]!))
 							}
 							completion?(entities.first)
 						} else {

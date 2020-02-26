@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rFi-rP-fAT">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Gifts View Controller-->
+        <scene sceneID="YBr-Jz-oHy">
+            <objects>
+                <viewController storyboardIdentifier="GiftsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rFi-rP-fAT" customClass="GiftsViewController" customModule="MinterWallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MXt-aO-Qad"/>
+                        <viewControllerLayoutGuide type="bottom" id="TZo-4b-pTs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fby-RK-oiJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="2eP-vt-FlI">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="rFi-rP-fAT" id="C4y-vN-Rpj"/>
+                                    <outlet property="delegate" destination="rFi-rP-fAT" id="ZR6-GQ-8aX"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2eP-vt-FlI" firstAttribute="top" secondItem="fby-RK-oiJ" secondAttribute="top" id="9TP-lI-iWa"/>
+                            <constraint firstAttribute="trailing" secondItem="2eP-vt-FlI" secondAttribute="trailing" id="Au9-86-kpd"/>
+                            <constraint firstItem="2eP-vt-FlI" firstAttribute="leading" secondItem="fby-RK-oiJ" secondAttribute="leading" id="Kyn-zD-DpN"/>
+                            <constraint firstAttribute="bottom" secondItem="2eP-vt-FlI" secondAttribute="bottom" id="tpQ-4f-Crq"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="gqC-vx-zHX">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="N3Q-WA-aBL"/>
+                    </navigationItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="tableView" destination="2eP-vt-FlI" id="ZXP-o1-QmM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bNW-24-diw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1106" y="94"/>
+        </scene>
+    </scenes>
+</document>

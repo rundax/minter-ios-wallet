@@ -238,7 +238,7 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate, Controller
 				return 0
 			}
 			
-			if recipient.email == "" {
+			if recipient.title == "" {
 				return 0
 			}
 		}

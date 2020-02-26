@@ -32,7 +32,7 @@ class ReceiveEmailTableViewCell: AddressTableViewCell {
 		super.configure(item: item)
 		
 		if let item = item as? ReceiveEmailTableViewCellItem {
-			addressLabel.text = item.recipient?.email
+			addressLabel.text = item.recipient?.title
 			actionButton.setTitle(item.buttonTitle, for: .normal)
 		}
 	}

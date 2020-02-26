@@ -174,7 +174,7 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 			let email = ReceiveEmailTableViewCellItem(reuseIdentifier: "ReceiveEmailTableViewCell", identifier: "ReceiveEmailTableViewCell_" + sectionId)
 			email.recipient = cashedRecipient.storedValue
 			email.buttonTitle = "Copy".localized()
-			emailSubject.asObserver().onNext(cashedRecipient.storedValue?.email)
+			emailSubject.asObserver().onNext(cashedRecipient.storedValue?.title)
 			
 			var section = BaseTableSectionItem(header: "YOUR CREDENTIALS".localized())
 			section.identifier = sectionId
@@ -464,7 +464,7 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 
 	func clear() {
 		let cashedRecipient = JSONStorage<Recipient>(storageType: .permanent, filename: Session.shared.accounts.value.first(where: { $0.isMain })?.address ?? "")
-		emailSubject.asObserver().onNext(cashedRecipient.storedValue?.email)
+		emailSubject.asObserver().onNext(cashedRecipient.storedValue?.title)
 		clearPayloadSubject.onNext(nil)
 	}
 	

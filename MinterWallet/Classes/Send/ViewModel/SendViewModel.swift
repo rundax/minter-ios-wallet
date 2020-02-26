@@ -698,13 +698,12 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 		}
 		
 		let amount = Decimal(string: amountSubject.value?.replacingOccurrences(of: ",", with: ".") ?? "") ?? 0
-		if let recipient = recipientSelectedSubject.value, addressSubject.value == recipient.email {
+		if let recipient = recipientSelectedSubject.value, addressSubject.value == recipient.title {
 			
-			if let campaign = self.campaign {
-				let recipient = Recipient(email: "GIFT - SEND COINS TO ANYONE", address: campaign.address)
+			if recipient.address != "" {
 				self.recipientSelectedSubject.accept(recipient)
 				DispatchQueue.main.async {
-					showSendVM(to: "someone who can spend, transfer and exchange coins without wallet".localized(), address: campaign.address, amount: amount)
+					showSendVM(to: "someone who can spend, transfer and exchange coins without wallet".localized(), address: recipient.address, amount: amount)
 				}
 				return
 			}
@@ -720,7 +719,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 						} else {
 							storage.save([campaign])
 						}
-						let recipient = Recipient(email: "GIFT - SEND COINS TO ANYONE", address: campaign.address)
+						let recipient = Recipient(title: "GIFT - SEND COINS TO ANYONE", address: campaign.address)
 						self?.recipientSelectedSubject.accept(recipient)
 						DispatchQueue.main.async {
 							showSendVM(to: "someone who can spend, transfer and exchange coins without wallet".localized(), address: campaign.address, amount: amount)
@@ -973,7 +972,7 @@ extension SendViewModel {
 
 	func sentViewModel(to: String, address: String) -> SentPopupViewModel {
 		let viewModel = SentPopupViewModel()
-		if let campaign = self.campaign {
+		if self.campaign != nil {
 			viewModel.title = "SUCCESS!".localized()
 			viewModel.desc = "Anyone with the following link can spend, transfer and exchange coins without wallet".localized()
 			viewModel.actionButtonTitle = "COPY GIFT LINK".localized()

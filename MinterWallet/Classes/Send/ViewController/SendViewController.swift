@@ -432,7 +432,7 @@ extension SendViewController {
 		cell?.textView.becomeFirstResponder()
 		readerVC.completionBlock = { (result: QRCodeReaderResult?) in
 			if let indexPath = self.tableView.indexPath(for: cell!),
-				let item = self.viewModel.cellItem(section: indexPath.section, row: indexPath.row) {
+				let _ = self.viewModel.cellItem(section: indexPath.section, row: indexPath.row) {
 				cell?.textView.text = result?.value
 			}
 		}
@@ -525,7 +525,7 @@ extension SendViewController {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		if tableView == autocompleteView.tableView {
 			let recipient = autocompleteView.elements[indexPath.row]
-			self.usernameTextView?.text = recipient.email
+			self.usernameTextView?.text = recipient.title
 			view.endEditing(true)
 			self.autocompleteView.isHidden = true
 			self.viewModel.input.recipient.onNext(recipient)
@@ -538,7 +538,7 @@ extension SendViewController: UsernameTextViewTableViewCellDelegate {
 		guard let text = textView.text?.lowercased() else { return }
 		
 		if text.prefix(4).contains("g") || text.prefix(4).contains("gi") {
-			autocompleteView.elements = [Recipient(email: "GIFT - SEND COINS TO ANYONE", address: "")]
+			autocompleteView.elements = [Recipient(title: "GIFT - SEND COINS TO ANYONE", address: "")]
 			autocompleteView.isHidden = false
 			let usernameTextViewBounds = usernameTextView?.convert(usernameTextView!.bounds, to: view)
 			let frame = CGRect(x: 10, y: usernameTextViewBounds!.origin.y + usernameTextViewBounds!.size.height + 16, width: usernameTextView!.frame.width, height: CGFloat(autocompleteView.elements.count) * 45)
@@ -551,8 +551,8 @@ extension SendViewController: UsernameTextViewTableViewCellDelegate {
 	}
 	
 	func didTapGiftButton() {
-		let recipient = Recipient(email: "GIFT - SEND COINS TO ANYONE", address: "")
-		self.usernameTextView?.text = recipient.email
+		let recipient = Recipient(title: "GIFT - SEND COINS TO ANYONE", address: "")
+		self.usernameTextView?.text = recipient.title
 		view.endEditing(true)
 		self.autocompleteView.isHidden = true
 		self.viewModel.input.recipient.onNext(recipient)

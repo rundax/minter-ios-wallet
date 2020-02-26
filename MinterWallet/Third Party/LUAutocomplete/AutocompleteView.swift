@@ -12,7 +12,7 @@ final class CustomAutocompleteTableViewCell: LUAutocompleteTableViewCell {
 	
 	var recipient: Recipient? {
 		didSet {
-			textLabel?.text = recipient?.email
+			textLabel?.text = recipient?.title
 		}
 	}
 }
@@ -110,7 +110,7 @@ extension AutocompleteView: UITableViewDataSource {
         let recipient = elements[indexPath.row]
 
         guard let customCell = cell as? CustomAutocompleteTableViewCell  else {
-					cell.textLabel?.attributedText = NSAttributedString(string: recipient.email, attributes: textAttributes)
+					cell.textLabel?.attributedText = NSAttributedString(string: recipient.title, attributes: textAttributes)
             cell.selectionStyle = .none
 
             return cell
