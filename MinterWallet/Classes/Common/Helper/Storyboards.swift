@@ -904,13 +904,10 @@ extension ReceiveViewController {
 
     enum Reusable: String, CustomStringConvertible, ReusableViewProtocol {
         case QRTableViewCell_ = "QRTableViewCell"
-        case ReceiveEmailTableViewCell_ = "ReceiveEmailTableViewCell"
 
         var kind: ReusableKind? {
             switch self {
             case .QRTableViewCell_:
-                return ReusableKind(rawValue: "tableViewCell")
-            case .ReceiveEmailTableViewCell_:
                 return ReusableKind(rawValue: "tableViewCell")
             }
         }
@@ -919,8 +916,6 @@ extension ReceiveViewController {
             switch self {
             case .QRTableViewCell_:
                 return QRTableViewCell.self
-            case .ReceiveEmailTableViewCell_:
-                return ReceiveEmailTableViewCell.self
             }
         }
 

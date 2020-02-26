@@ -7,9 +7,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Ubuntu-M.ttf">
-            <string>Ubuntu-Medium</string>
-        </array>
         <array key="UbuntuMono-B.ttf">
             <string>UbuntuMono-Bold</string>
         </array>
@@ -18,7 +15,7 @@
         <!--Receive Coins-->
         <scene sceneID="EHg-Hm-dIg">
             <objects>
-                <viewController storyboardIdentifier="ReceiveViewController" title="Receive Coins" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AOA-uS-VHB" customClass="ReceiveViewController" customModule="Rundax" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReceiveViewController" title="Receive Coins" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AOA-uS-VHB" customClass="ReceiveViewController" customModule="MinterWallet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L0H-y4-xgm"/>
                         <viewControllerLayoutGuide type="bottom" id="G59-i0-2ls"/>
@@ -31,8 +28,36 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="QRTableViewCell" rowHeight="182" id="0r5-uD-Mvw" customClass="QRTableViewCell" customModule="Rundax" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="182"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ReceiveAddressTableViewCell" rowHeight="74" id="S2v-JK-95T" customClass="ReceiveAddressTableViewCell" customModule="MinterWallet" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="74"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S2v-JK-95T" id="QQp-tv-R8g">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y5d-Ej-zL0">
+                                                    <rect key="frame" x="20" y="0.0" width="335" height="74"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="74" id="jVQ-nR-p2F"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="UbuntuMono-Bold" family="Ubuntu Mono" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="y5d-Ej-zL0" firstAttribute="top" secondItem="QQp-tv-R8g" secondAttribute="top" id="5Ua-XK-H6Z"/>
+                                                <constraint firstAttribute="bottom" secondItem="y5d-Ej-zL0" secondAttribute="bottom" id="JM3-Yv-Mr6"/>
+                                                <constraint firstAttribute="trailing" secondItem="y5d-Ej-zL0" secondAttribute="trailing" constant="20" id="YzQ-u8-tH1"/>
+                                                <constraint firstItem="y5d-Ej-zL0" firstAttribute="leading" secondItem="QQp-tv-R8g" secondAttribute="leading" constant="20" id="woo-zA-i7T"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="addressLabel" destination="y5d-Ej-zL0" id="j0G-ou-D4d"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="QRTableViewCell" rowHeight="182" id="0r5-uD-Mvw" customClass="QRTableViewCell" customModule="MinterWallet" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="129.5" width="375" height="182"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0r5-uD-Mvw" id="DOX-x9-Eg1">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="182"/>
@@ -67,48 +92,6 @@
                                             <outlet property="qrImageView" destination="OMa-wU-Ld9" id="bHB-FJ-wlu"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ReceiveEmailTableViewCell" rowHeight="75" id="K8t-Sc-ZTJ" customClass="ReceiveEmailTableViewCell" customModule="Rundax" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="237.5" width="375" height="75"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K8t-Sc-ZTJ" id="o3X-MI-PNR">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFT-QD-YdA">
-                                                    <rect key="frame" x="20" y="18" width="217.5" height="37"/>
-                                                    <fontDescription key="fontDescription" name="UbuntuMono-Bold" family="Ubuntu Mono" pointSize="20"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0H4-Au-wSa">
-                                                    <rect key="frame" x="319" y="21.5" width="40" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="UWC-h9-b6I"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="16"/>
-                                                    <state key="normal" title="Copy">
-                                                        <color key="titleColor" red="0.31372549020000001" green="0.18039215689999999" blue="0.76078431369999999" alpha="1" colorSpace="deviceRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="didTapActionButton:" destination="K8t-Sc-ZTJ" eventType="touchUpInside" id="SmS-sT-9gV"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="BFT-QD-YdA" firstAttribute="leading" secondItem="o3X-MI-PNR" secondAttribute="leading" constant="20" id="KEE-hP-SzX"/>
-                                                <constraint firstAttribute="bottom" secondItem="BFT-QD-YdA" secondAttribute="bottom" constant="20" id="TAb-Ad-6mk"/>
-                                                <constraint firstAttribute="trailing" secondItem="0H4-Au-wSa" secondAttribute="trailing" constant="16" id="jt0-Yo-ADW"/>
-                                                <constraint firstItem="0H4-Au-wSa" firstAttribute="centerY" secondItem="BFT-QD-YdA" secondAttribute="centerY" id="ogp-Is-9wD"/>
-                                                <constraint firstItem="BFT-QD-YdA" firstAttribute="top" secondItem="o3X-MI-PNR" secondAttribute="top" constant="18" id="tqy-Rd-n41"/>
-                                                <constraint firstAttribute="centerX" secondItem="BFT-QD-YdA" secondAttribute="trailing" constant="-50" id="v4Q-zH-bet"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <viewLayoutGuide key="safeArea" id="qt0-cJ-g7l"/>
-                                        <connections>
-                                            <outlet property="actionButton" destination="0H4-Au-wSa" id="qxI-7Q-ggy"/>
-                                            <outlet property="addressLabel" destination="BFT-QD-YdA" id="Vck-eQ-cAv"/>
-                                        </connections>
-                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
@@ -123,55 +106,18 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Receive Coins" id="CcE-qa-Zc0"/>
                     <connections>
-                        <outlet property="addEmailButton" destination="5I2-7d-TuN" id="3Ge-4U-Tk8"/>
                         <outlet property="addToWalletButton" destination="0wP-w7-zNb" id="FCU-dQ-QHv"/>
                         <outlet property="addWalletActivityIndicator" destination="Tkt-UF-OoE" id="NBG-3G-tj7"/>
                         <outlet property="footerView" destination="7Rj-Ao-rz5" id="r1y-zo-IhT"/>
-                        <outlet property="headerView" destination="9Yq-5z-U3d" id="3TA-Yq-dmv"/>
                         <outlet property="tableView" destination="1S2-k1-emM" id="Q9d-cX-bGO"/>
                     </connections>
                 </viewController>
-                <view contentMode="scaleToFill" id="9Yq-5z-U3d">
-                    <rect key="frame" x="0.0" y="0.0" width="410" height="132"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receive assets directly to your email! All data is stored in blockchain only!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h2D-9d-iVF">
-                            <rect key="frame" x="8" y="16" width="394" height="50"/>
-                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5I2-7d-TuN" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
-                            <rect key="frame" x="65" y="82" width="280" height="50"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="280" id="4Hj-Od-fzK"/>
-                                <constraint firstAttribute="height" constant="50" id="MJj-n2-ODP"/>
-                            </constraints>
-                            <state key="normal" title="ATTACH EMAIL"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="pattern" value="purple"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="addEmailDidTap:" destination="AOA-uS-VHB" eventType="touchUpInside" id="NzA-e5-CoN"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="trailing" secondItem="h2D-9d-iVF" secondAttribute="trailing" constant="8" id="3oe-av-Etd"/>
-                        <constraint firstItem="5I2-7d-TuN" firstAttribute="centerX" secondItem="9Yq-5z-U3d" secondAttribute="centerX" id="XVF-md-1jZ"/>
-                        <constraint firstItem="h2D-9d-iVF" firstAttribute="top" secondItem="9Yq-5z-U3d" secondAttribute="top" constant="16" id="cGX-3U-4c0"/>
-                        <constraint firstItem="5I2-7d-TuN" firstAttribute="top" secondItem="h2D-9d-iVF" secondAttribute="bottom" constant="16" id="djx-3q-w6l"/>
-                        <constraint firstAttribute="bottom" secondItem="5I2-7d-TuN" secondAttribute="bottom" id="h9m-xp-ARP"/>
-                        <constraint firstItem="h2D-9d-iVF" firstAttribute="leading" secondItem="9Yq-5z-U3d" secondAttribute="leading" constant="8" id="iQ2-Ib-PU0"/>
-                    </constraints>
-                </view>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mBC-Bc-k0f" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="7Rj-Ao-rz5">
                     <rect key="frame" x="0.0" y="0.0" width="410" height="128"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hw-Re-ROG" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hw-Re-ROG" customClass="DefaultButton" customModule="MinterWallet" customModuleProvider="target">
                             <rect key="frame" x="65" y="20" width="280" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="69A-nc-Tba"/>

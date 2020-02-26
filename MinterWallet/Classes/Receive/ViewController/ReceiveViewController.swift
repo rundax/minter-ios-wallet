@@ -21,7 +21,8 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate, Controller
   var viewModel: ReceiveViewModel!
 
   func configure(with viewModel: ReceiveViewController.ViewModelType) {
-		addToWalletButton.rx.tap.asDriver().drive(viewModel.input.didTapAddPass).disposed(by: disposeBag)
+
+    addToWalletButton.rx.tap.asDriver().drive(viewModel.input.didTapAddPass).disposed(by: disposeBag)
 
     viewModel
       .output
@@ -57,22 +58,13 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate, Controller
 
 	let disposeBag = DisposeBag()
 	var rxDataSource: RxTableViewSectionedAnimatedDataSource<BaseTableSectionItem>?
-	var popupViewController: PopupViewController?
-	weak var delegate: SentPopupViewControllerDelegate?
-
-	@IBOutlet weak var addEmailButton: UIButton!
-
 
 	// MARK: -
-	@IBAction func addEmailDidTap(_ sender: Any) {
-		SoundHelper.playSoundIfAllowed(type: .bip)
-		hardImpactFeedbackGenerator.prepare()
-		hardImpactFeedbackGenerator.impactOccurred()
-	}
 
   @IBOutlet weak var addWalletActivityIndicator: UIActivityIndicatorView!
   @IBOutlet weak var addToWalletButton: DefaultButton!
   @IBAction func shareButtonDidTap(_ sender: UIButton) {
+
 		hardImpactFeedbackGenerator.prepare()
 		hardImpactFeedbackGenerator.impactOccurred()
 
@@ -85,13 +77,15 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate, Controller
 		}
 	}
 
-	@IBOutlet var headerView: UIView!
 	@IBOutlet var footerView: UIView!
 
 	@IBOutlet weak var tableView: UITableView! {
 		didSet {
-			tableView.tableHeaderView = self.headerView
 			tableView.tableFooterView = self.footerView
+			tableView.contentInset = UIEdgeInsets(top: -40,
+																						left: 0,
+																						bottom: 0,
+																						right: 0)
 		}
 	}
 
@@ -127,45 +121,9 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate, Controller
 		tableView.rx.setDelegate(self).disposed(by: disposeBag)
 
 		viewModel.sectionsObservable.bind(to: tableView.rx.items(dataSource: rxDataSource!)).disposed(by: disposeBag)
-		
-		viewModel
-		.output
-		.popup
-		.asDriver(onErrorJustReturn: nil)
-		.drive(onNext: { [weak self] (popup) in
-			if popup == nil {
-				self?.popupViewController?.dismiss(animated: true, completion: nil)
-				return
-			}
-
-			if let sent = popup as? SentPopupViewController {
-				sent.delegate = self
-			}
-
-			if let textField = popup as? TextfieldPopupViewController {
-				self?.popupViewController = nil
-				textField.delegate = self
-				textField.popupViewControllerDelegate = self
-			}
-
-			if self?.popupViewController == nil {
-				self?.showPopup(viewController: popup!)
-				self?.popupViewController = popup
-			} else {
-				self?.showPopup(viewController: popup!,
-												inPopupViewController: self!.popupViewController)
-			}
-		}).disposed(by: disposeBag)
-		
-		addEmailButton
-			.rx
-			.tap
-			.asDriver()
-			.drive(viewModel.input.attachEmailButtonDidTap)
-			.disposed(by: disposeBag)
 
 		if self.shouldShowTestnetToolbar {
-			self.tableView.contentInset = UIEdgeInsets(top: 40,
+			self.tableView.contentInset = UIEdgeInsets(top: 8,
 																								 left: 0,
 																								 bottom: 0,
 																								 right: 0)
@@ -174,26 +132,6 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate, Controller
 
 	}
 
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		
-		let cashedRecipient = JSONStorage<Recipient>(storageType: .permanent, filename: Session.shared.accounts.value.first(where: { $0.isMain })?.address ?? "")
-		if cashedRecipient.storedValue == nil {
-			EmailManager.getRecipient(address: cashedRecipient.filename) { [weak self] recipient in
-				if let recipient = recipient {
-					JSONStorage<Recipient>(storageType: .permanent, filename: Session.shared.accounts.value.first(where: { $0.isMain })?.address ?? "").save(recipient)
-					self?.addEmailButton.setTitle("CHANGE EMAIL".localized(), for: .normal)
-				}
-				self?.viewModel.createSections()
-				self?.tableView.reloadData()
-			}
-			addEmailButton.setTitle("ATTACH EMAIL".localized(), for: .normal)
-		} else {
-			addEmailButton.setTitle("CHANGE EMAIL".localized(), for: .normal)
-			viewModel.createSections()
-			tableView.reloadData()
-		}
-	}
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 
@@ -230,20 +168,6 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate, Controller
 
 		return header
 	}
-	
-	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		if let item = viewModel.cellItem(section: indexPath.section,
-																		 row: indexPath.row) as? ReceiveEmailTableViewCellItem {
-			guard let recipient = item.recipient else {
-				return 0
-			}
-			
-			if recipient.title == "" {
-				return 0
-			}
-		}
-		return UITableViewAutomaticDimension
-	}
 }
 
 extension ReceiveViewController: QRTableViewCellDelegate {
@@ -267,61 +191,5 @@ extension ReceiveViewController: QRTableViewCellDelegate {
 			let banner = NotificationBanner(title: "Copied".localized(), subtitle: nil, style: .info)
 			banner.show()
 		}
-	}
-}
-
-extension ReceiveViewController: SentPopupViewControllerDelegate {
-	// MARK: - SentPopupViewControllerDelegate
-
-	func didTapActionButton(viewController: SentPopupViewController) {
-		SoundHelper.playSoundIfAllowed(type: .click)
-		hardImpactFeedbackGenerator.prepare()
-		hardImpactFeedbackGenerator.impactOccurred()
-		AnalyticsHelper.defaultAnalytics.track(event: .sentCoinPopupViewTransactionButton)
-		viewController.dismiss(animated: true) { [weak self] in
-			if let url = self?.viewModel.lastTransactionExplorerURL() {
-				let vc = BaseSafariViewController(url: url)
-				self?.present(vc, animated: true) {}
-			}
-		}
-	}
-
-	func didTapSecondActionButton(viewController: SentPopupViewController) {
-		SoundHelper.playSoundIfAllowed(type: .click)
-		lightImpactFeedbackGenerator.prepare()
-		lightImpactFeedbackGenerator.impactOccurred()
-		AnalyticsHelper.defaultAnalytics.track(event: .sentCoinPopupShareTransactionButton)
-		viewController.dismiss(animated: true) { [weak self] in
-			if let url = self?.viewModel.lastTransactionExplorerURL() {
-				let vc = ActivityRouter.activityViewController(activities: [url], sourceView: self!.view)
-				self?.present(vc, animated: true, completion: nil)
-			}
-		}
-	}
-
-	func didTapSecondButton(viewController: SentPopupViewController) {
-		SoundHelper.playSoundIfAllowed(type: .cancel)
-		lightImpactFeedbackGenerator.prepare()
-		AnalyticsHelper.defaultAnalytics.track(event: .sentCoinPopupCloseButton)
-		viewController.dismiss(animated: true, completion: nil)
-	}
-}
-
-extension ReceiveViewController: TextfieldPopupViewControllerDelegate {
-	func didFinish(viewController: TextfieldPopupViewController) {
-		
-	}
-	
-	func didCancel(viewController: TextfieldPopupViewController) {
-		SoundHelper.playSoundIfAllowed(type: .cancel)
-//		AnalyticsHelper.defaultAnalytics.track(event: .sendCoinPopupCancelButton)
-		viewController.dismiss(animated: true, completion: nil)
-	}
-}
-
-extension ReceiveViewController: PopupViewControllerDelegate {
-	func didDismissPopup(viewController: PopupViewController?) {
-		self.viewModel.clear()
-		viewController?.dismiss(animated: true, completion: nil)
 	}
 }

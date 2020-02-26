@@ -409,15 +409,6 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
       }
       }).disposed(by: disposeBag)
 	}
-	
-	func getEmails(_ rec: String?, completion: (([Recipient]?) -> Void)?) {
-		EmailManager.getEmails(email: rec ?? "")
-			.subscribe(onNext: { recipientList in
-				completion?(recipientList)
-			}, onError: { error in
-				completion?(nil)
-			}).disposed(by: disposeBag)
-	}
 
 	// MARK: - Sections
 

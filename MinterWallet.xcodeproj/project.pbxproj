@@ -18,6 +18,8 @@
 		2E776157C3BE73E6DF25F7C2 /* Send.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A08D1CE45C9B6F749099A430 /* Send.storyboard */; };
 		3002AF2623D1E8A2007F6FD6 /* AutocompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3002AF2523D1E8A2007F6FD6 /* AutocompleteView.swift */; };
 		3002AF2723D1E8A2007F6FD6 /* AutocompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3002AF2523D1E8A2007F6FD6 /* AutocompleteView.swift */; };
+		301DC7D924069F8B0095E0F9 /* Recipient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301DC7D824069F8B0095E0F9 /* Recipient.swift */; };
+		301DC7DA24069F8B0095E0F9 /* Recipient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301DC7D824069F8B0095E0F9 /* Recipient.swift */; };
 		30328C1A2368764C00443D8D /* PairedModeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30328C142368764C00443D8D /* PairedModeViewModel.swift */; };
 		30328C1B2368764C00443D8D /* PairedModeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30328C142368764C00443D8D /* PairedModeViewModel.swift */; };
 		30328C1C2368764C00443D8D /* PairedModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30328C172368764C00443D8D /* PairedModeViewController.swift */; };
@@ -30,16 +32,12 @@
 		3066C22F240551CD00583B13 /* GiftsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3066C22D240551CC00583B13 /* GiftsViewController.swift */; };
 		3066C231240551D900583B13 /* GiftsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3066C230240551D800583B13 /* GiftsViewModel.swift */; };
 		3066C232240551D900583B13 /* GiftsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3066C230240551D800583B13 /* GiftsViewModel.swift */; };
-		3067F39123956316002DC97C /* EmailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067F39023956316002DC97C /* EmailManager.swift */; };
-		3067F39223956316002DC97C /* EmailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067F39023956316002DC97C /* EmailManager.swift */; };
 		3075CDFC23E07C44007FE2CF /* TextfieldPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075CDFB23E07C44007FE2CF /* TextfieldPopupViewController.swift */; };
 		3075CDFD23E07C44007FE2CF /* TextfieldPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075CDFB23E07C44007FE2CF /* TextfieldPopupViewController.swift */; };
 		3075CDFF23E08352007FE2CF /* TextFieldPopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075CDFE23E08352007FE2CF /* TextFieldPopupViewModel.swift */; };
 		3075CE0023E08352007FE2CF /* TextFieldPopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075CDFE23E08352007FE2CF /* TextFieldPopupViewModel.swift */; };
 		308CD03523DA424B0049C69B /* JSONStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CD03423DA424B0049C69B /* JSONStorage.swift */; };
 		308CD03623DA424B0049C69B /* JSONStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CD03423DA424B0049C69B /* JSONStorage.swift */; };
-		308CD03823DA48A10049C69B /* ReceiveEmailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CD03723DA48A10049C69B /* ReceiveEmailTableViewCell.swift */; };
-		308CD03923DA48A10049C69B /* ReceiveEmailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CD03723DA48A10049C69B /* ReceiveEmailTableViewCell.swift */; };
 		308FA5CD23F0582500186F79 /* UITextfield+Length.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FA5CC23F0582500186F79 /* UITextfield+Length.swift */; };
 		308FA5CE23F0582500186F79 /* UITextfield+Length.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FA5CC23F0582500186F79 /* UITextfield+Length.swift */; };
 		309920A42394764100220323 /* MinterWalletTestnet-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 309920A32394764100220323 /* MinterWalletTestnet-Info.plist */; };
@@ -645,17 +643,16 @@
 		1939F242DE0C1FE08F95338D /* AdvancedModeViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdvancedModeViewModel.swift; sourceTree = "<group>"; };
 		25784C6ACDA695190875E917 /* Login.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		3002AF2523D1E8A2007F6FD6 /* AutocompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteView.swift; sourceTree = "<group>"; };
+		301DC7D824069F8B0095E0F9 /* Recipient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipient.swift; sourceTree = "<group>"; };
 		30328C142368764C00443D8D /* PairedModeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairedModeViewModel.swift; sourceTree = "<group>"; };
 		30328C172368764C00443D8D /* PairedModeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairedModeViewController.swift; sourceTree = "<group>"; };
 		30328C182368764C00443D8D /* PairedMode.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PairedMode.storyboard; sourceTree = "<group>"; };
 		3066C20D2405510300583B13 /* Gifts.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Gifts.storyboard; sourceTree = "<group>"; };
 		3066C22D240551CC00583B13 /* GiftsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftsViewController.swift; sourceTree = "<group>"; };
 		3066C230240551D800583B13 /* GiftsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftsViewModel.swift; sourceTree = "<group>"; };
-		3067F39023956316002DC97C /* EmailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailManager.swift; sourceTree = "<group>"; };
 		3075CDFB23E07C44007FE2CF /* TextfieldPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextfieldPopupViewController.swift; sourceTree = "<group>"; };
 		3075CDFE23E08352007FE2CF /* TextFieldPopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldPopupViewModel.swift; sourceTree = "<group>"; };
 		308CD03423DA424B0049C69B /* JSONStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONStorage.swift; sourceTree = "<group>"; };
-		308CD03723DA48A10049C69B /* ReceiveEmailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveEmailTableViewCell.swift; sourceTree = "<group>"; };
 		308FA5CC23F0582500186F79 /* UITextfield+Length.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextfield+Length.swift"; sourceTree = "<group>"; };
 		309920A32394764100220323 /* MinterWalletTestnet-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MinterWalletTestnet-Info.plist"; sourceTree = "<group>"; };
 		309920A62394772400220323 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1596,7 +1593,6 @@
 			children = (
 				FA505ADC20E24D7C00DA90C0 /* QRTableViewCell.swift */,
 				FA670A3820E27352000A5169 /* ReceiveAddressTableViewCell.swift */,
-				308CD03723DA48A10049C69B /* ReceiveEmailTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1865,7 +1861,6 @@
 				FA531E2D219B1F1900A7AD9F /* AppSettingsManager.swift */,
 				FA83186521F8C268007F268D /* GateManager.swift */,
 				FAB0D35422CCA5A9002945E2 /* PINManager.swift */,
-				3067F39023956316002DC97C /* EmailManager.swift */,
 				FA3CD61C23ABC138004DDF29 /* PassbookManager.swift */,
 				30DDDE1123FE9746007E9C02 /* PushManager.swift */,
 			);
@@ -2235,6 +2230,7 @@
 				FAC4BA1320DA49E2005A1B90 /* Notifiable.swift */,
 				FA670A3A20E291C0000A5169 /* TransactionItem.swift */,
 				30DDDE1423FE9CE2007E9C02 /* Campaign.swift */,
+				301DC7D824069F8B0095E0F9 /* Recipient.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3108,6 +3104,7 @@
 				FA332FAB224A4B3C003B4763 /* AddressManager+Default.swift in Sources */,
 				FA332FAC224A4B3C003B4763 /* SoundHelper.swift in Sources */,
 				FA332FAD224A4B3C003B4763 /* TransactionTableViewCell.swift in Sources */,
+				301DC7D924069F8B0095E0F9 /* Recipient.swift in Sources */,
 				FAB0D35222CB6978002945E2 /* PINRouter.swift in Sources */,
 				FA332FAF224A4B3C003B4763 /* Sugar.swift in Sources */,
 				FA332FB1224A4B3C003B4763 /* CoinsTableViewHeaderView.swift in Sources */,
@@ -3236,7 +3233,6 @@
 				FA333019224A4B3C003B4763 /* ProfileManager+Rx.swift in Sources */,
 				FA33301B224A4B3C003B4763 /* CoinManager+Rx.swift in Sources */,
 				FA33301C224A4B3C003B4763 /* GenerateAddressViewModel.swift in Sources */,
-				3067F39123956316002DC97C /* EmailManager.swift in Sources */,
 				FAA2AAEA2296E42300581D47 /* TransactionAddressButton.swift in Sources */,
 				FAA0B2AB232A44E7001C5C72 /* SendPayloadTableViewCell.swift in Sources */,
 				FA33301D224A4B3C003B4763 /* SentPopupViewModel.swift in Sources */,
@@ -3255,7 +3251,6 @@
 				FA333026224A4B3C003B4763 /* SessionAddressSyncer.swift in Sources */,
 				FA704EB22306B45E00A1A459 /* AdvancedGateManager+Rx.swift in Sources */,
 				FA333027224A4B3C003B4763 /* SettingsSwitchTableViewCell.swift in Sources */,
-				308CD03823DA48A10049C69B /* ReceiveEmailTableViewCell.swift in Sources */,
 				FA0A0DD72371A70B00B83C29 /* UITextViewWorkaround.swift in Sources */,
 				FA333028224A4B3C003B4763 /* SendViewController.swift in Sources */,
 				FAA2AAE12296C5BE00581D47 /* TransactionTitleHelper.swift in Sources */,
@@ -3345,6 +3340,7 @@
 				FA7935FF20D3B3D70012642E /* AddressManager+Default.swift in Sources */,
 				FADD8F2121930B2300463F66 /* SoundHelper.swift in Sources */,
 				FA6A8138207BAE1300DC97E5 /* TransactionTableViewCell.swift in Sources */,
+				301DC7DA24069F8B0095E0F9 /* Recipient.swift in Sources */,
 				FAB0D35322CB6978002945E2 /* PINRouter.swift in Sources */,
 				FAC1E1C92074CEC90083333F /* Sugar.swift in Sources */,
 				FA4542782106103500DB6634 /* CoinsTableViewHeaderView.swift in Sources */,
@@ -3473,7 +3469,6 @@
 				FA17817121EF7D1F00FECDED /* ProfileManager+Rx.swift in Sources */,
 				FA83186A21FF003F007F268D /* CoinManager+Rx.swift in Sources */,
 				FAA2607C209355BD009FF3DE /* GenerateAddressViewModel.swift in Sources */,
-				3067F39223956316002DC97C /* EmailManager.swift in Sources */,
 				FAA2AAEB2296E42300581D47 /* TransactionAddressButton.swift in Sources */,
 				FAA0B2AC232A44E7001C5C72 /* SendPayloadTableViewCell.swift in Sources */,
 				FA7A9BFA20BED61000E3CCDA /* SentPopupViewModel.swift in Sources */,
@@ -3492,7 +3487,6 @@
 				FA7935FB20D30B710012642E /* SessionAddressSyncer.swift in Sources */,
 				FA704EB32306B45E00A1A459 /* AdvancedGateManager+Rx.swift in Sources */,
 				FAE79456208DC30D0006CB0B /* SettingsSwitchTableViewCell.swift in Sources */,
-				308CD03923DA48A10049C69B /* ReceiveEmailTableViewCell.swift in Sources */,
 				FA0A0DD82371A70B00B83C29 /* UITextViewWorkaround.swift in Sources */,
 				D124A0B3D452A1612EA7194E /* SendViewController.swift in Sources */,
 				FAA2AAE22296C5BE00581D47 /* TransactionTitleHelper.swift in Sources */,
