@@ -57,7 +57,7 @@
                         <rect key="frame" x="286" y="38.5" width="63" height="28"/>
                         <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="14"/>
                         <state key="normal" title="USE MAX">
-                            <color key="titleColor" red="0.31372549019607843" green="0.1803921568627451" blue="0.76078431372549016" alpha="1" colorSpace="deviceRGB"/>
+                            <color key="titleColor" red="0.94117647059999998" green="0.34509803919999998" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <connections>
                             <action selector="didTapUseMax:" destination="-1" eventType="touchUpInside" id="On9-qa-cby"/>

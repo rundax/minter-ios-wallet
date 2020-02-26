@@ -19,7 +19,7 @@ class PairedModeViewModel: AccountantBaseViewModel {
 
     var title: String {
         get {
-            return "Paired Mode".localized()
+            return "2FA Mode".localized()
         }
     }
 

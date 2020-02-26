@@ -11,7 +11,11 @@ import UIKit
 extension UIColor {
 
 	static func mainColor(alpha: CGFloat = 1) -> UIColor {
-		return UIColor(hex: 0x502EC2, alpha: alpha)!
+		return UIColor(hex: 0x313131, alpha: alpha)!
+	}
+	
+	static func mainOrangeColor(alpha: CGFloat = 1) -> UIColor {
+		return UIColor(hex: 0xF0582B, alpha: alpha)!
 	}
 
 	static func mainGreenColor(alpha: CGFloat = 1) -> UIColor {

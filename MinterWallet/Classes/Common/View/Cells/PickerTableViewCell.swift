@@ -117,7 +117,7 @@ class PickerTableViewCell: BaseCell, UITextFieldDelegate {
 		let picker = McPicker(data: data)
 		picker.toolbarButtonsColor = .white
 		picker.toolbarDoneButtonColor = .white
-		picker.toolbarBarTintColor = UIColor(hex: 0x4225A4)
+		picker.toolbarBarTintColor = UIColor.mainColor()
 		picker.toolbarItemsFont = UIFont.mediumFont(of: 16.0)
 		let label = UILabel()
 		label.font = UIFont.boldFont(of: 22)

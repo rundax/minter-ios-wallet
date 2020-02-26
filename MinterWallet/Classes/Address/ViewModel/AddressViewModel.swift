@@ -88,7 +88,7 @@ class AddressViewModel: BaseViewModel {
 
 			let secured = DisclosureTableViewCellItem(reuseIdentifier: "DisclosureTableViewCell",
 																								identifier: "DisclosureTableViewCell_Secured_2\(sectionId)")
-			secured.title = "Paired mode".localized()
+			secured.title = "2FA Mode".localized()
 
 			if accountManager.secretCode(address: account.address) == nil {
 				secured.value = "OFF".localized()

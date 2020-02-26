@@ -903,10 +903,13 @@ extension IdentifiableProtocol where Self: ReceiveViewController {
 extension ReceiveViewController {
 
     enum Reusable: String, CustomStringConvertible, ReusableViewProtocol {
+        case ReceiveAddressTableViewCell_ = "ReceiveAddressTableViewCell"
         case QRTableViewCell_ = "QRTableViewCell"
 
         var kind: ReusableKind? {
             switch self {
+            case .ReceiveAddressTableViewCell_:
+                return ReusableKind(rawValue: "tableViewCell")
             case .QRTableViewCell_:
                 return ReusableKind(rawValue: "tableViewCell")
             }
@@ -914,6 +917,8 @@ extension ReceiveViewController {
 
         var viewType: UIView.Type? {
             switch self {
+            case .ReceiveAddressTableViewCell_:
+                return ReceiveAddressTableViewCell.self
             case .QRTableViewCell_:
                 return QRTableViewCell.self
             }

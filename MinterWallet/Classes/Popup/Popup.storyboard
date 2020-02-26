@@ -229,7 +229,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
-                                                            <color key="backgroundColor" red="0.31372549020000001" green="0.18039215689999999" blue="0.76078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                                            <color key="backgroundColor" red="0.19215686269999999" green="0.19215686269999999" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstItem="twk-kn-uvE" firstAttribute="leading" secondItem="CqZ-j3-nfM" secondAttribute="leading" constant="8" id="8au-fO-NNi"/>
                                                                 <constraint firstAttribute="height" constant="50" id="Yjl-pT-c1K"/>
@@ -542,10 +542,10 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eGa-xG-mEu" customClass="DroppableView" customModule="MinterWallet" customModuleProvider="target">
-                                            <rect key="frame" x="47" y="236.5" width="320" height="423"/>
+                                            <rect key="frame" x="47" y="235.5" width="320" height="425"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nst-ze-Cdf">
-                                                    <rect key="frame" x="10" y="10" width="300" height="403"/>
+                                                    <rect key="frame" x="10" y="10" width="300" height="405"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sv8-c6-qVh">
                                                             <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
@@ -566,7 +566,7 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.245 BIP" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VzN-Hh-gbh">
-                                                            <rect key="frame" x="5" y="172" width="290" height="27"/>
+                                                            <rect key="frame" x="5" y="172" width="290" height="28"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="24"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -578,13 +578,13 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mx..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wq2-OZ-nU1">
-                                                            <rect key="frame" x="25" y="247" width="250" height="16"/>
+                                                            <rect key="frame" x="25" y="248.5" width="250" height="16.5"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mbs-Sf-Lra" customClass="DefaultButton" customModule="MinterWallet" customModuleProvider="target">
-                                                            <rect key="frame" x="10" y="283" width="280" height="50"/>
+                                                            <rect key="frame" x="10" y="285" width="280" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="FCQ-eA-m09"/>
                                                             </constraints>
@@ -598,7 +598,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OTw-QM-lzT" customClass="DefaultButton" customModule="MinterWallet" customModuleProvider="target">
-                                                            <rect key="frame" x="10" y="343" width="280" height="50"/>
+                                                            <rect key="frame" x="10" y="345" width="280" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="Qe2-bm-xuB"/>
                                                             </constraints>
@@ -612,7 +612,7 @@
                                                             </connections>
                                                         </button>
                                                         <activityIndicatorView opaque="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="yn2-1N-a7O">
-                                                            <rect key="frame" x="131.5" y="289.5" width="37" height="37"/>
+                                                            <rect key="frame" x="131.5" y="291.5" width="37" height="37"/>
                                                         </activityIndicatorView>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nBd-Av-q5Z" customClass="ValidatableTextField" customModule="MinterWallet" customModuleProvider="target">
                                                             <rect key="frame" x="10" y="78" width="280" height="46"/>
@@ -623,7 +623,7 @@
                                                             <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" textContentType="email"/>
                                                         </textField>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="to attach email above to your address" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8w-6B-Z0G">
-                                                            <rect key="frame" x="31" y="215" width="238.5" height="16"/>
+                                                            <rect key="frame" x="31.5" y="216" width="237" height="16.5"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -719,6 +719,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AvatarPlaceholderImage" width="26" height="26"/>
+        <image name="AvatarPlaceholderImage" width="1242" height="1242"/>
     </resources>
 </document>

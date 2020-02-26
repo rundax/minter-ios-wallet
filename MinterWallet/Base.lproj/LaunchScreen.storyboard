@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,19 +16,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bipLogo" translatesAutoresizingMaskIntoConstraints="NO" id="kYa-i1-5WE">
-                                <rect key="frame" x="105" y="239" width="164" height="113"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RundaxWhite" translatesAutoresizingMaskIntoConstraints="NO" id="kYa-i1-5WE">
+                                <rect key="frame" x="87.5" y="233.5" width="200" height="200"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="164" id="WXA-u3-YPZ"/>
-                                    <constraint firstAttribute="height" constant="113" id="agt-vd-lqa"/>
+                                    <constraint firstAttribute="height" constant="200" id="A0G-DB-5zN"/>
+                                    <constraint firstAttribute="width" constant="200" id="G3L-V6-Syf"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.31372549019607843" green="0.1803921568627451" blue="0.76078431372549016" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" red="0.19215686269999999" green="0.19215686269999999" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="kYa-i1-5WE" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Ydm-eL-IqO"/>
-                            <constraint firstItem="kYa-i1-5WE" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" priority="999" id="i8M-TU-mAV"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="kYa-i1-5WE" secondAttribute="bottom" constant="315" id="wa8-oB-P9r"/>
+                            <constraint firstItem="kYa-i1-5WE" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="10K-Om-ciV"/>
+                            <constraint firstItem="kYa-i1-5WE" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Psd-bF-Nrp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -41,6 +38,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bipLogo" width="164" height="113"/>
+        <image name="RundaxWhite" width="885" height="1015"/>
     </resources>
 </document>

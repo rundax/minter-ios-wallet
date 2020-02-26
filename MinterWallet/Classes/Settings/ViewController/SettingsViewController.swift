@@ -354,7 +354,7 @@ extension SettingsViewController: ButtonTableViewCellDelegate {
 				// AnalyticsHelper.defaultAnalytics.track(event: .sendCoinsChooseCoinButton)
 
 				let seedMode = PickerTableViewCellPickerItem(title: "SEED MODE".localized(), object: "showAdvancedMode")
-				let pairedMode = PickerTableViewCellPickerItem(title: "PAIRED MODE".localized(), object: "showPairedMode")
+				let pairedMode = PickerTableViewCellPickerItem(title: "2FA MODE".localized(), object: "showPairedMode")
 				let items = [seedMode, pairedMode]
 
 				let data: [[String]] = [items.map({ (item) -> String in
@@ -364,7 +364,7 @@ extension SettingsViewController: ButtonTableViewCellDelegate {
 				let picker = McPicker(data: data)
 				picker.toolbarButtonsColor = .white
 				picker.toolbarDoneButtonColor = .white
-				picker.toolbarBarTintColor = UIColor(hex: 0x4225A4)
+				picker.toolbarBarTintColor = UIColor.mainColor()
 				picker.toolbarItemsFont = UIFont.mediumFont(of: 16.0)
 				let label = UILabel()
 				label.font = UIFont.boldFont(of: 22)

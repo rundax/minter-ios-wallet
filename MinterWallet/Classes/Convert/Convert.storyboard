@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HKa-ye-yvn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HKa-ye-yvn">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -95,7 +95,7 @@
                                         <rect key="frame" x="277" y="124" width="72" height="30"/>
                                         <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="16"/>
                                         <state key="normal" title="USE MAX">
-                                            <color key="titleColor" red="0.31372549019607843" green="0.1803921568627451" blue="0.76078431372549016" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="titleColor" red="0.94117647059999998" green="0.34509803919999998" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="didTapUseMax:" destination="0hc-Mb-6Yb" eventType="touchUpInside" id="X8l-5R-E3l"/>
@@ -411,7 +411,7 @@
                                         <rect key="frame" x="277" y="124" width="72" height="30"/>
                                         <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="16"/>
                                         <state key="normal" title="USE MAX">
-                                            <color key="titleColor" red="0.31372549020000001" green="0.18039215689999999" blue="0.76078431369999999" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="titleColor" red="0.94117647059999998" green="0.34509803919999998" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="didTapUseMax:" destination="Y3t-Q5-O8C" eventType="touchUpInside" id="KOA-VF-Hf9"/>

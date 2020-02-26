@@ -134,5 +134,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			NSAttributedStringKey.foregroundColor: UIColor.mainColor(),
 			NSAttributedStringKey.font: UIFont.mediumFont(of: 11.0)
 		], for: .selected)
+		
+		UISwitch.appearance().tintColor = UIColor.mainOrangeColor()
 	}
 }
