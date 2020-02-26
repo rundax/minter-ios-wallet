@@ -78,14 +78,9 @@ class MultisendTransactionTableViewCell: BaseTransactionCell {
 		if let transaction = item as? MultisendTransactionTableViewCellItem {
 			identifier = item.identifier
 			title.text = TransactionTitleHelper.title(from: transaction.title ?? "")
-			coinImage.image = UIImage(named: "AvatarPlaceholderImage")
-			if let url = transaction.imageURL {
-				coinImage.af_setImage(withURL: url, filter: RoundedCornersFilter(radius: 17.0))
-			} else if let image = transaction.image {
-				coinImage.image = image
-			}
+			coinImage.image = UIImage(named: "multisendIcon")
 			amount.text = amountText(amount: transaction.amount)
-			amount.textColor = ((transaction.amount ?? 0) > 0) ? UIColor.mainGreenColor() : .black
+			amount.textColor = ((transaction.amount ?? 0) > 0) ? UIColor.mainOrangeColor() : UIColor.mainColor()
 
 			fromAddressButton.setTitle(transaction.from, for: .normal)
 

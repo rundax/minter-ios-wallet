@@ -79,13 +79,8 @@ class RedeemCheckTableViewCell: BaseTransactionCell {
 			identifier = item.identifier
 			title.text = TransactionTitleHelper.title(from: transaction.title ?? "")
 			coinImage.image = UIImage(named: "redeemCheckImage")
-			if let url = transaction.imageURL {
-				coinImage.af_setImage(withURL: url, filter: RoundedCornersFilter(radius: 17.0))
-			} else if let image = transaction.image {
-				coinImage.image = image
-			}
 			amount.text = amountText(amount: transaction.amount)
-			amount.textColor = ((transaction.amount ?? 0) > 0) ? UIColor.mainGreenColor() : .black
+			amount.textColor = ((transaction.amount ?? 0) > 0) ? UIColor.mainOrangeColor() : UIColor.mainColor()
 			coinLabel.text = transaction.coin
 
 			fromAddressButton.setTitle(transaction.from, for: .normal)

@@ -94,15 +94,14 @@ class TransactionTableViewCell: BaseTransactionCell {
 
 		identifier = item.identifier
 		title.text = TransactionTitleHelper.title(from: transaction.title ?? "")
-		coinImage.image = UIImage(named: "AvatarPlaceholderImage")
-		if let url = transaction.imageURL {
-			coinImage.af_setImage(withURL: url,
-														filter: RoundedCornersFilter(radius: 17.0))
-		} else if let image = transaction.image {
-			coinImage.image = image
-		}
 		amount.text = amountText(amount: transaction.amount)
-		amount.textColor = ((transaction.amount ?? 0) > 0) ? UIColor.mainGreenColor() : .black
+		if (transaction.amount ?? 0) > 0 {
+			coinImage.image = UIImage(named: "txTo")
+			amount.textColor = UIColor.mainOrangeColor()
+		} else {
+			coinImage.image = UIImage(named: "txFrom")
+			amount.textColor = UIColor.mainColor()
+		}
 
 		fromAddressButton.setTitle(transaction.from, for: .normal)
 		toAddressButton.setTitle(transaction.to, for: .normal)
