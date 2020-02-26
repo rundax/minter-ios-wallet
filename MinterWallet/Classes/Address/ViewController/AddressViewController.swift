@@ -249,7 +249,7 @@ extension AddressViewController: ButtonTableViewCellDelegate {
 		hardImpactFeedbackGenerator.prepare()
 		hardImpactFeedbackGenerator.impactOccurred()
 
-//	AnalyticsHelper.defaultAnalytics.track(event: .settingsLogoutButton)
+		AnalyticsHelper.defaultAnalytics.track(event: .addressesAddAddressButton)
 
 		SoundHelper.playSoundIfAllowed(type: .cancel)
 		

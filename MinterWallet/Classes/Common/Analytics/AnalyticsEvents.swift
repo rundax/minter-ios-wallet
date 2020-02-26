@@ -23,6 +23,7 @@ class Analytics {
 		case sentCoinPopupScreen
 		case receiveScreen
 		case settingsScreen
+		case giftsScreen
 		case transactionsScreen
 		case convertSpendScreen
 		case convertGetScreen
@@ -31,6 +32,7 @@ class Analytics {
 		case emailEditScreen
 		case passwordEditScreen
 		case rawTransactionScreen
+		case twoFAModeScreen
 
 		//Coins
 		case coinsUsernameButton
@@ -45,6 +47,7 @@ class Analytics {
 		case sendCoinsUseMaxButton
 		case sendCoinsSendButton
 		case sendCoinsQRButton
+		case sendCoinsGiftButton
 
 		//SendCoinPopup
 		case sendCoinPopupSendButton
@@ -60,10 +63,12 @@ class Analytics {
 
 		//Settings
 		case settingsChangeUserpicButton
+		case settingsAddAccountButton
 		case settingsLogoutButton
 
 		//Addresses
 		case addressesCopyButton
+		case addressesAddAddressButton
 
 		//ConvertSpend
 		case convertSpendUseMaxButton
@@ -76,6 +81,10 @@ class Analytics {
 		case rawTransactionPopupViewTransactionButton
 		case rawTransactionPopupShareTransactionButton
 		case rawTransactionPopupCloseButton
+		
+		//2faModeScreen
+		case twoFAModeActivateButton
+		case twoFAModeSecretCodeButton
 	}
 
 	// MARK: -
@@ -107,6 +116,6 @@ class AppMetricaAnalyticsProvider: AnalyticsProvider {
 	}
 
 	init() {
-		YMMYandexMetrica.activate(with: YMMYandexMetricaConfiguration.init(apiKey: "2a367ed1-f289-44bc-8d01-04bdd7d48f6d")!)
+		YMMYandexMetrica.activate(with: YMMYandexMetricaConfiguration.init(apiKey: "a64c888f-e08e-42f5-97d9-d925da1bf4ae")!)
 	}
 }

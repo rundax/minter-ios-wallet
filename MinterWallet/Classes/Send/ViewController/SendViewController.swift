@@ -556,5 +556,6 @@ extension SendViewController: UsernameTextViewTableViewCellDelegate {
 		view.endEditing(true)
 		self.autocompleteView.isHidden = true
 		self.viewModel.input.recipient.onNext(recipient)
+		AnalyticsHelper.defaultAnalytics.track(event: .sendCoinsGiftButton)
 	}
 }

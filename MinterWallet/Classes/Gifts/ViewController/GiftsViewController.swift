@@ -68,7 +68,7 @@ class GiftsViewController: BaseViewController, UITableViewDelegate, UITableViewD
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-//		AnalyticsHelper.defaultAnalytics.track(event: .settingsScreen)
+		AnalyticsHelper.defaultAnalytics.track(event: .giftsScreen)
 	}
 
 	private func registerCells() {

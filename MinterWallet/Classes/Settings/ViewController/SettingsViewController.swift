@@ -351,7 +351,7 @@ extension SettingsViewController: ButtonTableViewCellDelegate {
 		let item = viewModel.cellItem(section: indexPath.section, row: indexPath.row) {
 			if item.identifier == "ButtonTableViewCell_Account" {
 				tableView.endEditing(true)
-				// AnalyticsHelper.defaultAnalytics.track(event: .sendCoinsChooseCoinButton)
+				AnalyticsHelper.defaultAnalytics.track(event: .settingsAddAccountButton)
 
 				let seedMode = PickerTableViewCellPickerItem(title: "SEED MODE".localized(), object: "showAdvancedMode")
 				let pairedMode = PickerTableViewCellPickerItem(title: "2FA MODE".localized(), object: "showPairedMode")

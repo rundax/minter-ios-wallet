@@ -40,8 +40,15 @@ class PairedModeViewController: UIViewController {
 
         generateSecretCode()
     }
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		AnalyticsHelper.defaultAnalytics.track(event: .twoFAModeScreen)
+	}
 
     @IBAction func activateButtonDidTap(_ sender: Any) {
+				AnalyticsHelper.defaultAnalytics.track(event: .twoFAModeActivateButton)
         errorLabel.text = ""
         textView.setValid()
 
@@ -91,6 +98,7 @@ class PairedModeViewController: UIViewController {
     }
 
     @IBAction func secretCodeButtonPressed(_ sender: Any) {
+				AnalyticsHelper.defaultAnalytics.track(event: .twoFAModeSecretCodeButton)
         SoundHelper.playSoundIfAllowed(type: .cancel)
         UIPasteboard.general.string = secretCodeButton.titleLabel?.text
         let banner = NotificationBanner(title: "Copied!", subtitle: nil, style: .info)

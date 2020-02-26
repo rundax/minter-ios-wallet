@@ -12,7 +12,7 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Paired Mode-->
+        <!--2FA Mode-->
         <scene sceneID="W4L-nN-nRV">
             <objects>
                 <viewController id="o5v-Ld-dnv" customClass="PairedModeViewController" customModule="MinterWallet" customModuleProvider="target" sceneMemberID="viewController">
@@ -127,7 +127,7 @@
                             <constraint firstAttribute="trailing" secondItem="3ep-GI-K5o" secondAttribute="trailing" constant="10" id="pc4-K3-CJb"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Paired Mode" id="7Tk-cm-HyW">
+                    <navigationItem key="navigationItem" title="2FA Mode" id="7Tk-cm-HyW">
                         <barButtonItem key="backBarButtonItem" title="Back" id="KM1-Zm-bnn"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>

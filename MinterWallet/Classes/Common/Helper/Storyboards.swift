@@ -157,6 +157,27 @@ struct Storyboards {
         }
     }
 
+    struct PairedMode: Storyboard {
+
+        static let identifier = "PairedMode"
+
+        static var storyboard: UIStoryboard {
+            return UIStoryboard(name: self.identifier, bundle: nil)
+        }
+
+        static func instantiateInitialViewController() -> PairedModeViewController {
+            return self.storyboard.instantiateInitialViewController() as! PairedModeViewController
+        }
+
+        static func instantiateViewController(withIdentifier identifier: String) -> UIViewController {
+            return self.storyboard.instantiateViewController(withIdentifier: identifier)
+        }
+
+        static func instantiateViewController<T: UIViewController>(ofType type: T.Type) -> T? where T: IdentifiableProtocol {
+            return self.storyboard.instantiateViewController(ofType: type)
+        }
+    }
+
     struct Coins: Storyboard {
 
         static let identifier = "Coins"
@@ -254,27 +275,6 @@ struct Storyboards {
 
         static func instantiateGiftsViewController() -> GiftsViewController {
             return self.storyboard.instantiateViewController(withIdentifier: "GiftsViewController") as! GiftsViewController
-        }
-    }
-
-    struct PairedMode: Storyboard {
-
-        static let identifier = "PairedMode"
-
-        static var storyboard: UIStoryboard {
-            return UIStoryboard(name: self.identifier, bundle: nil)
-        }
-
-        static func instantiateInitialViewController() -> PairedModeViewController {
-            return self.storyboard.instantiateInitialViewController() as! PairedModeViewController
-        }
-
-        static func instantiateViewController(withIdentifier identifier: String) -> UIViewController {
-            return self.storyboard.instantiateViewController(withIdentifier: identifier)
-        }
-
-        static func instantiateViewController<T: UIViewController>(ofType type: T.Type) -> T? where T: IdentifiableProtocol {
-            return self.storyboard.instantiateViewController(ofType: type)
         }
     }
 
@@ -842,6 +842,8 @@ extension DelegatedViewController {
 
 }
 
+// MARK: - PairedModeViewController
+
 // MARK: - CoinsViewController
 extension UIStoryboardSegue {
     func selection() -> CoinsViewController.Segue? {
@@ -949,8 +951,6 @@ extension IdentifiableProtocol where Self: GiftsViewController {
     var storyboardIdentifier: String? { return "GiftsViewController" }
     static var storyboardIdentifier: String? { return "GiftsViewController" }
 }
-
-// MARK: - PairedModeViewController
 
 // MARK: - AddressViewController
 extension UIStoryboardSegue {
