@@ -104,8 +104,9 @@ extension TransactionViewableViewModel {
 		if let data = transactionItem.transaction?.data as? MultisendCoinTransactionData {
 			if let val = data.values?.filter({ (val) -> Bool in
 				return Session.shared.hasAddress(address: val.to)
-			}), val.count == 1 {
-				if let payload = val.first {
+			}) {
+				let mainAddress = "Mx" + (Session.shared.accounts.value.first(where: {$0.isMain} )?.address ?? "")
+				if let payload = val.first(where: { $0.to == mainAddress }) ?? val.first {
 					transactionCellItem.to = payload.to
 					transactionCellItem.amount = payload.value
 					transactionCellItem.coin = payload.coin
