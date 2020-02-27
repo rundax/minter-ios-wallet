@@ -722,7 +722,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 					 banner.show()
 					 return
 				}).disposed(by: self.disposeBag)
-		} else if let addressString = addressSubject.value, addressString.isValidAddress() {
+		} else if let addressString = addressSubject.value, addressString.isValidAddress() || addressString.isValidPublicKey() {
 			showSendVM(to: addressString, address: addressString, amount: amount)
 		} else {
 			let banner = NotificationBanner(title: "Invalid recipient!".localized(), subtitle: "", style: .danger)

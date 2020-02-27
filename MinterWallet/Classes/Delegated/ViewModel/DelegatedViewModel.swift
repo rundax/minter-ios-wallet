@@ -135,33 +135,55 @@ class DelegatedViewModel: BaseViewModel, ViewModelProtocol {
 
 	func loadDelegatedBalance() {
 		let addresses = Session.shared.accounts.value.compactMap({ (account) -> String? in
-			return account.isMain ? "Mx" + account.address.stripMinterHexPrefix() : nil
+			return "Mx" + account.address.stripMinterHexPrefix()
 		})
 
 		guard addresses.count > 0 else {
 			return
 		}
+		
+		Observable.combineLatest(addresses.map { ExplorerAddressManager.default
+			.delegations(address: $0, page: self.page) }).do(onNext: { [weak self] (_) in
+			self?.isLoading = false
+		}, onError: { [weak self] (_) in
+			self?.isLoading = false
+		}, onSubscribe: {
 
-		ExplorerAddressManager.default
-			.delegations(address: addresses.first!, page: page)
-			.do(onNext: { [weak self] (_) in
-				self?.isLoading = false
-			}, onError: { [weak self] (_) in
-				self?.isLoading = false
-			}, onSubscribe: {
-
-			}, onSubscribed: {
-				self.isLoading = true
-			}).subscribe(onNext: { [weak self] (delegation, total) in
-				self?.page += 1
-				if (delegation ?? []).count > 0 {
-					self?.balances.append(contentsOf: delegation ?? [])
-					self?.createSections()
+		}, onSubscribed: {
+			self.isLoading = true
+		}).subscribe( { [weak self] values in
+			self?.page += 1
+			for idx in 0..<addresses.count {
+				if let delegation = values.element?[idx].0, delegation.count > 0 {
+					if self?.balances.count == 0 {
+						self?.balances.append(contentsOf: delegation)
+					} else {
+						var newDelegations: [AddressDelegation] = []
+						for del in delegation {
+							var exists = false
+							for balance in self?.balances ?? [] {
+								if balance.coin == del.coin, balance.publicKey == del.publicKey {
+									balance.value = (balance.value ?? 0) + (del.value ?? 0)
+									balance.bipValue = (balance.bipValue ?? 0) + (del.bipValue ?? 0)
+									exists = true
+									continue
+								}
+							}
+							if !exists {
+								newDelegations.append(del)
+							}
+						}
+						self?.balances.append(contentsOf: newDelegations)
+					}
 				}
-				if delegation?.count == 0 {
+
+				if (values.element?[idx].0)?.count == 0 {
 					self?.canLoadMore = false
 				}
-			}).disposed(by: disposeBag)
+			}
+			self?.createSections()
+		})
+		.disposed(by: disposeBag)
 	}
 
 	public func publicKey(for section: Int) -> String? {

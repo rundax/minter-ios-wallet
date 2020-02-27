@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		} else {
 			if !isTestnet {
 				MinterGateBaseURLString = "https://gate.apps.minter.network"
+				FirebaseApp.configure()
 			} else {
 				MinterGateBaseURLString = "https://texasnet.gate-api.minter.network"
 			}
@@ -39,7 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 																 WEBURLString: conf.environment.explorerWebURL,
 																 websocketURLString: conf.environment.explorerWebsocketURL)
 		MinterMySDK.initialize(network: isTestnet ? .testnet : .mainnet)
-		FirebaseApp.configure()
 		
 		// this line is important
 		self.window = UIWindow(frame: UIScreen.main.bounds)
