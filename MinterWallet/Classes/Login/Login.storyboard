@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RundaxWhite" translatesAutoresizingMaskIntoConstraints="NO" id="krd-eP-hp4">
-                                <rect key="frame" x="107" y="347" width="200" height="200"/>
+                                <rect key="frame" x="107" y="345" width="200" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="QSy-FV-bq3"/>
                                     <constraint firstAttribute="height" constant="200" id="ue2-EN-tN3"/>
@@ -85,11 +85,11 @@
                             <constraint firstItem="fcS-ck-472" firstAttribute="leading" secondItem="xZM-8Z-bGe" secondAttribute="trailing" constant="10" id="N83-Q5-i2J"/>
                             <constraint firstItem="krd-eP-hp4" firstAttribute="centerX" secondItem="HFS-Nl-chi" secondAttribute="centerX" id="VuM-wF-CW1"/>
                             <constraint firstItem="xZM-8Z-bGe" firstAttribute="trailing" secondItem="HFS-Nl-chi" secondAttribute="centerX" constant="-5" id="cM8-Q6-yyG"/>
-                            <constraint firstItem="krd-eP-hp4" firstAttribute="centerY" secondItem="q9E-BZ-fFk" secondAttribute="centerY" priority="999" id="hY4-c1-zEn"/>
+                            <constraint firstItem="krd-eP-hp4" firstAttribute="centerY" secondItem="HFS-Nl-chi" secondAttribute="centerY" priority="999" constant="-30" id="hY4-c1-zEn"/>
                             <constraint firstItem="7rY-BB-aru" firstAttribute="trailing" secondItem="fcS-ck-472" secondAttribute="trailing" id="mbp-NT-oui"/>
                             <constraint firstItem="xZM-8Z-bGe" firstAttribute="leading" secondItem="HFS-Nl-chi" secondAttribute="leading" constant="10" id="qXn-8W-ZT4"/>
                             <constraint firstItem="HFS-Nl-chi" firstAttribute="bottom" secondItem="xZM-8Z-bGe" secondAttribute="bottom" constant="20" id="rsJ-Ef-eSP"/>
-                            <constraint firstItem="iOM-tb-IdR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="krd-eP-hp4" secondAttribute="bottom" constant="125" id="ryT-LW-Ys3"/>
+                            <constraint firstItem="iOM-tb-IdR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="krd-eP-hp4" secondAttribute="bottom" constant="80" id="ryT-LW-Ys3"/>
                             <constraint firstItem="fcS-ck-472" firstAttribute="leading" secondItem="HFS-Nl-chi" secondAttribute="leading" constant="10" id="vTN-IX-Pd9"/>
                             <constraint firstItem="HFS-Nl-chi" firstAttribute="trailing" secondItem="fcS-ck-472" secondAttribute="trailing" constant="10" id="weA-NL-ul8"/>
                         </constraints>
