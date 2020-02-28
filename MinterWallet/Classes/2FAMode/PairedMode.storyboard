@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="o5v-Ld-dnv">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -15,7 +15,7 @@
         <!--2FA Mode-->
         <scene sceneID="W4L-nN-nRV">
             <objects>
-                <viewController id="o5v-Ld-dnv" customClass="PairedModeViewController" customModule="MinterWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="o5v-Ld-dnv" customClass="PairedModeViewController" customModule="Rundax" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5J4-e9-hDb"/>
                         <viewControllerLayoutGuide type="bottom" id="qsg-Fn-EQP"/>
@@ -24,8 +24,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="always" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3ep-GI-K5o" customClass="GrowingDefaultTextView" customModule="MinterWallet" customModuleProvider="target">
-                                <rect key="frame" x="10" y="132.5" width="394" height="100"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="always" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3ep-GI-K5o" customClass="GrowingDefaultTextView" customModule="Rundax" customModuleProvider="target">
+                                <rect key="frame" x="10" y="132.66666666666666" width="394" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="1PL-3r-6kb"/>
@@ -46,8 +46,8 @@
                                     <outlet property="delegate" destination="o5v-Ld-dnv" id="k5M-DT-O1l"/>
                                 </connections>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cyH-0a-wkM" customClass="DefaultButton" customModule="MinterWallet" customModuleProvider="target">
-                                <rect key="frame" x="10" y="252.5" width="394" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cyH-0a-wkM" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
+                                <rect key="frame" x="10" y="252.66666666666663" width="394" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="ZhV-6v-gpX"/>
                                 </constraints>
@@ -61,7 +61,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PASTE SEED PHRASE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Spc-B6-wzK">
-                                <rect key="frame" x="20" y="112" width="107" height="12.5"/>
+                                <rect key="frame" x="20" y="112" width="107" height="12.666666666666671"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="12.5" id="nZ3-7C-Kix"/>
                                 </constraints>
@@ -76,16 +76,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="JhR-ip-kih">
-                                <rect key="frame" x="30" y="326.5" width="354" height="464"/>
+                                <rect key="frame" x="30" y="318.66666666666669" width="354" height="248.00000000000006"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Secret Code to Google 2FA app" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WM7-o7-arJ">
-                                        <rect key="frame" x="39" y="0.0" width="276.5" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="354" height="20.333333333333332"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="coQ-Bb-XKr">
-                                        <rect key="frame" x="140.5" y="32.5" width="73" height="33"/>
+                                        <rect key="frame" x="140.66666666666666" y="25.333333333333314" width="73" height="33"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="tintColor" red="0.94117647059999998" green="0.34509803919999998" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="XXXXXX"/>
@@ -94,18 +94,23 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or scan QR code bellow" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7sn-ZH-ykv">
-                                        <rect key="frame" x="87" y="77.5" width="180.5" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="63.333333333333321" width="354" height="20.333333333333336"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="95c-hu-XJI">
-                                        <rect key="frame" x="0.0" y="110" width="354" height="354"/>
+                                        <rect key="frame" x="97.333333333333329" y="88.666666666666643" width="159.33333333333337" height="159.33333333333337"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="95c-hu-XJI" secondAttribute="height" multiplier="1:1" id="V7e-Bb-9b6"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="WM7-o7-arJ" firstAttribute="width" secondItem="JhR-ip-kih" secondAttribute="width" id="VU8-KK-rOz"/>
+                                    <constraint firstItem="7sn-ZH-ykv" firstAttribute="width" secondItem="JhR-ip-kih" secondAttribute="width" id="bsW-0g-GKd"/>
+                                </constraints>
+                                <variation key="heightClass=regular-widthClass=compact" spacing="5"/>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -120,7 +125,9 @@
                             <constraint firstItem="Spc-B6-wzK" firstAttribute="top" secondItem="5J4-e9-hDb" secondAttribute="bottom" constant="24" id="WG8-H9-hmQ"/>
                             <constraint firstItem="3ep-GI-K5o" firstAttribute="leading" secondItem="pUc-gp-dAt" secondAttribute="leading" constant="10" id="ZQ6-B1-njS"/>
                             <constraint firstItem="3ep-GI-K5o" firstAttribute="top" secondItem="Spc-B6-wzK" secondAttribute="bottom" constant="8" id="b6E-IH-wK9"/>
-                            <constraint firstItem="JhR-ip-kih" firstAttribute="top" secondItem="cyH-0a-wkM" secondAttribute="bottom" constant="24" id="e76-93-DAx"/>
+                            <constraint firstItem="JhR-ip-kih" firstAttribute="top" secondItem="cyH-0a-wkM" secondAttribute="bottom" constant="24" id="e76-93-DAx">
+                                <variation key="heightClass=regular-widthClass=compact" constant="16"/>
+                            </constraint>
                             <constraint firstItem="Spc-B6-wzK" firstAttribute="leading" secondItem="pUc-gp-dAt" secondAttribute="leading" constant="20" id="gEM-1r-xQq"/>
                             <constraint firstItem="cyH-0a-wkM" firstAttribute="leading" secondItem="pUc-gp-dAt" secondAttribute="leading" constant="10" id="iSX-HG-nJF"/>
                             <constraint firstItem="qsg-Fn-EQP" firstAttribute="top" relation="greaterThanOrEqual" secondItem="JhR-ip-kih" secondAttribute="bottom" constant="24" id="ogM-rb-iCc"/>
