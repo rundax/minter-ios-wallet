@@ -8,6 +8,7 @@
 
 import UIKit
 import AlamofireImage
+import MinterCore
 
 protocol SendPopupViewControllerDelegate: class {
 	func didFinish(viewController: SendPopupViewController)
@@ -92,11 +93,13 @@ class SendPopupViewController: PopupViewController, ControllerType {
 		popupTitle.text = viewModel?.popupTitle
 
 		amountTitle.text = String((viewModel?.amountString ?? "") + " " + (viewModel?.coin ?? "")).uppercased()
-		avatarImage.image = UIImage(named: "AvatarPlaceholderImage")
+		if viewModel.coin == Coin.baseCoin().symbol {
+			avatarImage.image = UIImage(named: viewModel.coin?.lowercased() ?? "")
+		} else {
+			avatarImage.image = UIImage(named: viewModel.coin?.prefix(1).lowercased() ?? "")
+		}
 		if let img = viewModel?.avatarImage {
 			avatarImage.image = img
-		} else if let avatarURL = viewModel?.avatarImageURL {
-			avatarImage.af_setImage(withURL: avatarURL, filter: RoundedCornersFilter(radius: 25.0))
 		}
 		userLabel.text = viewModel?.username
 		actionButton.setTitle(viewModel?.buttonTitle ?? "", for: .normal)

@@ -105,11 +105,6 @@ class CoinTableViewCell: BaseCell {
 		if let transaction = item as? CoinTableViewCellItem {
 			title.text = transaction.title
 			coinImage.image = transaction.image
-			if let url = transaction.imageURL {
-				coinImage.af_setImage(withURL: url, filter: RoundedCornersFilter(radius: 17.0))
-			} else {
-				coinImage.image = transaction.image
-			}
 
 			amount.text = CurrencyNumberFormatter.formattedDecimal(with: transaction.amount ?? 0,
 																														 formatter: formatter)

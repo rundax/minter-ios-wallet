@@ -8,6 +8,7 @@
 
 import UIKit
 import AlamofireImage
+import MinterCore
 
 protocol SentPopupViewControllerDelegate: class {
 	func didTapActionButton(viewController: SentPopupViewController)
@@ -91,11 +92,10 @@ class SentPopupViewController: PopupViewController, ControllerType {
 
 		self.title = vm.title
 		self.receiverLabel.text = vm.username
-		self.avatarImageView.image = UIImage(named: "AvatarPlaceholderImage")
-		if let url = vm.avatarImageURL {
-			self.avatarImageView.af_setImage(withURL: url, filter: RoundedCornersFilter(radius: 25.0))
-		} else if let img = vm.avatarImage {
+		if let img = vm.avatarImage {
 			self.avatarImageView.image = img
+		} else {
+			self.avatarImageView.image = vm.coin == Coin.baseCoin().symbol ? UIImage(named: vm.coin?.lowercased() ?? "") : UIImage(named: vm.coin?.prefix(1).lowercased() ?? "")
 		}
 		if vm.noAvatar == true {
 			self.avatarImageViewHeightConstraint.constant = 0.0

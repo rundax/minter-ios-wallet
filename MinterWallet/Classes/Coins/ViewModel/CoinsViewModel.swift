@@ -367,8 +367,12 @@ class CoinsViewModel: BaseViewModel, TransactionViewableViewModel, ViewModelProt
 			let coin = CoinTableViewCellItem(reuseIdentifier: "CoinTableViewCell",
 																			 identifier: "CoinTableViewCell_\(key)")
 			coin.title = key
-			coin.image = UIImage(named: "AvatarPlaceholderImage")
-			coin.imageURL = MinterMyAPIURL.avatarByCoin(coin: key).url()
+			if key == Coin.baseCoin().symbol {
+				coin.image = UIImage(named: key.lowercased())
+			} else {
+				coin.image = UIImage(named: key.prefix(1).lowercased())
+			}
+			//coin.imageURL = MinterMyAPIURL.avatarByCoin(coin: key).url()
 			coin.coin = key
 			coin.amount = bal[key]
 			coin.amountObservable = coinObservables[key]?.asObservable()
