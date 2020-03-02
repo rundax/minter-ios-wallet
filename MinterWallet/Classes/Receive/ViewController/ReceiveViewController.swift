@@ -12,7 +12,7 @@ import RxDataSources
 import RxCocoa
 import NotificationBannerSwift
 
-class ReceiveViewController: BaseViewController, UITableViewDelegate, ControllerType {
+class ReceiveViewController: BaseTableViewController, ControllerType {
 
   // MARK: - ControllerType
 
@@ -22,8 +22,6 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate, Controller
 
   func configure(with viewModel: ReceiveViewController.ViewModelType) {
 
-    addToWalletButton.rx.tap.asDriver().drive(viewModel.input.didTapAddPass).disposed(by: disposeBag)
-
     viewModel
       .output
       .showViewController
@@ -32,62 +30,12 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate, Controller
         guard let viewController = viewController else { return }
         self?.tabBarController?.present(viewController, animated: true, completion: nil)
       }).disposed(by: disposeBag)
-
-    viewModel.output.isLoadingPass.asDriver(onErrorJustReturn: false).drive(onNext: { [weak self] (val) in
-      self?.addToWalletButton.isEnabled = !val
-      self?.addWalletActivityIndicator.alpha = val ? 1.0 : 0.0
-      if val {
-        self?.addWalletActivityIndicator.startAnimating()
-      } else {
-        self?.addWalletActivityIndicator.stopAnimating()
-      }
-    }).disposed(by: disposeBag)
-
-    viewModel
-      .output
-      .shouldShowPass
-      .map({ (val) -> Bool in
-        return !val
-      })
-      .asDriver(onErrorJustReturn: false)
-      .drive(addToWalletButton.rx.isHidden)
-      .disposed(by: disposeBag)
   }
 
 	// MARK: -
 
 	let disposeBag = DisposeBag()
 	var rxDataSource: RxTableViewSectionedAnimatedDataSource<BaseTableSectionItem>?
-
-	// MARK: -
-
-  @IBOutlet weak var addWalletActivityIndicator: UIActivityIndicatorView!
-  @IBOutlet weak var addToWalletButton: DefaultButton!
-  @IBAction func shareButtonDidTap(_ sender: UIButton) {
-
-		hardImpactFeedbackGenerator.prepare()
-		hardImpactFeedbackGenerator.impactOccurred()
-
-		AnalyticsHelper.defaultAnalytics.track(event: .receiveShareButton)
-
-		if let activities = viewModel.activities() {
-			let vc = ReceiveRouter.activityViewController(activities: activities,
-																										sourceView: sender)
-			present(vc, animated: true)
-		}
-	}
-
-	@IBOutlet var footerView: UIView!
-
-	@IBOutlet weak var tableView: UITableView! {
-		didSet {
-			tableView.tableFooterView = self.footerView
-			tableView.contentInset = UIEdgeInsets(top: -40,
-																						left: 0,
-																						bottom: 0,
-																						right: 0)
-		}
-	}
 
 	// MARK: Life cycle
 
@@ -99,7 +47,7 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate, Controller
     configure(with: viewModel)
 
     rxDataSource = RxTableViewSectionedAnimatedDataSource<BaseTableSectionItem>(
-      configureCell: { dataSource, tableView, indexPath, sm in
+      configureCell: { [weak self] dataSource, tableView, indexPath, sm in
         guard
           let datasourceItem = try? dataSource.model(at: indexPath) as? BaseCellItem,
           let item = datasourceItem,
@@ -108,9 +56,24 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate, Controller
         }
         cell.configure(item: item)
 
-        if let qrCell = cell as? QRTableViewCell {
-          qrCell.delegate = self
-        }
+				if let accordionCell = cell as? AccordionTableViewCell {
+					let isExpanded = self?.expandedIdentifiers
+						.contains(accordionCell.identifier) ?? false
+					(cell as? ExpandableCell)?.toggle(isExpanded, animated: false)
+				}
+				
+				if let buttonsCell = cell as? AddressButtonsTableViewCell {
+					buttonsCell.buttonsDelegate = self
+					self?.viewModel.output.isLoadingPass.asDriver(onErrorJustReturn: false).drive(onNext: { (val) in
+						buttonsCell.appleWalletButton.isEnabled = !val
+						buttonsCell.appleWalletActivityIndicator.alpha = val ? 1.0 : 0.0
+						if val {
+							buttonsCell.appleWalletActivityIndicator.startAnimating()
+						} else {
+							buttonsCell.appleWalletActivityIndicator.stopAnimating()
+						}
+					}).disposed(by: self!.disposeBag)
+				}
         return cell
     })
 
@@ -149,6 +112,8 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate, Controller
 											 forCellReuseIdentifier: "SeparatorTableViewCell")
 		tableView.register(UINib(nibName: "DefaultHeader", bundle: nil),
 											 forHeaderFooterViewReuseIdentifier: "DefaultHeader")
+		tableView.register(UINib(nibName: "AddressButtonsTableViewCell", bundle: nil),
+											 forCellReuseIdentifier: "AddressButtonsTableViewCell")
 	}
 
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -167,6 +132,26 @@ class ReceiveViewController: BaseViewController, UITableViewDelegate, Controller
 		}
 
 		return header
+	}
+	
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		guard let item = viewModel.cellItem(section: indexPath.section, row: indexPath.row) else {
+			return 0.1
+		}
+
+		if item.reuseIdentifier == "AddressTableViewCell" {
+				return UITableViewAutomaticDimension
+		}
+
+		if item.reuseIdentifier == "SeparatorTableViewCell" {
+				return 1.0
+		}
+		
+		if !expandedIdentifiers.contains(item.identifier) {
+			return 70.0
+		}
+
+		return UITableViewAutomaticDimension
 	}
 }
 
@@ -190,6 +175,32 @@ extension ReceiveViewController: QRTableViewCellDelegate {
 			UIPasteboard.general.image = img
 			let banner = NotificationBanner(title: "Copied".localized(), subtitle: nil, style: .info)
 			banner.show()
+		}
+	}
+}
+
+extension ReceiveViewController: AddressButtonsTableViewCellDelegate {
+	func didTapQRButton(_ cell: AccordionTableViewCell) {
+		if !cell.toggling {
+			cell.toggle(!cell.expanded, animated: shouldAnimateCellToggle)
+			toggleCell(cell, animated: shouldAnimateCellToggle)
+		}
+	}
+	
+	func didTapShareButton(_ cell: AccordionTableViewCell) {
+		hardImpactFeedbackGenerator.prepare()
+		hardImpactFeedbackGenerator.impactOccurred()
+
+		AnalyticsHelper.defaultAnalytics.track(event: .receiveShareButton)
+
+		let vc = ReceiveRouter.activityViewController(activities: [cell.identifier],
+																									sourceView: cell)
+		present(vc, animated: true)
+	}
+	
+	func didTapAppleButton(_ cell: AccordionTableViewCell) {
+		if let cell = cell as? AddressButtonsTableViewCell {
+			viewModel.getPass(cell.identifier)
 		}
 	}
 }

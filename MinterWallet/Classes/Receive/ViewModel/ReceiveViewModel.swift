@@ -20,9 +20,7 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
     var accounts: Observable<[Account]>
   }
 
-  struct Input {
-    var didTapAddPass: AnyObserver<Void>
-  }
+  struct Input {}
 
   struct Output {
     var showViewController: Observable<UIViewController?>
@@ -45,7 +43,6 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 
 	var sections = Variable([BaseTableSectionItem]())
 
-  private var didTapAddPassSubject = PublishSubject<Void>()
   private var showViewControllerSubject = PublishSubject<UIViewController?>()
   private var isLoadingPassSubject = PublishSubject<Bool>()
   private var errorNotificationSubject = PublishSubject<NotifiableError?>()
@@ -62,7 +59,7 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 
     self.dependencies = dependency
 
-    input = Input(didTapAddPass: didTapAddPassSubject.asObserver())
+    input = Input()
     output = Output(showViewController: showViewControllerSubject.asObservable(),
                     errorNotification: errorNotificationSubject.asObservable(),
                     isLoadingPass: isLoadingPassSubject.asObservable(),
@@ -79,10 +76,6 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 
   func bind() {
 
-    didTapAddPassSubject.asObservable().subscribe(onNext: { [weak self] (_) in
-      self?.getPass()
-    }).disposed(by: disposableBag)
-
     dependencies
       .accounts.asObservable()
       .subscribe(onNext: { [weak self] (accounts) in
@@ -93,9 +86,12 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
   // MARK: -
 
 	func createSections() {
+		var addressNum = 0
 		let sctns = accounts.sorted(by: { (acc1, acc2) -> Bool in
 			return (acc1.isMain && !acc2.isMain)
 		}).map { (account) -> BaseTableSectionItem in
+			addressNum += 1
+
 			let sectionId = account.address
 
 			let separator = SeparatorTableViewCellItem(reuseIdentifier: "SeparatorTableViewCell",
@@ -106,29 +102,23 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 			address.address = "Mx" + account.address
 			address.buttonTitle = "Copy".localized()
 
-			let qrCell = QRTableViewCellItem(reuseIdentifier: "QRTableViewCell",
-                                   identifier: "QRTableViewCell")
-			qrCell.string = "Mx" + account.address
+			let bipAddress = "Mx" + account.address
+			let addressButtonsCell = AddressButtonsTableViewCellItem(reuseIdentifier: "AddressButtonsTableViewCell",
+                                   identifier: bipAddress)
+			addressButtonsCell.string = bipAddress
 
-			var section = BaseTableSectionItem(header: "YOUR ADDRESS".localized())
+			var headerTitle = "ADDRESS #\(addressNum)".localized()
+			if account.isMain == true {
+				headerTitle = "MAIN ADDRESS".localized()
+			}
+			var section = BaseTableSectionItem(header: headerTitle)
 			section.identifier = sectionId
 
-			section.items = [address, separator, qrCell]
+			section.items = [address, separator, addressButtonsCell]
 			return section
 		}
 
 		self.sections.value = sctns
-	}
-
-	// MARK: - Share
-
-	func activities() -> [Any]? {
-		guard let account = accounts.first else {
-			return nil
-		}
-
-		let address = "Mx" + account.address
-		return [address]
 	}
 
 	// MARK: - TableView
@@ -153,14 +143,9 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 
   let passbookManager = PassbookManager()
 
-  func getPass() {
-    guard let account = accounts.first else {
-      return
-    }
-
-    let address = account.address
+	func getPass(_ address: String) {
     isLoadingPassSubject.onNext(true)
-    passbookManager.pass(with: "Mx" + address) { [weak self] (data, error) in
+    passbookManager.pass(with: address) { [weak self] (data, error) in
       self?.isLoadingPassSubject.onNext(false)
       guard let passData = data else {
         //show error

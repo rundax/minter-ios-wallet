@@ -26,6 +26,10 @@
 		30328C1D2368764C00443D8D /* PairedModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30328C172368764C00443D8D /* PairedModeViewController.swift */; };
 		30328C1E2368764C00443D8D /* PairedMode.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30328C182368764C00443D8D /* PairedMode.storyboard */; };
 		30328C1F2368764C00443D8D /* PairedMode.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30328C182368764C00443D8D /* PairedMode.storyboard */; };
+		303589BD240D352800863BE8 /* AddressButtonsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 303589BC240D352800863BE8 /* AddressButtonsTableViewCell.xib */; };
+		303589BE240D352900863BE8 /* AddressButtonsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 303589BC240D352800863BE8 /* AddressButtonsTableViewCell.xib */; };
+		303589C0240D354F00863BE8 /* AddressButtonsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303589BF240D354F00863BE8 /* AddressButtonsTableViewCell.swift */; };
+		303589C1240D354F00863BE8 /* AddressButtonsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303589BF240D354F00863BE8 /* AddressButtonsTableViewCell.swift */; };
 		3060AE2A2406E61900513FA8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3060AE292406E61900513FA8 /* GoogleService-Info.plist */; };
 		3066C21F2405510400583B13 /* Gifts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3066C20D2405510300583B13 /* Gifts.storyboard */; };
 		3066C2202405510400583B13 /* Gifts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3066C20D2405510300583B13 /* Gifts.storyboard */; };
@@ -646,6 +650,8 @@
 		30328C142368764C00443D8D /* PairedModeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairedModeViewModel.swift; sourceTree = "<group>"; };
 		30328C172368764C00443D8D /* PairedModeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairedModeViewController.swift; sourceTree = "<group>"; };
 		30328C182368764C00443D8D /* PairedMode.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PairedMode.storyboard; sourceTree = "<group>"; };
+		303589BC240D352800863BE8 /* AddressButtonsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressButtonsTableViewCell.xib; sourceTree = "<group>"; };
+		303589BF240D354F00863BE8 /* AddressButtonsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressButtonsTableViewCell.swift; sourceTree = "<group>"; };
 		3060AE292406E61900513FA8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3066C20D2405510300583B13 /* Gifts.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Gifts.storyboard; sourceTree = "<group>"; };
 		3066C22D240551CC00583B13 /* GiftsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftsViewController.swift; sourceTree = "<group>"; };
@@ -1590,6 +1596,8 @@
 			children = (
 				FA505ADC20E24D7C00DA90C0 /* QRTableViewCell.swift */,
 				FA670A3820E27352000A5169 /* ReceiveAddressTableViewCell.swift */,
+				303589BF240D354F00863BE8 /* AddressButtonsTableViewCell.swift */,
+				303589BC240D352800863BE8 /* AddressButtonsTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2485,6 +2493,7 @@
 				FA33305B224A4B3C003B4763 /* Ubuntu-RI.ttf in Resources */,
 				FA33305C224A4B3C003B4763 /* DefaultHeader.xib in Resources */,
 				FA33305D224A4B3C003B4763 /* Ubuntu-MI.ttf in Resources */,
+				303589BD240D352800863BE8 /* AddressButtonsTableViewCell.xib in Resources */,
 				FAF9C50722AA697A000BF80A /* Delegated.storyboard in Resources */,
 				FA33305E224A4B3C003B4763 /* TextFieldTableViewCell.xib in Resources */,
 				FA33305F224A4B3C003B4763 /* SeparatorTableViewCell.xib in Resources */,
@@ -2570,6 +2579,7 @@
 				FADD8F2521930E8C00463F66 /* pop_hi.wav in Resources */,
 				FA669B70207239F200AD110A /* Main.storyboard in Resources */,
 				3066C2202405510400583B13 /* Gifts.storyboard in Resources */,
+				303589BE240D352900863BE8 /* AddressButtonsTableViewCell.xib in Resources */,
 				FADD8F2721930E9F00463F66 /* pop_zap.wav in Resources */,
 				FA669BC52072483100AD110A /* Ubuntu-R.ttf in Resources */,
 				FAA26052208E30AC009FF3DE /* CoinTableViewCell.xib in Resources */,
@@ -3133,6 +3143,7 @@
 				FA332FDA224A4B3C003B4763 /* SHA3+String.swift in Sources */,
 				FA332FDB224A4B3C003B4763 /* DefaultButton.swift in Sources */,
 				FAE7227D23424CE000895E07 /* RawTransactionType+Helper.swift in Sources */,
+				303589C0240D354F00863BE8 /* AddressButtonsTableViewCell.swift in Sources */,
 				FA332FDC224A4B3C003B4763 /* SendPopupViewController.swift in Sources */,
 				FA332FDD224A4B3C003B4763 /* McPicker.swift in Sources */,
 				FA332FDE224A4B3C003B4763 /* Decimal+Flaoting.swift in Sources */,
@@ -3369,6 +3380,7 @@
 				FAA2605C2092099B009FF3DE /* CCMPlayNDropView.m in Sources */,
 				FA9A6E51209B1D5D0012AC96 /* SHA3+String.swift in Sources */,
 				FAE7227E23424CE000895E07 /* RawTransactionType+Helper.swift in Sources */,
+				303589C1240D354F00863BE8 /* AddressButtonsTableViewCell.swift in Sources */,
 				FA669BCF207249D300AD110A /* DefaultButton.swift in Sources */,
 				FAA234ED20872BD000F999DE /* SendPopupViewController.swift in Sources */,
 				FA0F297821B179BB00E10F5E /* McPicker.swift in Sources */,

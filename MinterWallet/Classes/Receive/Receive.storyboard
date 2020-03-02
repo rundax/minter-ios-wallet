@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="2sW-XW-a6e">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="2sW-XW-a6e">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -15,7 +15,7 @@
         <!--Receive Coins-->
         <scene sceneID="EHg-Hm-dIg">
             <objects>
-                <viewController storyboardIdentifier="ReceiveViewController" title="Receive Coins" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AOA-uS-VHB" customClass="ReceiveViewController" customModule="MinterWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReceiveViewController" title="Receive Coins" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AOA-uS-VHB" customClass="ReceiveViewController" customModule="Rundax" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L0H-y4-xgm"/>
                         <viewControllerLayoutGuide type="bottom" id="G59-i0-2ls"/>
@@ -28,7 +28,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ReceiveAddressTableViewCell" rowHeight="74" id="S2v-JK-95T" customClass="ReceiveAddressTableViewCell" customModule="MinterWallet" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ReceiveAddressTableViewCell" rowHeight="74" id="S2v-JK-95T" customClass="ReceiveAddressTableViewCell" customModule="Rundax" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="74"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S2v-JK-95T" id="QQp-tv-R8g">
@@ -56,7 +56,7 @@
                                             <outlet property="addressLabel" destination="y5d-Ej-zL0" id="j0G-ou-D4d"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="QRTableViewCell" rowHeight="182" id="0r5-uD-Mvw" customClass="QRTableViewCell" customModule="MinterWallet" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="QRTableViewCell" rowHeight="182" id="0r5-uD-Mvw" customClass="QRTableViewCell" customModule="Rundax" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="129.5" width="375" height="182"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0r5-uD-Mvw" id="DOX-x9-Eg1">
@@ -106,58 +106,10 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Receive Coins" id="CcE-qa-Zc0"/>
                     <connections>
-                        <outlet property="addToWalletButton" destination="0wP-w7-zNb" id="FCU-dQ-QHv"/>
-                        <outlet property="addWalletActivityIndicator" destination="Tkt-UF-OoE" id="NBG-3G-tj7"/>
-                        <outlet property="footerView" destination="7Rj-Ao-rz5" id="r1y-zo-IhT"/>
                         <outlet property="tableView" destination="1S2-k1-emM" id="Q9d-cX-bGO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mBC-Bc-k0f" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="7Rj-Ao-rz5">
-                    <rect key="frame" x="0.0" y="0.0" width="410" height="128"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hw-Re-ROG" customClass="DefaultButton" customModule="MinterWallet" customModuleProvider="target">
-                            <rect key="frame" x="65" y="20" width="280" height="50"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="50" id="69A-nc-Tba"/>
-                                <constraint firstAttribute="width" constant="280" id="Luj-Ht-6Y7"/>
-                            </constraints>
-                            <state key="normal" title="SHARE ADDRESS"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="pattern" value="purple"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="shareButtonDidTap:" destination="AOA-uS-VHB" eventType="touchUpInside" id="tbW-aW-mRW"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0wP-w7-zNb" customClass="DefaultButton" customModule="MinterWallet" customModuleProvider="target">
-                            <rect key="frame" x="65" y="80" width="280" height="50"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="280" id="GzN-tg-eP8"/>
-                                <constraint firstAttribute="height" constant="50" id="ZR0-Kw-qIi"/>
-                            </constraints>
-                            <state key="normal" image="addWalletButton"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="pattern" value="blank"/>
-                            </userDefinedRuntimeAttributes>
-                        </button>
-                        <activityIndicatorView opaque="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Tkt-UF-OoE">
-                            <rect key="frame" x="186.5" y="86.5" width="37" height="37"/>
-                            <color key="color" red="0.45882352939999999" green="0.45882352939999999" blue="0.45882352939999999" alpha="1" colorSpace="deviceRGB"/>
-                        </activityIndicatorView>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstItem="Tkt-UF-OoE" firstAttribute="centerX" secondItem="0wP-w7-zNb" secondAttribute="centerX" id="17y-vT-nuc"/>
-                        <constraint firstItem="0wP-w7-zNb" firstAttribute="leading" secondItem="1hw-Re-ROG" secondAttribute="leading" id="TQb-Ra-qX3"/>
-                        <constraint firstItem="0wP-w7-zNb" firstAttribute="trailing" secondItem="1hw-Re-ROG" secondAttribute="trailing" id="UNR-5h-zlO"/>
-                        <constraint firstItem="0wP-w7-zNb" firstAttribute="top" secondItem="1hw-Re-ROG" secondAttribute="bottom" constant="10" id="nnk-cQ-6Fb"/>
-                        <constraint firstItem="1hw-Re-ROG" firstAttribute="centerX" secondItem="7Rj-Ao-rz5" secondAttribute="centerX" id="oNw-P3-Nma"/>
-                        <constraint firstItem="Tkt-UF-OoE" firstAttribute="centerY" secondItem="0wP-w7-zNb" secondAttribute="centerY" id="w77-g8-eed"/>
-                        <constraint firstItem="1hw-Re-ROG" firstAttribute="top" secondItem="7Rj-Ao-rz5" secondAttribute="top" constant="20" id="xlk-Wr-mfz"/>
-                    </constraints>
-                </view>
             </objects>
             <point key="canvasLocation" x="1064.8" y="144.3778110944528"/>
         </scene>
@@ -182,7 +134,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="addWalletButton" width="280" height="50"/>
         <image name="tabbarReceiveIcon" width="30" height="26"/>
     </resources>
 </document>
