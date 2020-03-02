@@ -3596,7 +3596,7 @@
 				CODE_SIGN_ENTITLEMENTS = MinterWallet/MinterWallet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = C5S22Z3J44;
 				ENABLE_BITCODE = YES;
@@ -3632,7 +3632,7 @@
 				CODE_SIGN_ENTITLEMENTS = MinterWallet/MinterWallet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C5S22Z3J44;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
