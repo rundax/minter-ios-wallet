@@ -977,6 +977,7 @@ extension SendViewModel {
 			} else {
 				viewModel.avatarImageURL = MinterMyAPIURL.avatarAddress(address: address).url()
 			}
+			viewModel.coin = selectedCoin.value
 			viewModel.secondActionButtomTitle = "SHARE".localized()
 			viewModel.secondButtonTitle = "CLOSE".localized()
 			viewModel.username = to

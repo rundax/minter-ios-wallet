@@ -96,10 +96,10 @@ class TransactionTableViewCell: BaseTransactionCell {
 		title.text = TransactionTitleHelper.title(from: transaction.title ?? "")
 		amount.text = amountText(amount: transaction.amount)
 		if (transaction.amount ?? 0) > 0 {
-			coinImage.image = UIImage(named: "txTo")
+			coinImage.image = UIImage(named: "receiveTX")
 			amount.textColor = UIColor.mainOrangeColor()
 		} else {
-			coinImage.image = UIImage(named: "txFrom")
+			coinImage.image = UIImage(named: "sendTX")
 			amount.textColor = UIColor.mainColor()
 		}
 
