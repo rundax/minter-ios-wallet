@@ -88,6 +88,8 @@ class DefaultButton: UIButton {
 		self.layer.cornerRadius = 16.0
 		self.updateAppearance()
 		self.animateButtonTouch = true
+		
+		self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
 	}
 
 	override func layoutSubviews() {

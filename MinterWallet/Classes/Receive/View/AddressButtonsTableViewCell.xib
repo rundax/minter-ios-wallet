@@ -16,28 +16,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="230"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f1e-Tt-CYY" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
-                        <rect key="frame" x="10" y="10" width="50" height="50"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="50" id="FkV-YH-GQ0"/>
-                            <constraint firstAttribute="height" constant="50" id="Yug-DT-Ka2"/>
-                        </constraints>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <state key="normal" image="scanQRIcon"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="pattern" value="purple"/>
-                        </userDefinedRuntimeAttributes>
-                        <connections>
-                            <action selector="didTapQRButton:" destination="QKH-gB-pDO" eventType="touchUpInside" id="b3Y-Ak-Bfw"/>
-                        </connections>
-                    </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rWg-fm-8U8" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
-                        <rect key="frame" x="64" y="10" width="148.5" height="50"/>
+                        <rect key="frame" x="10" y="10" width="142.5" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="Xqv-ZQ-g8f"/>
                         </constraints>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <state key="normal" title="  SHARE" image="addressShare"/>
+                        <state key="normal" title="SHARE" image="addressShare"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="pattern" value="purple"/>
                         </userDefinedRuntimeAttributes>
@@ -45,12 +30,12 @@
                             <action selector="didTapShareButton:" destination="QKH-gB-pDO" eventType="touchUpInside" id="yGu-8o-56X"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kSd-PU-cbH" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
-                        <rect key="frame" x="216.5" y="10" width="148.5" height="50"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="kSd-PU-cbH" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
+                        <rect key="frame" x="162.5" y="10" width="142.5" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="HQD-1s-wJT"/>
                         </constraints>
-                        <state key="normal" title="  APPLE WALLET" image="appleWallet"/>
+                        <state key="normal" title="APPLE WALLET" image="appleWallet"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="pattern" value="blank"/>
                         </userDefinedRuntimeAttributes>
@@ -59,7 +44,7 @@
                         </connections>
                     </button>
                     <activityIndicatorView opaque="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="5hz-ge-43Z">
-                        <rect key="frame" x="272.5" y="16.5" width="37" height="37"/>
+                        <rect key="frame" x="215.5" y="16.5" width="37" height="37"/>
                         <color key="color" red="0.45882352939999999" green="0.45882352939999999" blue="0.45882352939999999" alpha="1" colorSpace="deviceRGB"/>
                     </activityIndicatorView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cXo-zx-T1O">
@@ -80,24 +65,39 @@
                             <constraint firstItem="ArO-9v-jb3" firstAttribute="centerX" secondItem="cXo-zx-T1O" secondAttribute="centerX" id="PQj-44-10x"/>
                         </constraints>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f1e-Tt-CYY" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
+                        <rect key="frame" x="315" y="10" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="FkV-YH-GQ0"/>
+                            <constraint firstAttribute="height" constant="50" id="Yug-DT-Ka2"/>
+                        </constraints>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal" image="scanQRIcon"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="pattern" value="purple"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="didTapQRButton:" destination="QKH-gB-pDO" eventType="touchUpInside" id="b3Y-Ak-Bfw"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="cXo-zx-T1O" secondAttribute="bottom" id="1bj-Sm-qR4"/>
                     <constraint firstItem="rWg-fm-8U8" firstAttribute="width" secondItem="kSd-PU-cbH" secondAttribute="width" id="7O2-tY-wd8"/>
                     <constraint firstItem="kSd-PU-cbH" firstAttribute="top" secondItem="fpy-43-tli" secondAttribute="top" constant="10" id="7lp-7j-yup"/>
                     <constraint firstItem="5hz-ge-43Z" firstAttribute="centerY" secondItem="kSd-PU-cbH" secondAttribute="centerY" id="9XL-2a-02n"/>
-                    <constraint firstItem="rWg-fm-8U8" firstAttribute="leading" secondItem="f1e-Tt-CYY" secondAttribute="trailing" constant="4" id="Dm9-bk-11T"/>
-                    <constraint firstItem="kSd-PU-cbH" firstAttribute="leading" secondItem="rWg-fm-8U8" secondAttribute="trailing" constant="4" id="EXS-EM-54S"/>
+                    <constraint firstAttribute="trailing" secondItem="f1e-Tt-CYY" secondAttribute="trailing" constant="10" id="ATI-DC-EFG"/>
+                    <constraint firstItem="kSd-PU-cbH" firstAttribute="leading" secondItem="rWg-fm-8U8" secondAttribute="trailing" constant="10" id="EXS-EM-54S"/>
                     <constraint firstItem="f1e-Tt-CYY" firstAttribute="centerY" secondItem="rWg-fm-8U8" secondAttribute="centerY" id="Frj-zx-gCb"/>
                     <constraint firstItem="rWg-fm-8U8" firstAttribute="top" secondItem="fpy-43-tli" secondAttribute="top" constant="10" id="KEM-KH-qPB"/>
                     <constraint firstItem="cXo-zx-T1O" firstAttribute="leading" secondItem="fpy-43-tli" secondAttribute="leading" id="N0M-Fq-Clf"/>
-                    <constraint firstItem="f1e-Tt-CYY" firstAttribute="leading" secondItem="fpy-43-tli" secondAttribute="leading" constant="10" id="W10-JY-iIs"/>
                     <constraint firstItem="f1e-Tt-CYY" firstAttribute="centerY" secondItem="kSd-PU-cbH" secondAttribute="centerY" id="ZcX-vo-dPK"/>
-                    <constraint firstAttribute="trailing" secondItem="kSd-PU-cbH" secondAttribute="trailing" constant="10" id="gjk-JI-7d5"/>
                     <constraint firstItem="f1e-Tt-CYY" firstAttribute="top" secondItem="fpy-43-tli" secondAttribute="top" constant="10" id="jhr-0T-qj1"/>
+                    <constraint firstItem="rWg-fm-8U8" firstAttribute="leading" secondItem="fpy-43-tli" secondAttribute="leading" constant="10" id="kvO-2o-4rl"/>
                     <constraint firstAttribute="trailing" secondItem="cXo-zx-T1O" secondAttribute="trailing" id="mZy-7t-jAr"/>
                     <constraint firstItem="5hz-ge-43Z" firstAttribute="centerX" secondItem="kSd-PU-cbH" secondAttribute="centerX" id="x2t-cm-RJI"/>
                     <constraint firstItem="cXo-zx-T1O" firstAttribute="top" secondItem="f1e-Tt-CYY" secondAttribute="bottom" constant="10" id="y1d-rG-c2x"/>
+                    <constraint firstItem="f1e-Tt-CYY" firstAttribute="leading" secondItem="kSd-PU-cbH" secondAttribute="trailing" constant="10" id="ygh-tC-gI2"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
