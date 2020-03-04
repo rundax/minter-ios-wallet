@@ -74,6 +74,7 @@ PODS:
   - GoogleUtilities/UserDefaults (6.3.1):
     - GoogleUtilities/Logger
   - GrowingTextView (0.7.1)
+  - KeychainAccess (4.1.0)
   - KeychainSwift (12.0.0)
   - MarqueeLabel/Swift (3.2.1)
   - MinterCore (0.1.26):
@@ -153,6 +154,7 @@ DEPENDENCIES:
   - Firebase/Analytics
   - GoldenKeystore (from `https://github.com/sidorov-panda/GoldenKeystore`)
   - GrowingTextView
+  - KeychainAccess
   - KeychainSwift (= 12.0.0)
   - MinterCore (from `https://github.com/MinterTeam/minter-ios-core.git`, branch `texas`)
   - MinterExplorer
@@ -196,6 +198,7 @@ SPEC REPOS:
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
     - GrowingTextView
+    - KeychainAccess
     - KeychainSwift
     - MarqueeLabel
     - MinterExplorer
@@ -276,6 +279,7 @@ SPEC CHECKSUMS:
   GoogleDataTransportCCTSupport: f6ab1962e9dc05ab1fb938b795e5b310209edeec
   GoogleUtilities: f895fde57977df4e0233edda0dbeac490e3703b6
   GrowingTextView: 6dff7eedf2fc93f8378d20d456782afd0267b0cc
+  KeychainAccess: 445e28864fe6d3458b41fa211bcdc39890e8bd5a
   KeychainSwift: d5e776578587ee5958ce36601df22f168f65138a
   MarqueeLabel: 2daf039bf916937c8a4c9adfc13577cc5e51b4ce
   MinterCore: 524460f52445065280ee8b4d365216b3772670f9
@@ -308,6 +312,6 @@ SPEC CHECKSUMS:
   XLPagerTabStrip: 63166e21c9844fa30f2d95d30f335e73be5caf22
   YandexMobileMetrica: 1030df2959c886a7be3bc3d274eb54c8e86afd6f
 
-PODFILE CHECKSUM: 98d44585490d938adbd12697f2332a8b904de7b3
+PODFILE CHECKSUM: 6eddc4deec2af54ebb217fd674e54aa57592c6b1
 
 COCOAPODS: 1.8.1

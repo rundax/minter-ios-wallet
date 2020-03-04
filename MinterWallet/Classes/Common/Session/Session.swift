@@ -176,6 +176,7 @@ class Session {
 	}
 
 	func logout() {
+		accountManager.clearSharedKeychain()
 		accessToken.value = nil
 		refreshToken.value = nil
 		secureStorage.removeAll()

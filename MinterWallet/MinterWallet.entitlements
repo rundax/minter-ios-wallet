@@ -5,10 +5,18 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:bip.to</string>
+		<string>webcredentials:push.gifts</string>
+		<string>applinks:push.gifts</string>
 	</array>
+	<key>com.apple.developer.authentication-services.autofill-credential-provider</key>
+	<true/>
 	<key>com.apple.developer.pass-type-identifiers</key>
 	<array>
 		<string>$(TeamIdentifierPrefix)*</string>
+	</array>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)Rundax.Wallet</string>
 	</array>
 </dict>
 </plist>

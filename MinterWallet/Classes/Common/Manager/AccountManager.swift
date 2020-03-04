@@ -10,6 +10,7 @@ import Foundation
 import CryptoSwift
 import MinterCore
 import MinterMy
+import KeychainAccess
 
 class AccountManager {
 
@@ -268,6 +269,27 @@ class AccountManager {
 				addr.isMain = false
 			})
 			res.substitute(with: account)
+		}
+	}
+	
+	// MARK: - Associated Domains
+
+	func saveToSharedKeychain(address: String) {
+		//store address to shared keychain
+		let keychain = Keychain(server: Configuration().environment.pushBaseURL, protocolType: .https).synchronizable(true)
+		keychain.setSharedPassword(address, account: address) { error in
+			print(error?.localizedDescription ?? "")
+		}
+	}
+
+	func clearSharedKeychain() {
+		let keychain = Keychain(server: Configuration().environment.pushBaseURL, protocolType: .https).synchronizable(true)
+
+		//delete address from shared keychain
+		for account in loadLocalAccounts() ?? [] {
+			let key = "Mx" + account.address
+			print("remove: \(key)")
+			keychain.removeSharedPassword(key)
 		}
 	}
 }

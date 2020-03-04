@@ -124,7 +124,7 @@ enum Environment: String {
 	
 	var pushBaseURL: String {
 		switch self {
-			case .dev: return "https://dev.push.gifts/"
+			case .dev: return "https://pushgifts.avallon.im/"
 			case .prod: return "https://push.gifts/"
 		}
 	}

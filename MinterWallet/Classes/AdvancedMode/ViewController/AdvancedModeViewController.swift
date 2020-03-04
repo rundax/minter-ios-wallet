@@ -63,6 +63,8 @@ class AdvancedModeViewController: BaseViewController {
 			self.generateAddressTopConstraint.constant = 77.0
 			self.view.addSubview(self.testnetToolbarView)
 		}
+		
+		textView.text = "what polar album violin fetch fitness bottom educate twenty crumble pilot enlist"
 	}
 
 	// MARK: -

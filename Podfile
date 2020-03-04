@@ -34,6 +34,7 @@ def shared_pods
 	pod 'SwiftLint'
   pod 'SwiftOTP'
   pod 'DeckTransition', '~> 2.0'
+	pod 'KeychainAccess'
 end
 
 target 'MinterWallet' do

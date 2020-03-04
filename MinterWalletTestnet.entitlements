@@ -5,10 +5,20 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:testnet.bip.to</string>
+		<string>webcredentials:dev.push.gifts</string>
+		<string>applinks:dev.push.gifts</string>
+		<string>webcredentials:pushgifts.avallon.im</string>
+		<string>applinks:pushgifts.avallon.im</string>
 	</array>
+	<key>com.apple.developer.authentication-services.autofill-credential-provider</key>
+	<true/>
 	<key>com.apple.developer.pass-type-identifiers</key>
 	<array>
 		<string>$(TeamIdentifierPrefix)*</string>
+	</array>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)Rundax.WalletTestnet</string>
 	</array>
 </dict>
 </plist>

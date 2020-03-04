@@ -37,6 +37,8 @@
 		3066C22F240551CD00583B13 /* GiftsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3066C22D240551CC00583B13 /* GiftsViewController.swift */; };
 		3066C231240551D900583B13 /* GiftsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3066C230240551D800583B13 /* GiftsViewModel.swift */; };
 		3066C232240551D900583B13 /* GiftsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3066C230240551D800583B13 /* GiftsViewModel.swift */; };
+		30711C3B241000480071EB79 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30711C3A241000470071EB79 /* AuthenticationServices.framework */; };
+		30711C3C241000C60071EB79 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30711C3A241000470071EB79 /* AuthenticationServices.framework */; };
 		3075CDFC23E07C44007FE2CF /* TextfieldPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075CDFB23E07C44007FE2CF /* TextfieldPopupViewController.swift */; };
 		3075CDFD23E07C44007FE2CF /* TextfieldPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075CDFB23E07C44007FE2CF /* TextfieldPopupViewController.swift */; };
 		3075CDFF23E08352007FE2CF /* TextFieldPopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075CDFE23E08352007FE2CF /* TextFieldPopupViewModel.swift */; };
@@ -656,6 +658,7 @@
 		3066C20D2405510300583B13 /* Gifts.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Gifts.storyboard; sourceTree = "<group>"; };
 		3066C22D240551CC00583B13 /* GiftsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftsViewController.swift; sourceTree = "<group>"; };
 		3066C230240551D800583B13 /* GiftsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftsViewModel.swift; sourceTree = "<group>"; };
+		30711C3A241000470071EB79 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		3075CDFB23E07C44007FE2CF /* TextfieldPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextfieldPopupViewController.swift; sourceTree = "<group>"; };
 		3075CDFE23E08352007FE2CF /* TextFieldPopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldPopupViewModel.swift; sourceTree = "<group>"; };
 		308CD03423DA424B0049C69B /* JSONStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONStorage.swift; sourceTree = "<group>"; };
@@ -974,6 +977,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30711C3C241000C60071EB79 /* AuthenticationServices.framework in Frameworks */,
 				FA3CD61923ABBEFC004DDF29 /* PassKit.framework in Frameworks */,
 				FA333052224A4B3C003B4763 /* Pods_MinterWallet.framework in Frameworks */,
 			);
@@ -983,6 +987,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30711C3B241000480071EB79 /* AuthenticationServices.framework in Frameworks */,
 				FA3CD61B23ABBF03004DDF29 /* PassKit.framework in Frameworks */,
 				FACC4A6FFE58CCF99D9B2115 /* Pods_MinterWalletTestnet.framework in Frameworks */,
 			);
@@ -1613,6 +1618,7 @@
 		F1B9FBEAE725F311F68F278E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				30711C3A241000470071EB79 /* AuthenticationServices.framework */,
 				FA3CD61823ABBEFC004DDF29 /* PassKit.framework */,
 				9EBD75282FB7FF99C075E9B1 /* Pods_MinterWallet.framework */,
 				E5F7398A88DFF31468C6E439 /* Pods_MinterWalletTests.framework */,
@@ -2660,6 +2666,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoldenKeystore/GoldenKeystore.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/GrowingTextView/GrowingTextView.framework",
+				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/MinterCore/MinterCore.framework",
@@ -2704,6 +2711,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoldenKeystore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GrowingTextView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MinterCore.framework",
@@ -2794,6 +2802,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoldenKeystore/GoldenKeystore.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/GrowingTextView/GrowingTextView.framework",
+				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/MinterCore/MinterCore.framework",
@@ -2838,6 +2847,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoldenKeystore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GrowingTextView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MinterCore.framework",
@@ -2937,6 +2947,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoldenKeystore/GoldenKeystore.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/GrowingTextView/GrowingTextView.framework",
+				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/MinterCore/MinterCore.framework",
@@ -2981,6 +2992,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoldenKeystore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GrowingTextView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MinterCore.framework",

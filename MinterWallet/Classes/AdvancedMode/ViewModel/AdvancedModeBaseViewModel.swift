@@ -61,7 +61,24 @@ class AccountantBaseViewModel: BaseViewModel {
 		databaseStorage.add(object: dbModel)
 
 		SessionHelper.reloadAccounts()
+			
+		let alert = BaseAlertController(title: "Save public address to keychain?".localized(), message: "It allows you easily paste your address in our web services", preferredStyle: .alert)
+		let yesAction = UIAlertAction(title: "SAVE".localized(), style: .default) { action in
+			self.accountManager.saveToSharedKeychain(address: "Mx" + account.address)
+		}
 
+		let cancelAction = UIAlertAction(title: "NO".localized(), style: .cancel)
+		alert.addAction(yesAction)
+		alert.addAction(cancelAction)
+		alert.view.tintColor = UIColor.mainColor()
+				
+		if var topController = UIApplication.shared.keyWindow?.rootViewController {
+			while let presentedViewController = topController.presentedViewController {
+				topController = presentedViewController
+			}
+
+			topController.present(alert, animated: true)
+		}
 		return account
 	}
 
