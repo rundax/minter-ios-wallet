@@ -89,7 +89,9 @@ class DefaultButton: UIButton {
 		self.updateAppearance()
 		self.animateButtonTouch = true
 		
-		self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+		if self.imageView?.image != nil {
+			self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+		}
 	}
 
 	override func layoutSubviews() {

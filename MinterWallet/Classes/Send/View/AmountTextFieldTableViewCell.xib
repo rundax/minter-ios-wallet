@@ -17,7 +17,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="101" id="hDh-eC-pEM" customClass="AmountTextFieldTableViewCell" customModule="MinterWallet" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="101" id="hDh-eC-pEM" customClass="AmountTextFieldTableViewCell" customModule="Rundax" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="101"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hDh-eC-pEM" id="83j-Qc-TsO">
@@ -39,7 +39,7 @@
                         <color key="textColor" red="0.95693963770000001" green="0.23488524559999999" blue="0.21839424969999999" alpha="1" colorSpace="deviceRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ond-CZ-BlM" customClass="ValidatableTextField" customModule="MinterWallet" customModuleProvider="target">
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ond-CZ-BlM" customClass="ValidatableTextField" customModule="Rundax" customModuleProvider="target">
                         <rect key="frame" x="10" y="29.5" width="355" height="46"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="46" id="tZr-V1-rnK"/>
@@ -54,14 +54,18 @@
                         <rect key="frame" x="260" y="42.5" width="20" height="20"/>
                     </activityIndicatorView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aKF-ms-b8X">
-                        <rect key="frame" x="286" y="38.5" width="63" height="28"/>
+                        <rect key="frame" x="307" y="27.5" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="ltN-72-ArU"/>
+                            <constraint firstAttribute="width" constant="50" id="rhA-Jc-UVJ"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="14"/>
-                        <state key="normal" title="USE MAX">
+                        <state key="normal" title="X">
                             <color key="titleColor" red="0.94117647059999998" green="0.34509803919999998" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <connections>
+                            <action selector="didTapClear:" destination="hDh-eC-pEM" eventType="touchUpInside" id="bZ9-pW-p5X"/>
                             <action selector="didTapUseMax:" destination="-1" eventType="touchUpInside" id="On9-qa-cby"/>
-                            <action selector="didTapUseMax:" destination="hDh-eC-pEM" eventType="touchUpInside" id="bZ9-pW-p5X"/>
                         </connections>
                     </button>
                 </subviews>
@@ -70,7 +74,7 @@
                     <constraint firstItem="Ond-CZ-BlM" firstAttribute="top" secondItem="83j-Qc-TsO" secondAttribute="top" constant="29.5" id="1N4-Gn-ZV1"/>
                     <constraint firstItem="dre-gy-gzx" firstAttribute="top" secondItem="83j-Qc-TsO" secondAttribute="top" constant="6" id="5wR-Cd-0vO"/>
                     <constraint firstItem="H5j-b4-ihl" firstAttribute="trailing" secondItem="Ond-CZ-BlM" secondAttribute="trailing" id="8MS-0k-fKt"/>
-                    <constraint firstItem="aKF-ms-b8X" firstAttribute="trailing" secondItem="Ond-CZ-BlM" secondAttribute="trailing" constant="-16" id="8bm-bq-4oE"/>
+                    <constraint firstItem="aKF-ms-b8X" firstAttribute="trailing" secondItem="Ond-CZ-BlM" secondAttribute="trailing" constant="-8" id="8bm-bq-4oE"/>
                     <constraint firstItem="H5j-b4-ihl" firstAttribute="centerY" secondItem="dre-gy-gzx" secondAttribute="centerY" id="AsD-98-LZB"/>
                     <constraint firstItem="4Vh-DY-qeM" firstAttribute="centerY" secondItem="Ond-CZ-BlM" secondAttribute="centerY" id="Bba-Nx-nIj"/>
                     <constraint firstItem="Ond-CZ-BlM" firstAttribute="trailing" secondItem="4Vh-DY-qeM" secondAttribute="trailing" constant="85" id="DWx-cv-ScE"/>
@@ -84,10 +88,10 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="activityIndicator" destination="4Vh-DY-qeM" id="9TP-JW-acd"/>
+                <outlet property="clearButton" destination="aKF-ms-b8X" id="NO2-Zu-bGU"/>
                 <outlet property="errorTitle" destination="H5j-b4-ihl" id="OUa-SS-Bar"/>
                 <outlet property="textField" destination="Ond-CZ-BlM" id="223-2T-QIR"/>
                 <outlet property="title" destination="dre-gy-gzx" id="KJr-wI-OeO"/>
-                <outlet property="useMaxButton" destination="aKF-ms-b8X" id="NO2-Zu-bGU"/>
             </connections>
             <point key="canvasLocation" x="-103.2" y="-102.09895052473765"/>
         </tableViewCell>

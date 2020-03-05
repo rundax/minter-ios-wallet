@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PresetsTableViewCell" rowHeight="68" id="hDh-eC-pEM" customClass="PresetsTableViewCell" customModule="Rundax" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hDh-eC-pEM" id="83j-Qc-TsO">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Ksu-6C-urL">
+                        <rect key="frame" x="10" y="0.0" width="355" height="34"/>
+                        <subviews>
+                            <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="eZj-gY-1WV" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="33" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="13H-oD-IG8"/>
+                                </constraints>
+                                <state key="normal" title="+10">
+                                    <color key="titleColor" red="0.94117647059999998" green="0.34509803919999998" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="pattern" value="blank"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="presetButtonDidTap:" destination="hDh-eC-pEM" eventType="touchUpInside" id="cqL-9T-YgB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Jl1-Ef-cwI" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
+                                <rect key="frame" x="41" y="0.0" width="45.5" height="34"/>
+                                <state key="normal" title="+100">
+                                    <color key="titleColor" red="0.94117647059999998" green="0.34509803919999998" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="pattern" value="blank"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="presetButtonDidTap:" destination="-2" eventType="touchUpInside" id="mR3-o5-igj"/>
+                                    <action selector="presetButtonDidTap:" destination="hDh-eC-pEM" eventType="touchUpInside" id="pEA-aq-CP9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="200" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="dhV-UR-EUx" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
+                                <rect key="frame" x="94.5" y="0.0" width="47" height="34"/>
+                                <state key="normal" title="+200">
+                                    <color key="titleColor" red="0.94117647059999998" green="0.34509803919999998" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="pattern" value="blank"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="presetButtonDidTap:" destination="hDh-eC-pEM" eventType="touchUpInside" id="Zsc-44-Omy"/>
+                                    <action selector="presetButtonDidTap:" destination="-2" eventType="touchUpInside" id="iFc-ZL-XFp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="500" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="fOG-BM-qnF" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
+                                <rect key="frame" x="149.5" y="0.0" width="47" height="34"/>
+                                <state key="normal" title="+500">
+                                    <color key="titleColor" red="0.94117647059999998" green="0.34509803919999998" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="pattern" value="blank"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="presetButtonDidTap:" destination="hDh-eC-pEM" eventType="touchUpInside" id="Faj-RV-D6L"/>
+                                    <action selector="presetButtonDidTap:" destination="-2" eventType="touchUpInside" id="nyd-8j-b0k"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="fse-PM-OIa" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
+                                <rect key="frame" x="204.5" y="0.0" width="56" height="34"/>
+                                <state key="normal" title="+1000">
+                                    <color key="titleColor" red="0.94117647059999998" green="0.34509803919999998" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="pattern" value="blank"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="presetButtonDidTap:" destination="hDh-eC-pEM" eventType="touchUpInside" id="bxS-XT-i2C"/>
+                                    <action selector="presetButtonDidTap:" destination="-2" eventType="touchUpInside" id="fsp-ny-edj"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="RX8-hE-u5J" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
+                                <rect key="frame" x="268.5" y="0.0" width="86.5" height="34"/>
+                                <state key="normal" title="USE MAX">
+                                    <color key="titleColor" red="0.94117647059999998" green="0.34509803919999998" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="pattern" value="blank"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="presetButtonDidTap:" destination="hDh-eC-pEM" eventType="touchUpInside" id="Ff2-j3-an0"/>
+                                    <action selector="presetButtonDidTap:" destination="-2" eventType="touchUpInside" id="UzT-u2-djX"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Ksu-6C-urL" firstAttribute="leading" secondItem="83j-Qc-TsO" secondAttribute="leading" constant="10" id="Bbu-k0-3VZ"/>
+                    <constraint firstAttribute="bottom" secondItem="Ksu-6C-urL" secondAttribute="bottom" constant="10" id="OxA-fL-Arf"/>
+                    <constraint firstAttribute="trailing" secondItem="Ksu-6C-urL" secondAttribute="trailing" constant="10" id="RCv-kU-zvm"/>
+                    <constraint firstItem="Ksu-6C-urL" firstAttribute="top" secondItem="83j-Qc-TsO" secondAttribute="top" id="TJb-c3-bj3"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="_1000Button" destination="fse-PM-OIa" id="st5-ah-PYD"/>
+                <outlet property="_100Button" destination="Jl1-Ef-cwI" id="FVg-eU-9FV"/>
+                <outlet property="_10Button" destination="eZj-gY-1WV" id="ryB-I0-Suk"/>
+                <outlet property="_200Button" destination="dhV-UR-EUx" id="u4W-Sy-J8U"/>
+                <outlet property="_500Button" destination="fOG-BM-qnF" id="q7u-uK-lrR"/>
+                <outlet property="maxButton" destination="RX8-hE-u5J" id="UJj-JA-ASA"/>
+            </connections>
+            <point key="canvasLocation" x="-103.2" y="-116.94152923538232"/>
+        </tableViewCell>
+    </objects>
+</document>

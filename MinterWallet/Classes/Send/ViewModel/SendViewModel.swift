@@ -454,13 +454,22 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
     (amount.text <-> amountSubject).disposed(by: disposeBag)
 		amount
 			.output?
-			.didTapUseMax
+			.didTapClear
 			.asDriver(onErrorJustReturn: ())
 			.drive(onNext: { [weak self] (_) in
-				guard let _self = self else { return } //swiftlint:disable:this identifier_name
-				let selectedAmount = _self.formatter.formattedDecimal(with: _self.selectedAddressBalance ?? 0.0)
-				self?.amountSubject.accept(selectedAmount)
+				self?.amountSubject.accept("")
 			}).disposed(by: disposeBag)
+		
+		let presets = PresetsTableViewCellItem(reuseIdentifier: "PresetsTableViewCell",
+		identifier: "PresetsTableViewCell")
+		presets
+			.output?
+			.didTapPreset
+			.asDriver(onErrorJustReturn: ())
+			.drive(onNext: { (_) in
+				amount.input?.didTapPreset.onNext(())
+			}).disposed(by: disposeBag)
+		
 
 		let payload = SendPayloadTableViewCellItem(reuseIdentifier: "SendPayloadTableViewCell",
                                                identifier: "SendPayloadTableViewCell_Payload")
@@ -505,7 +514,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 			}).disposed(by: self.disposeBag)
 
 		var section = BaseTableSectionItem(header: "")
-		section.items = [coin, username, amount, payload, fee, separator, blank, button]
+		section.items = [coin, username, amount, presets, payload, fee, separator, blank, button]
 		return [section]
 	}
 
@@ -877,6 +886,30 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 			return nil
 		}
 		return URL(string: MinterExplorerBaseURL! + "/transactions/" + (lastSentTransactionHash ?? ""))
+	}
+	
+	func didTabPresetButton(amount: Decimal) {
+		
+		func acceptMaxBalance() {
+			let selectedAmount = self.formatter.formattedDecimal(with: self.selectedAddressBalance ?? 0.0)
+			self.amountSubject.accept(selectedAmount)
+		}
+
+		if amount == 0 {
+			acceptMaxBalance()
+			return
+		}
+		
+		let value: Decimal = self.amountSubject.value == "" ? 0 : Decimal(string: self.amountSubject.value ?? "0") ?? 0
+		let newValue = value + amount
+
+		if newValue >= self.selectedAddressBalance ?? 0.0 {
+			acceptMaxBalance()
+			return
+		}
+		
+		let selectedAmount = self.formatter.formattedDecimal(with: newValue)
+		self.amountSubject.accept(selectedAmount)
 	}
 
 	// MARK: -

@@ -39,6 +39,10 @@
 		3066C232240551D900583B13 /* GiftsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3066C230240551D800583B13 /* GiftsViewModel.swift */; };
 		30711C3B241000480071EB79 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30711C3A241000470071EB79 /* AuthenticationServices.framework */; };
 		30711C3C241000C60071EB79 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30711C3A241000470071EB79 /* AuthenticationServices.framework */; };
+		30711C3F24114BD50071EB79 /* PresetsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30711C3D24114BD40071EB79 /* PresetsTableViewCell.xib */; };
+		30711C4024114BD60071EB79 /* PresetsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30711C3D24114BD40071EB79 /* PresetsTableViewCell.xib */; };
+		30711C4124114BD60071EB79 /* PresetsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30711C3E24114BD50071EB79 /* PresetsTableViewCell.swift */; };
+		30711C4224114BD60071EB79 /* PresetsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30711C3E24114BD50071EB79 /* PresetsTableViewCell.swift */; };
 		3075CDFC23E07C44007FE2CF /* TextfieldPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075CDFB23E07C44007FE2CF /* TextfieldPopupViewController.swift */; };
 		3075CDFD23E07C44007FE2CF /* TextfieldPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075CDFB23E07C44007FE2CF /* TextfieldPopupViewController.swift */; };
 		3075CDFF23E08352007FE2CF /* TextFieldPopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3075CDFE23E08352007FE2CF /* TextFieldPopupViewModel.swift */; };
@@ -659,6 +663,8 @@
 		3066C22D240551CC00583B13 /* GiftsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftsViewController.swift; sourceTree = "<group>"; };
 		3066C230240551D800583B13 /* GiftsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftsViewModel.swift; sourceTree = "<group>"; };
 		30711C3A241000470071EB79 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
+		30711C3D24114BD40071EB79 /* PresetsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PresetsTableViewCell.xib; sourceTree = "<group>"; };
+		30711C3E24114BD50071EB79 /* PresetsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresetsTableViewCell.swift; sourceTree = "<group>"; };
 		3075CDFB23E07C44007FE2CF /* TextfieldPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextfieldPopupViewController.swift; sourceTree = "<group>"; };
 		3075CDFE23E08352007FE2CF /* TextFieldPopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldPopupViewModel.swift; sourceTree = "<group>"; };
 		308CD03423DA424B0049C69B /* JSONStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONStorage.swift; sourceTree = "<group>"; };
@@ -1392,6 +1398,8 @@
 				FA672DF52316C6170028FE29 /* UsernameTableViewCell.xib */,
 				FAA0B2A9232A44E7001C5C72 /* SendPayloadTableViewCell.swift */,
 				FAA0B2AA232A44E7001C5C72 /* SendPayloadTableViewCell.xib */,
+				30711C3E24114BD50071EB79 /* PresetsTableViewCell.swift */,
+				30711C3D24114BD40071EB79 /* PresetsTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2525,6 +2533,7 @@
 				FA333071224A4B3C003B4763 /* Login.storyboard in Resources */,
 				FA333072224A4B3C003B4763 /* SwitchTableViewCell.xib in Resources */,
 				FA333073224A4B3C003B4763 /* TwoTitleTableViewCell.xib in Resources */,
+				30711C3F24114BD50071EB79 /* PresetsTableViewCell.xib in Resources */,
 				FA333074224A4B3C003B4763 /* UbuntuMono-BI.ttf in Resources */,
 				FA333075224A4B3C003B4763 /* pop_down.wav in Resources */,
 				FA333076224A4B3C003B4763 /* Ubuntu-LI.ttf in Resources */,
@@ -2608,6 +2617,7 @@
 				FA669BCD2072483100AD110A /* UbuntuMono-B.ttf in Resources */,
 				FAB7AA1820F600230003D0DE /* ConvertTransactionTableViewCell.xib in Resources */,
 				FAA2606220923634009FF3DE /* AddressTableViewCell.xib in Resources */,
+				30711C4024114BD60071EB79 /* PresetsTableViewCell.xib in Resources */,
 				8FF7BCCC97FAB66AA4688C1B /* Coins.storyboard in Resources */,
 				15A1B86305F7B488825D223C /* CreateWallet.storyboard in Resources */,
 				FAA2608020935C36009FF3DE /* GenerateAddressLabelTableViewCell.xib in Resources */,
@@ -3097,6 +3107,7 @@
 				FAC5394122C37C750077E181 /* PINViewController.swift in Sources */,
 				FAF9C50A22AA69C1000BF80A /* DelegatedViewController.swift in Sources */,
 				FA52DD11225C889600A5B554 /* MultisendTransactionTableViewCell.swift in Sources */,
+				30711C4124114BD60071EB79 /* PresetsTableViewCell.swift in Sources */,
 				FADF81F922FB19D3002890EF /* String+Coin.swift in Sources */,
 				FA332FAA224A4B3C003B4763 /* QRTableViewCell.swift in Sources */,
 				FA332FAB224A4B3C003B4763 /* AddressManager+Default.swift in Sources */,
@@ -3334,6 +3345,7 @@
 				FAC5394222C37C750077E181 /* PINViewController.swift in Sources */,
 				FAF9C50B22AA69C1000BF80A /* DelegatedViewController.swift in Sources */,
 				FA52DD12225C889900A5B554 /* MultisendTransactionTableViewCell.swift in Sources */,
+				30711C4224114BD60071EB79 /* PresetsTableViewCell.swift in Sources */,
 				FADF81FA22FB19D3002890EF /* String+Coin.swift in Sources */,
 				FA505ADD20E24D7C00DA90C0 /* QRTableViewCell.swift in Sources */,
 				FA7935FF20D3B3D70012642E /* AddressManager+Default.swift in Sources */,

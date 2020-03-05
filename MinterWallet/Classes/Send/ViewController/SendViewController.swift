@@ -139,6 +139,10 @@ class SendViewController:
 		if let textField = cell as? AmountTextFieldTableViewCell {
 			textField.amountDelegate = self
 		}
+		
+		if let preset = cell as? PresetsTableViewCell {
+			preset.presetsDelegate = self
+		}
 
 		if let switchCell = cell as? SwitchTableViewCell {
 			switchCell.delegate = self
@@ -470,9 +474,32 @@ extension SendViewController: QRCodeReaderViewControllerDelegate {
 
 extension SendViewController: AmountTextFieldTableViewCellDelegate {
 
-	func didTapUseMax() {
+	func didTapClear() {
+	AnalyticsHelper.defaultAnalytics.track(event: .sendCoinsClearAmountButton)
+	}
+}
+
+extension SendViewController: PresetsTableViewCellDelegate {
+
+	func presetButtonDidTap(_ sender: DefaultButton) {
 		self.view.endEditing(true)
-		AnalyticsHelper.defaultAnalytics.track(event: .sendCoinsUseMaxButton)
+
+		switch sender.tag {
+		case 10:
+			AnalyticsHelper.defaultAnalytics.track(event: .sendCoins10Button)
+		case 100:
+			AnalyticsHelper.defaultAnalytics.track(event: .sendCoins100Button)
+		case 200:
+			AnalyticsHelper.defaultAnalytics.track(event: .sendCoins200Button)
+		case 500:
+			AnalyticsHelper.defaultAnalytics.track(event: .sendCoins500Button)
+		case 1000:
+			AnalyticsHelper.defaultAnalytics.track(event: .sendCoins1000Button)
+		default:
+			AnalyticsHelper.defaultAnalytics.track(event: .sendCoinsUseMaxButton)
+		}
+
+		viewModel.didTabPresetButton(amount: Decimal(sender.tag))
 	}
 }
 
@@ -514,6 +541,8 @@ extension SendViewController {
 											 forCellReuseIdentifier: "ButtonTableViewCell")
 		tableView.register(UINib(nibName: "BlankTableViewCell", bundle: nil),
 											 forCellReuseIdentifier: "BlankTableViewCell")
+		tableView.register(UINib(nibName: "PresetsTableViewCell", bundle: nil),
+											 forCellReuseIdentifier: "PresetsTableViewCell")
 		tableView.register(UINib(nibName: "SendPayloadTableViewCell", bundle: nil),
 											 forCellReuseIdentifier: "SendPayloadTableViewCell")
 	}
