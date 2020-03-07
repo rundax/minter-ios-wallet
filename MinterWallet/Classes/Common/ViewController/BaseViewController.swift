@@ -88,6 +88,13 @@ class BaseSafariViewController: SFSafariViewController {
 	override var preferredStatusBarStyle: UIStatusBarStyle {
 		return .lightContent
 	}
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		preferredBarTintColor = UIColor.mainColor()
+    preferredControlTintColor = UIColor.mainOrangeColor()
+	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)

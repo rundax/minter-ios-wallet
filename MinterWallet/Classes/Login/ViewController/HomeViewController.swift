@@ -90,7 +90,7 @@ class HomeViewController: BaseViewController {
 	@IBAction func didTapHelpButton(_ sender: Any) {
 		//TODO: Move somewhere
 		let url = URL(string: "https://help.minter.network")!
-		let vc = SFSafariViewController(url: url)
+		let vc = BaseSafariViewController(url: url)
 		self.present(vc, animated: true, completion: nil)
 	}
 

@@ -617,6 +617,21 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 	// MARK: -
 
 	func send() {
+		if self.campaign != nil {
+			let viewModel = SentPopupViewModel()
+			if self.campaign != nil {
+				viewModel.title = "SUCCESS!".localized()
+				viewModel.desc = "Anyone with the following link can spend, transfer and exchange coins without wallet".localized()
+				viewModel.actionButtonTitle = "COPY GIFT LINK".localized()
+				viewModel.secondActionButtomTitle = "SHARE GIFT LINK".localized()
+				viewModel.secondButtonTitle = "CLOSE".localized()
+				viewModel.coin = selectedCoin.value
+				
+				let popup = PopupRouter.sentPopupViewCointroller(viewModel: viewModel)
+				self.popupSubject.onNext(popup)
+			}
+		}
+		
 		Observable
 			.combineLatest(
 				GateManager.shared.nonce(address: "Mx" + selectedAddress!),
@@ -645,7 +660,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 												 recipient: recipient,
 												 coin: coin,
 												 payload: payload)
-			}).flatMapLatest({ (signedTx) -> Observable<String?> in
+			}).flatMapLatest({ [weak self] (signedTx) -> Observable<String?> in
 				return GateManager.shared.send(rawTx: signedTx)
 			}).subscribe(onNext: { [weak self] (val) in
 				self?.lastSentTransactionHash = val
@@ -654,7 +669,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 				let rec = self?.sendToSubject.value ?? ""
 				let address = self?.addressSubject.value ?? ""
 
-				if let sentViewModel = self?.sentViewModel(to: rec, address: address) {
+				if self?.campaign == nil, let sentViewModel = self?.sentViewModel(to: rec, address: address) {
 					let popup = PopupRouter.sentPopupViewCointroller(viewModel: sentViewModel)
 					self?.popupSubject.onNext(popup)
 				}
@@ -929,6 +944,25 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 																		 text: "Unable to send transaction".localized())
 		}
 		self.txErrorNotificationSubject.onNext(notification)
+
+		if self.campaign != nil {
+			let alert = BaseAlertController(title: "Try again?".localized(), message: "Transaction did not sent".localized(), preferredStyle: .alert)
+			let yesAction = UIAlertAction(title: "SEND", style: .default) { _ in
+				self.send()
+			}
+			let noAction = UIAlertAction(title: "NO", style: .cancel)
+			alert.addAction(yesAction)
+			alert.addAction(noAction)
+			alert.view.tintColor = UIColor.mainColor()
+
+			if let vc = UIViewController.stars_topMostController(), vc.isKind(of: PopupViewController.self) {
+				(vc as? PopupViewController)?.dismiss(animated: false) {
+					UIViewController.stars_topMostController()?.present(alert, animated: true)
+				}
+			} else {
+				UIViewController.stars_topMostController()?.present(alert, animated: true)
+			}
+		}
 	}
     
 	private func confirmWithSecretCode(_ secretCode: String, sendVM: SendPopupViewModel) {
@@ -996,26 +1030,15 @@ extension SendViewModel {
 
 	func sentViewModel(to: String, address: String) -> SentPopupViewModel {
 		let viewModel = SentPopupViewModel()
-		if self.campaign != nil {
-			viewModel.title = "SUCCESS!".localized()
-			viewModel.desc = "Anyone with the following link can spend, transfer and exchange coins without wallet".localized()
-			viewModel.actionButtonTitle = "COPY GIFT LINK".localized()
-			viewModel.avatarImageURL = MinterMyAPIURL.avatarAddress(address: address).url()
-			viewModel.secondActionButtomTitle = "SHARE GIFT LINK".localized()
-			viewModel.secondButtonTitle = "CLOSE".localized()
-		} else {
-			viewModel.actionButtonTitle = "VIEW TRANSACTION".localized()
-			if to.isValidPublicKey() {
-				viewModel.avatarImage = UIImage(named: "delegateImage")
-			} else {
-				viewModel.avatarImageURL = MinterMyAPIURL.avatarAddress(address: address).url()
-			}
-			viewModel.coin = selectedCoin.value
-			viewModel.secondActionButtomTitle = "SHARE".localized()
-			viewModel.secondButtonTitle = "CLOSE".localized()
-			viewModel.username = to
-			viewModel.title = "Success!".localized()
+		viewModel.actionButtonTitle = "VIEW TRANSACTION".localized()
+		if to.isValidPublicKey() {
+			viewModel.avatarImage = UIImage(named: "delegateImage")
 		}
+		viewModel.coin = selectedCoin.value
+		viewModel.secondActionButtomTitle = "SHARE".localized()
+		viewModel.secondButtonTitle = "CLOSE".localized()
+		viewModel.username = to
+		viewModel.title = "Success!".localized()
 		return viewModel
 	}
 }
