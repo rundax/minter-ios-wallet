@@ -10,7 +10,7 @@ import UIKit
 import SwiftOTP
 import NotificationBannerSwift
 
-class PairedModeViewController: UIViewController {
+class PairedModeViewController: BaseViewController {
 
     // MARK: - IBOutlet
 
@@ -47,31 +47,32 @@ class PairedModeViewController: UIViewController {
 		AnalyticsHelper.defaultAnalytics.track(event: .twoFAModeScreen)
 	}
 
-    @IBAction func activateButtonDidTap(_ sender: Any) {
-				AnalyticsHelper.defaultAnalytics.track(event: .twoFAModeActivateButton)
-        errorLabel.text = ""
-        textView.setValid()
+	@IBAction func activateButtonDidTap(_ sender: Any) {
+		AnalyticsHelper.defaultAnalytics.track(event: .twoFAModeActivateButton)
+		errorLabel.text = ""
+		textView.setValid()
 
-        let mnemonicText = textView.text.split(separator: " ")
+		let mnemonicText = textView.text.split(separator: " ")
 
-        guard viewModel.isCorrect(mnemonic: textView.text) == nil else {
-            let err = type(of: viewModel).ValidationError.wrongMnemonic
-            textView.setInvalid()
-            errorLabel.text = viewModel.validationText(for: err)
-            return
-        }
+		guard viewModel.isCorrect(mnemonic: textView.text) == nil else {
+			let err = type(of: viewModel).ValidationError.wrongMnemonic
+			textView.setInvalid()
+			errorLabel.text = viewModel.validationText(for: err)
+			return
+		}
 
-        let alert = BaseAlertController(title: "Attention!".localized(), message: "Confirm, you have backed up your secret code. If you did not do this you lose access to your wallet!".localized(), preferredStyle: .alert)
-        let yesAction = UIAlertAction(title: "YES", style: .default) { _ in
-            self.viewModel.saveAccount(id: -1, mnemonic: mnemonicText.joined(separator: " "), pairedCode: self.secretCodeButton.titleLabel?.text)
-        }
-        let noAction = UIAlertAction(title: "NO", style: .cancel)
-        alert.addAction(yesAction)
-        alert.addAction(noAction)
-        alert.view.tintColor = UIColor.mainColor()
-
-        present(alert, animated: true)
-    }
+		if let secredCode = self.secretCodeButton.titleLabel?.text {
+			BaseAlertController.show2FAConfirmVC(secredCode, vc: self) { [weak self] bool in
+				if bool {
+					_ = self?.viewModel.saveAccount(id: -1, mnemonic: mnemonicText.joined(separator: " "), pairedCode: secredCode)
+				} else {
+					let banner = NotificationBanner(title: "Wrong code!".localized(),subtitle: "", style: .danger)
+					banner.show()
+					self?.activateButtonDidTap(sender)
+				}
+			}
+		}
+	}
 
     func generateSecretCode() {
         let secretCode = String.random(length: 10).base32EncodedString

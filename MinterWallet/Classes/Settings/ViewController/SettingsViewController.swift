@@ -353,9 +353,9 @@ extension SettingsViewController: ButtonTableViewCellDelegate {
 				tableView.endEditing(true)
 				AnalyticsHelper.defaultAnalytics.track(event: .settingsAddAccountButton)
 
-				let seedMode = PickerTableViewCellPickerItem(title: "SEED MODE".localized(), object: "showAdvancedMode")
 				let pairedMode = PickerTableViewCellPickerItem(title: "2FA MODE".localized(), object: "showPairedMode")
-				let items = [seedMode, pairedMode]
+				let seedMode = PickerTableViewCellPickerItem(title: "SEED MODE".localized(), object: "showAdvancedMode")
+				let items = [pairedMode,seedMode]
 
 				let data: [[String]] = [items.map({ (item) -> String in
 					return item.title ?? ""

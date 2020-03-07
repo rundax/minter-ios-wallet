@@ -46,20 +46,6 @@
                                     <outlet property="delegate" destination="o5v-Ld-dnv" id="k5M-DT-O1l"/>
                                 </connections>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cyH-0a-wkM" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
-                                <rect key="frame" x="10" y="252.66666666666663" width="394" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="ZhV-6v-gpX"/>
-                                </constraints>
-                                <state key="normal" title="ACTIVATE"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="pattern" value="purple"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="animateButtonTouch" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="activateButtonDidTap:" destination="o5v-Ld-dnv" eventType="touchUpInside" id="RKl-kL-a7p"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PASTE SEED PHRASE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Spc-B6-wzK">
                                 <rect key="frame" x="20" y="112" width="107" height="12.666666666666671"/>
                                 <constraints>
@@ -76,7 +62,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="JhR-ip-kih">
-                                <rect key="frame" x="30" y="318.66666666666669" width="354" height="248.00000000000006"/>
+                                <rect key="frame" x="30" y="256.66666666666669" width="354" height="248"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Secret Code to Google 2FA app" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WM7-o7-arJ">
                                         <rect key="frame" x="0.0" y="0.0" width="354" height="20.333333333333332"/>
@@ -112,25 +98,37 @@
                                 </constraints>
                                 <variation key="heightClass=regular-widthClass=compact" spacing="5"/>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cyH-0a-wkM" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
+                                <rect key="frame" x="10" y="528.66666666666663" width="394" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ZhV-6v-gpX"/>
+                                </constraints>
+                                <state key="normal" title="ACTIVATE"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="pattern" value="purple"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="animateButtonTouch" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="activateButtonDidTap:" destination="o5v-Ld-dnv" eventType="touchUpInside" id="RKl-kL-a7p"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="cyH-0a-wkM" firstAttribute="top" secondItem="3ep-GI-K5o" secondAttribute="bottom" constant="20" id="1Oy-G8-jF0"/>
+                            <constraint firstItem="cyH-0a-wkM" firstAttribute="top" secondItem="JhR-ip-kih" secondAttribute="bottom" constant="24" id="5i2-gf-lOR"/>
+                            <constraint firstItem="JhR-ip-kih" firstAttribute="top" secondItem="3ep-GI-K5o" secondAttribute="bottom" constant="24" id="5xr-T9-P86"/>
                             <constraint firstItem="3ep-GI-K5o" firstAttribute="top" secondItem="J9Y-TS-p4b" secondAttribute="bottom" constant="4.5" id="6tW-Ze-iGq"/>
                             <constraint firstAttribute="trailing" secondItem="cyH-0a-wkM" secondAttribute="trailing" constant="10" id="B8V-hH-v5C"/>
                             <constraint firstItem="J9Y-TS-p4b" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Spc-B6-wzK" secondAttribute="trailing" constant="5" id="DJN-8a-Tuj"/>
+                            <constraint firstItem="qsg-Fn-EQP" firstAttribute="top" relation="greaterThanOrEqual" secondItem="cyH-0a-wkM" secondAttribute="bottom" constant="24" id="ESS-oR-jgb"/>
                             <constraint firstItem="JhR-ip-kih" firstAttribute="leading" secondItem="pUc-gp-dAt" secondAttribute="leadingMargin" constant="10" id="Kvi-5m-Rm9"/>
                             <constraint firstItem="J9Y-TS-p4b" firstAttribute="trailing" secondItem="3ep-GI-K5o" secondAttribute="trailing" id="R8c-1o-PB2"/>
                             <constraint firstAttribute="trailingMargin" secondItem="JhR-ip-kih" secondAttribute="trailing" constant="10" id="UAr-1z-p3j"/>
                             <constraint firstItem="Spc-B6-wzK" firstAttribute="top" secondItem="5J4-e9-hDb" secondAttribute="bottom" constant="24" id="WG8-H9-hmQ"/>
                             <constraint firstItem="3ep-GI-K5o" firstAttribute="leading" secondItem="pUc-gp-dAt" secondAttribute="leading" constant="10" id="ZQ6-B1-njS"/>
                             <constraint firstItem="3ep-GI-K5o" firstAttribute="top" secondItem="Spc-B6-wzK" secondAttribute="bottom" constant="8" id="b6E-IH-wK9"/>
-                            <constraint firstItem="JhR-ip-kih" firstAttribute="top" secondItem="cyH-0a-wkM" secondAttribute="bottom" constant="24" id="e76-93-DAx">
-                                <variation key="heightClass=regular-widthClass=compact" constant="16"/>
-                            </constraint>
                             <constraint firstItem="Spc-B6-wzK" firstAttribute="leading" secondItem="pUc-gp-dAt" secondAttribute="leading" constant="20" id="gEM-1r-xQq"/>
                             <constraint firstItem="cyH-0a-wkM" firstAttribute="leading" secondItem="pUc-gp-dAt" secondAttribute="leading" constant="10" id="iSX-HG-nJF"/>
-                            <constraint firstItem="qsg-Fn-EQP" firstAttribute="top" relation="greaterThanOrEqual" secondItem="JhR-ip-kih" secondAttribute="bottom" constant="24" id="ogM-rb-iCc"/>
                             <constraint firstAttribute="trailing" secondItem="3ep-GI-K5o" secondAttribute="trailing" constant="10" id="pc4-K3-CJb"/>
                         </constraints>
                     </view>

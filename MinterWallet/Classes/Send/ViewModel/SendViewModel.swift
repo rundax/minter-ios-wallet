@@ -15,7 +15,6 @@ import SwiftValidator
 import RxAppState
 import RxBiBinding
 import RxRelay
-import SwiftOTP
 import NotificationBannerSwift
 import AVFoundation
 
@@ -966,44 +965,16 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 	}
     
 	private func confirmWithSecretCode(_ secretCode: String, sendVM: SendPopupViewModel) {
-		let alert = BaseAlertController(title: "Enter 6 digit code".localized(), message: nil, preferredStyle: .alert)
-		let yesAction = UIAlertAction(title: "OK".localized(), style: .default) { action in
-			let firstTextField = alert.textFields![0] as UITextField
-			guard let data = base32DecodeToData(secretCode) else {
-				return
-			}
-
-			guard let totp = TOTP(secret: data, digits: 6, timeInterval: 30, algorithm: .sha1) else {
-				return
-			}
-			let otpString = totp.generate(time: Date())
-
-			if otpString == firstTextField.text {
+		BaseAlertController.show2FAConfirmVC(secretCode) { [weak self] bool in
+			if bool {
 				let sendPopup = Storyboards.Popup.instantiateInitialViewController()
 				sendPopup.viewModel = sendVM
-				self.popupSubject.onNext(sendPopup)
+				self?.popupSubject.onNext(sendPopup)
 			} else {
 				let banner = NotificationBanner(title: "Wrong code!".localized(),subtitle: "", style: .danger)
 				banner.show()
+				self?.confirmWithSecretCode(secretCode, sendVM: sendVM)
 			}
-		}
-
-		let cancelAction = UIAlertAction(title: "CANCEL".localized(), style: .cancel)
-		alert.addTextField(configurationHandler: { textField in
-			textField.placeholder = "Enter 6 digit code".localized()
-			textField.keyboardType = .numberPad
-			textField.maxLength = 6
-		})
-		alert.addAction(yesAction)
-		alert.addAction(cancelAction)
-		alert.view.tintColor = UIColor.mainColor()
-				
-		if var topController = UIApplication.shared.keyWindow?.rootViewController {
-			while let presentedViewController = topController.presentedViewController {
-				topController = presentedViewController
-			}
-
-			topController.present(alert, animated: true)
 		}
 	}
 }

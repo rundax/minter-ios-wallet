@@ -13,6 +13,7 @@ import RxCocoa
 import NotificationBannerSwift
 import Reachability
 import RxAppState
+import SwiftOTP
 
 protocol ControllerType: class {
 	var viewModel: ViewModelType! { get set }
@@ -113,6 +114,47 @@ class BaseAlertController: UIAlertController {
 		super.viewWillAppear(animated)
 
 		self.setNeedsStatusBarAppearanceUpdate()
+	}
+	
+	static func show2FAConfirmVC(_ secretCode: String, vc: UIViewController? = nil, completion: @escaping (Bool) -> ()) {
+		let alert = BaseAlertController(title: "Enter 6 digit code".localized(), message: nil, preferredStyle: .alert)
+		let yesAction = UIAlertAction(title: "OK".localized(), style: .default) { action in
+			let firstTextField = alert.textFields![0] as UITextField
+			guard let data = base32DecodeToData(secretCode) else {
+				completion(false)
+				return
+			}
+
+			guard let totp = TOTP(secret: data, digits: 6, timeInterval: 30, algorithm: .sha1) else {
+				completion(false)
+				return
+			}
+			let otpString = totp.generate(time: Date())
+
+			if otpString == firstTextField.text {
+				completion(true)
+			} else {
+				completion(false)
+			}
+		}
+		let cancelAction = UIAlertAction(title: "CANCEL".localized(), style: .cancel)
+		alert.addTextField(configurationHandler: { (textField) in
+			textField.placeholder = "Enter 6 digit code".localized()
+			textField.keyboardType = .numberPad
+			textField.maxLength = 6
+		})
+		alert.addAction(yesAction)
+		alert.addAction(cancelAction)
+		alert.view.tintColor = UIColor.mainColor()
+
+		if let vc = vc {
+			vc.present(alert, animated: true)
+		} else if var topController = UIApplication.shared.keyWindow?.rootViewController {
+			while let presentedViewController = topController.presentedViewController {
+				topController = presentedViewController
+			}
+			topController.present(alert, animated: true)
+		}
 	}
 }
 

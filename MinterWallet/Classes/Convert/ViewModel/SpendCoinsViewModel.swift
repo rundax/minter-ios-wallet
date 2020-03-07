@@ -11,7 +11,6 @@ import RxSwift
 import MinterCore
 import MinterExplorer
 import BigInt
-import SwiftOTP
 import NotificationBannerSwift
 
 enum SpendCoindsViewModelError : Error {
@@ -355,41 +354,14 @@ class SpendCoinsViewModel: ConvertCoinsViewModel, ViewModelProtocol {
 				}).disposed(by: self.disposeBag)
 			}
 		if let secretCode = accountManager.secretCode(address: self.selectedAddress!) {
-			let alert = BaseAlertController(title: "Enter 6 digit code".localized(), message: nil, preferredStyle: .alert)
-			let yesAction = UIAlertAction(title: "OK".localized(), style: .default) { action in
-				let firstTextField = alert.textFields![0] as UITextField
-				guard let data = base32DecodeToData(secretCode) else {
-						return
-				}
-
-				guard let totp = TOTP(secret: data, digits: 6, timeInterval: 30, algorithm: .sha1) else {
-						return
-				}
-				let otpString = totp.generate(time: Date())
-
-				if otpString == firstTextField.text {
-						continueExchange()
+			BaseAlertController.show2FAConfirmVC(secretCode) { [weak self]  bool in
+				if bool {
+					continueExchange()
 				} else {
 					let banner = NotificationBanner(title: "Wrong code!".localized(), subtitle: "", style: .danger)
-						banner.show()
+					banner.show()
+					self?.exchange()
 				}
-			}
-			let cancelAction = UIAlertAction(title: "CANCEL".localized(), style: .cancel)
-			alert.addTextField(configurationHandler: { (textField) in
-				textField.placeholder = "Enter 6 digit code".localized()
-				textField.keyboardType = .numberPad
-				textField.maxLength = 6
-			})
-			alert.addAction(yesAction)
-			alert.addAction(cancelAction)
-			alert.view.tintColor = UIColor.mainColor()
-			
-			if var topController = UIApplication.shared.keyWindow?.rootViewController {
-				while let presentedViewController = topController.presentedViewController {
-					topController = presentedViewController
-				}
-
-				topController.present(alert, animated: true)
 			}
 		} else {
 			continueExchange()
