@@ -33,6 +33,7 @@ class Analytics {
 		case passwordEditScreen
 		case rawTransactionScreen
 		case twoFAModeScreen
+		case pushGiftsScreen
 
 		//Coins
 		case coinsUsernameButton
@@ -93,6 +94,9 @@ class Analytics {
 		//2faModeScreen
 		case twoFAModeActivateButton
 		case twoFAModeSecretCodeButton
+		
+		//pushGifts
+		case pushGiftsCopyButton
 	}
 
 	// MARK: -

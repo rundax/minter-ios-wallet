@@ -37,7 +37,7 @@ class PushManager: BaseManager {
 		}
 	}
 	
-	func campaign(_ type: CampaignType, uid: String, data: CampaignData? = nil, completion: ((Campaign?, Error?) -> ())?) {
+	private func campaign(_ type: CampaignType, uid: String, data: CampaignData? = nil, completion: ((Campaign?, Error?) -> ())?) {
 		guard let url = URL(string: configuration.environment.pushBaseAPIURL + "campaign") else { return }
 		let dataDict: [String : Any]
 		if let campaignData = data?.dictionary {
@@ -74,14 +74,48 @@ class PushManager: BaseManager {
 					completion?(nil, PushManagerError.wrongResponse)
 				}
 		}
-
-//		self.httpClient.postRequest(url, parameters: params, completion: { (response, error) in
-//			if let resp = response.data as? [String: Any] {
-//				print(resp)
-//				completion?(resp, nil)
-//			} else {
-//				completion?(nil, PushManagerError.wrongResponse)
-//			}
-//		})
 	}
+	
+	func campaigns(_ uid: String) -> Observable<[Campaign]?> {
+		return Observable.create { [weak self] (observer) -> Disposable in
+			self?.campaigns(uid) { (campaigns, error) in
+				if campaigns?.count ?? 0 > 0 {
+					observer.onNext(campaigns)
+					observer.onCompleted()
+				} else {
+					observer.onError(error ?? PushManagerError.wrongResponse)
+				}
+			}
+			return Disposables.create()
+		}
+	}
+	
+	private func campaigns(_ uid: String, completion: (([Campaign]?, Error?) -> ())?) {
+			guard let url = URL(string: configuration.environment.pushBaseAPIURL + "campaigns/\(uid)") else { return }
+			
+			Alamofire.request(url,
+												method: .get,
+												encoding: JSONEncoding.default)
+				.validate()
+				.responseJSON { response in
+					switch response.result {
+					case .success(let json):
+						print("Success with JSON: \(json)")
+						if let data = response.data {
+							do {
+								let campaign = try JSONDecoder().decode([Campaign].self, from: data)
+								completion?(campaign, nil)
+							} catch(let error) {
+								print(error)
+								completion?(nil, error)
+							}
+						} else {
+							completion?(nil, response.error)
+						}
+					case .failure(let error):
+						print("Request failed with error: \(error)")
+						completion?(nil, PushManagerError.wrongResponse)
+					}
+			}
+		}
 }

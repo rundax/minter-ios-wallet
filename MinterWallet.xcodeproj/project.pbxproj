@@ -53,6 +53,10 @@
 		308FA5CE23F0582500186F79 /* UITextfield+Length.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FA5CC23F0582500186F79 /* UITextfield+Length.swift */; };
 		309920A42394764100220323 /* MinterWalletTestnet-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 309920A32394764100220323 /* MinterWalletTestnet-Info.plist */; };
 		309920A52394764100220323 /* MinterWalletTestnet-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 309920A32394764100220323 /* MinterWalletTestnet-Info.plist */; };
+		30B1681D2416CBBB0090A841 /* CopyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B1681B2416CBBB0090A841 /* CopyTableViewCell.swift */; };
+		30B1681E2416CBBC0090A841 /* CopyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B1681B2416CBBB0090A841 /* CopyTableViewCell.swift */; };
+		30B1681F2416CBBC0090A841 /* CopyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B1681C2416CBBB0090A841 /* CopyTableViewCell.xib */; };
+		30B168202416CBBC0090A841 /* CopyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B1681C2416CBBB0090A841 /* CopyTableViewCell.xib */; };
 		30DDDE1223FE9747007E9C02 /* PushManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DDDE1123FE9746007E9C02 /* PushManager.swift */; };
 		30DDDE1323FE9747007E9C02 /* PushManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DDDE1123FE9746007E9C02 /* PushManager.swift */; };
 		30DDDE1523FE9CE2007E9C02 /* Campaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DDDE1423FE9CE2007E9C02 /* Campaign.swift */; };
@@ -305,7 +309,6 @@
 		FA33304C224A4B3C003B4763 /* AdvancedModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EE8F71D02B1FC7F5DA60D5 /* AdvancedModeViewController.swift */; };
 		FA33304D224A4B3C003B4763 /* CoinAutocompleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA11EA61214ABFB300C8DFB0 /* CoinAutocompleteCell.swift */; };
 		FA33304E224A4B3C003B4763 /* AmountTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4DF4AE2108FA1500E64F1B /* AmountTextFieldTableViewCell.swift */; };
-		FA33304F224A4B3C003B4763 /* AddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA2605F20923634009FF3DE /* AddressTableViewCell.swift */; };
 		FA333050224A4B3C003B4763 /* AdvancedModeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1939F242DE0C1FE08F95338D /* AdvancedModeViewModel.swift */; };
 		FA333052224A4B3C003B4763 /* Pods_MinterWallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EBD75282FB7FF99C075E9B1 /* Pods_MinterWallet.framework */; };
 		FA333054224A4B3C003B4763 /* UbuntuMono-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA669BB72072483100AD110A /* UbuntuMono-R.ttf */; };
@@ -342,7 +345,6 @@
 		FA333077224A4B3C003B4763 /* UbuntuMono-RI.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA669BB62072483100AD110A /* UbuntuMono-RI.ttf */; };
 		FA333079224A4B3C003B4763 /* UbuntuMono-B.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA669BB92072483100AD110A /* UbuntuMono-B.ttf */; };
 		FA33307A224A4B3C003B4763 /* ConvertTransactionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB7AA1620F600230003D0DE /* ConvertTransactionTableViewCell.xib */; };
-		FA33307B224A4B3C003B4763 /* AddressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAA2606020923634009FF3DE /* AddressTableViewCell.xib */; };
 		FA33307C224A4B3C003B4763 /* Coins.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73982ED5A99C92B1AC2B4148 /* Coins.storyboard */; };
 		FA33307D224A4B3C003B4763 /* CreateWallet.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFE872DC58134EE5C5D3F7CA /* CreateWallet.storyboard */; };
 		FA33307E224A4B3C003B4763 /* GenerateAddressLabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAA2607E20935C36009FF3DE /* GenerateAddressLabelTableViewCell.xib */; };
@@ -503,8 +505,6 @@
 		FAA26053208E30B9009FF3DE /* CoinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE7945B208E17BE0006CB0B /* CoinTableViewCell.swift */; };
 		FAA2605C2092099B009FF3DE /* CCMPlayNDropView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA2605B20920999009FF3DE /* CCMPlayNDropView.m */; };
 		FAA2605E209209DE009FF3DE /* DroppableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA2605D209209DE009FF3DE /* DroppableView.swift */; };
-		FAA2606120923634009FF3DE /* AddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA2605F20923634009FF3DE /* AddressTableViewCell.swift */; };
-		FAA2606220923634009FF3DE /* AddressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAA2606020923634009FF3DE /* AddressTableViewCell.xib */; };
 		FAA2606420930B8A009FF3DE /* UsernameEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA2606320930B8A009FF3DE /* UsernameEditViewController.swift */; };
 		FAA2606620930C68009FF3DE /* UsernameEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA2606520930C68009FF3DE /* UsernameEditViewModel.swift */; };
 		FAA2606C20931A56009FF3DE /* EmailEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA2606B20931A56009FF3DE /* EmailEditViewController.swift */; };
@@ -670,6 +670,8 @@
 		308CD03423DA424B0049C69B /* JSONStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONStorage.swift; sourceTree = "<group>"; };
 		308FA5CC23F0582500186F79 /* UITextfield+Length.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextfield+Length.swift"; sourceTree = "<group>"; };
 		309920A32394764100220323 /* MinterWalletTestnet-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MinterWalletTestnet-Info.plist"; sourceTree = "<group>"; };
+		30B1681B2416CBBB0090A841 /* CopyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyTableViewCell.swift; sourceTree = "<group>"; };
+		30B1681C2416CBBB0090A841 /* CopyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CopyTableViewCell.xib; sourceTree = "<group>"; };
 		30DDDE1123FE9746007E9C02 /* PushManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushManager.swift; sourceTree = "<group>"; };
 		30DDDE1423FE9CE2007E9C02 /* Campaign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Campaign.swift; sourceTree = "<group>"; };
 		30DDDE1723FEC778007E9C02 /* Codable+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Dictionary.swift"; sourceTree = "<group>"; };
@@ -883,8 +885,6 @@
 		FAA2605A20920999009FF3DE /* CCMPlayNDropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMPlayNDropView.h; sourceTree = "<group>"; };
 		FAA2605B20920999009FF3DE /* CCMPlayNDropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCMPlayNDropView.m; sourceTree = "<group>"; };
 		FAA2605D209209DE009FF3DE /* DroppableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppableView.swift; sourceTree = "<group>"; };
-		FAA2605F20923634009FF3DE /* AddressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTableViewCell.swift; sourceTree = "<group>"; };
-		FAA2606020923634009FF3DE /* AddressTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressTableViewCell.xib; sourceTree = "<group>"; };
 		FAA2606320930B8A009FF3DE /* UsernameEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameEditViewController.swift; sourceTree = "<group>"; };
 		FAA2606520930C68009FF3DE /* UsernameEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameEditViewModel.swift; sourceTree = "<group>"; };
 		FAA2606B20931A56009FF3DE /* EmailEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailEditViewController.swift; sourceTree = "<group>"; };
@@ -1196,6 +1196,8 @@
 		3066C20E2405510300583B13 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				30B1681B2416CBBB0090A841 /* CopyTableViewCell.swift */,
+				30B1681C2416CBBB0090A841 /* CopyTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1365,8 +1367,6 @@
 		6ECF423484D107ACC80D9994 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FAA2605F20923634009FF3DE /* AddressTableViewCell.swift */,
-				FAA2606020923634009FF3DE /* AddressTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2541,8 +2541,8 @@
 				FA333077224A4B3C003B4763 /* UbuntuMono-RI.ttf in Resources */,
 				FAC5393E22C37C220077E181 /* PIN.storyboard in Resources */,
 				FA333079224A4B3C003B4763 /* UbuntuMono-B.ttf in Resources */,
+				30B1681F2416CBBC0090A841 /* CopyTableViewCell.xib in Resources */,
 				FA33307A224A4B3C003B4763 /* ConvertTransactionTableViewCell.xib in Resources */,
-				FA33307B224A4B3C003B4763 /* AddressTableViewCell.xib in Resources */,
 				FA33307C224A4B3C003B4763 /* Coins.storyboard in Resources */,
 				FA33307D224A4B3C003B4763 /* CreateWallet.storyboard in Resources */,
 				FA33307E224A4B3C003B4763 /* GenerateAddressLabelTableViewCell.xib in Resources */,
@@ -2587,6 +2587,7 @@
 				FA5B9CCA2073B67F00DC06F0 /* TextFieldTableViewCell.xib in Resources */,
 				FAA234E72084A26900F999DE /* SeparatorTableViewCell.xib in Resources */,
 				FAA2607620932641009FF3DE /* BlankTableViewCell.xib in Resources */,
+				30B168202416CBBC0090A841 /* CopyTableViewCell.xib in Resources */,
 				FAE43C9421539F2A002027D4 /* DelegateTransactionTableViewCell.xib in Resources */,
 				FAB8660020C7D0B3002568A4 /* TextViewTableViewCell.xib in Resources */,
 				FA45427A2106106200DB6634 /* CoinsTableViewHeaderView.xib in Resources */,
@@ -2616,7 +2617,6 @@
 				FAC5393F22C37C220077E181 /* PIN.storyboard in Resources */,
 				FA669BCD2072483100AD110A /* UbuntuMono-B.ttf in Resources */,
 				FAB7AA1820F600230003D0DE /* ConvertTransactionTableViewCell.xib in Resources */,
-				FAA2606220923634009FF3DE /* AddressTableViewCell.xib in Resources */,
 				30711C4024114BD60071EB79 /* PresetsTableViewCell.xib in Resources */,
 				8FF7BCCC97FAB66AA4688C1B /* Coins.storyboard in Resources */,
 				15A1B86305F7B488825D223C /* CreateWallet.storyboard in Resources */,
@@ -3099,6 +3099,7 @@
 				FA332FA4224A4B3C003B4763 /* Validators.swift in Sources */,
 				FA332FA5224A4B3C003B4763 /* BaseTableSectionItem.swift in Sources */,
 				FAB0D34D22C9E354002945E2 /* CBPinEntryViewDefaults.swift in Sources */,
+				30B1681D2416CBBB0090A841 /* CopyTableViewCell.swift in Sources */,
 				FA64E281234770EF00436BFE /* RawTransaction+RLPDecodable.swift in Sources */,
 				FA7DB947230C8B2500C75A7A /* Session+.swift in Sources */,
 				FA332FA7224A4B3C003B4763 /* ReceiveRouter.swift in Sources */,
@@ -3320,7 +3321,6 @@
 				3066C22E240551CD00583B13 /* GiftsViewController.swift in Sources */,
 				FA21E04C234C718800AE0353 /* UIColor+Default.swift in Sources */,
 				FA5D7DDB230BFCEE00945A66 /* BaseTransactionCell.swift in Sources */,
-				FA33304F224A4B3C003B4763 /* AddressTableViewCell.swift in Sources */,
 				FA333050224A4B3C003B4763 /* AdvancedModeViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3337,6 +3337,7 @@
 				FA18359F220B141C00310CAF /* Validators.swift in Sources */,
 				FAC1E1C52074C4810083333F /* BaseTableSectionItem.swift in Sources */,
 				FAB0D34E22C9E354002945E2 /* CBPinEntryViewDefaults.swift in Sources */,
+				30B1681E2416CBBC0090A841 /* CopyTableViewCell.swift in Sources */,
 				FA64E282234770EF00436BFE /* RawTransaction+RLPDecodable.swift in Sources */,
 				FA7DB948230C8B2500C75A7A /* Session+.swift in Sources */,
 				FAE5548E2118472800D4872C /* ReceiveRouter.swift in Sources */,
@@ -3558,7 +3559,6 @@
 				3066C22F240551CD00583B13 /* GiftsViewController.swift in Sources */,
 				FA21E04D234C718800AE0353 /* UIColor+Default.swift in Sources */,
 				FA5D7DDC230BFCEE00945A66 /* BaseTransactionCell.swift in Sources */,
-				FAA2606120923634009FF3DE /* AddressTableViewCell.swift in Sources */,
 				65174A2CD47A619B9407EE4A /* AdvancedModeViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

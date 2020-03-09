@@ -9,11 +9,14 @@
 import UIKit
 import RxSwift
 import RxAppState
+import RxDataSources
 import NotificationBannerSwift
 import Photos
 import MinterMy
 
 class GiftsViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+	
+	var rxDataSource: RxTableViewSectionedAnimatedDataSource<BaseTableSectionItem>?
 
 	// MARK: - IBOutput
 
@@ -45,11 +48,39 @@ class GiftsViewController: BaseViewController, UITableViewDelegate, UITableViewD
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		//self.title = viewModel.title
+		self.title = viewModel.title
 
 		registerCells()
 
 		configure(with: viewModel)
+
+		rxDataSource = RxTableViewSectionedAnimatedDataSource<BaseTableSectionItem>(
+			configureCell: { [weak self] dataSource, tableView, indexPath, sm in
+			guard
+				let item = self?.viewModel.cellItem(section: indexPath.section, row: indexPath.row) else {
+					return UITableViewCell()
+			}
+
+			guard let cell = tableView.dequeueReusableCell(withIdentifier: item.reuseIdentifier) as? BaseCell else {
+				if let cll = tableView.dequeueReusableCell(withIdentifier: item.reuseIdentifier) {
+					return cll
+				}
+				return UITableViewCell()
+			}
+
+			cell.configure(item: item)
+			return cell
+		})
+
+		rxDataSource?.animationConfiguration = AnimationConfiguration(insertAnimation: .automatic,
+																																	reloadAnimation: .automatic,
+																																	deleteAnimation: .automatic)
+		
+		tableView.rx.setDelegate(self).disposed(by: disposeBag)
+		
+		viewModel.accountObservable
+			.bind(to: tableView.rx.items(dataSource: rxDataSource!))
+			.disposed(by: disposeBag)
 
 		if self.shouldShowTestnetToolbar {
 			self.view.addSubview(self.testnetToolbarView)
@@ -58,7 +89,7 @@ class GiftsViewController: BaseViewController, UITableViewDelegate, UITableViewD
 																								 bottom: 0,
 																								 right: 0)
 		} else {
-			self.tableView.contentInset = UIEdgeInsets(top: -16,
+			self.tableView.contentInset = UIEdgeInsets(top: -55,
 																								 left: 0,
 																								 bottom: 0,
 																								 right: 0)
@@ -74,6 +105,8 @@ class GiftsViewController: BaseViewController, UITableViewDelegate, UITableViewD
 	private func registerCells() {
 		tableView.register(UINib(nibName: "SeparatorTableViewCell", bundle: nil),
 											 forCellReuseIdentifier: "SeparatorTableViewCell")
+		tableView.register(UINib(nibName: "CopyTableViewCell", bundle: nil),
+											 forCellReuseIdentifier: "CopyTableViewCell")
 		tableView.register(UINib(nibName: "DisclosureTableViewCell", bundle: nil),
 											 forCellReuseIdentifier: "DisclosureTableViewCell")
 	}
@@ -115,12 +148,7 @@ class GiftsViewController: BaseViewController, UITableViewDelegate, UITableViewD
 	}
 
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		guard let section = viewModel.section(index: section),
-			section.header != "" else {
-
-			return 0.1
-		}
-		return 52
+		return 30
 	}
 
 	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

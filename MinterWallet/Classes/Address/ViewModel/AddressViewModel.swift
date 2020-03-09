@@ -72,7 +72,7 @@ class AddressViewModel: BaseViewModel {
 			let separator3 = SeparatorTableViewCellItem(reuseIdentifier: "SeparatorTableViewCell",
 																									identifier: "SeparatorTableViewCell_4\(sectionId)")
 
-			let address = AddressTableViewCellItem(reuseIdentifier: "AddressTableViewCell",
+			let address = AddressTableViewCellItem(reuseIdentifier: "CopyTableViewCell",
 																						 identifier: "AddressTableViewCell_\(sectionId)")
 			address.address = account.address
 			address.buttonTitle = "Copy".localized()

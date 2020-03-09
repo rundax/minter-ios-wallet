@@ -106,8 +106,8 @@ class ReceiveViewController: BaseTableViewController, ControllerType {
 	// MARK: - TableView
 
 	private func registerCells() {
-		tableView.register(UINib(nibName: "AddressTableViewCell", bundle: nil),
-											 forCellReuseIdentifier: "AddressTableViewCell")
+		tableView.register(UINib(nibName: "CopyTableViewCell", bundle: nil),
+											 forCellReuseIdentifier: "CopyTableViewCell")
 		tableView.register(UINib(nibName: "SeparatorTableViewCell", bundle: nil),
 											 forCellReuseIdentifier: "SeparatorTableViewCell")
 		tableView.register(UINib(nibName: "DefaultHeader", bundle: nil),
@@ -139,7 +139,7 @@ class ReceiveViewController: BaseTableViewController, ControllerType {
 			return 0.1
 		}
 
-		if item.reuseIdentifier == "AddressTableViewCell" {
+		if item.reuseIdentifier == "CopyTableViewCell" {
 				return UITableViewAutomaticDimension
 		}
 

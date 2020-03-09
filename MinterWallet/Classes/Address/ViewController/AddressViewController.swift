@@ -147,7 +147,7 @@ class AddressViewController: BaseViewController, UITableViewDelegate {
 	// MARK: -
 
 	private func registerCells() {
-		tableView.register(UINib(nibName: "AddressTableViewCell", bundle: nil), forCellReuseIdentifier: "AddressTableViewCell")
+		tableView.register(UINib(nibName: "CopyTableViewCell", bundle: nil), forCellReuseIdentifier: "CopyTableViewCell")
 		tableView.register(UINib(nibName: "SettingsSwitchTableViewCell", bundle: nil), forCellReuseIdentifier: "SettingsSwitchTableViewCell")
 		tableView.register(UINib(nibName: "SeparatorTableViewCell", bundle: nil), forCellReuseIdentifier: "SeparatorTableViewCell")
 		tableView.register(UINib(nibName: "DisclosureTableViewCell", bundle: nil), forCellReuseIdentifier: "DisclosureTableViewCell")

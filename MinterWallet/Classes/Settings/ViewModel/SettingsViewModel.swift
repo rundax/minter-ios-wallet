@@ -260,10 +260,9 @@ class SettingsViewModel: BaseViewModel, ViewModelProtocol {
 		gifts.value = nil
 		gifts.placeholder = "Manage"
 
-		// TODO - uncomment when connect API
-//		var section2 = BaseTableSectionItem(header: "PUSH GIFTS".localized())
-//		section2.items = [gifts]
-//		sctns.append(section2)
+		var section2 = BaseTableSectionItem(header: "PUSH GIFTS".localized())
+		section2.items = [gifts]
+		sctns.append(section2)
 
 		var section3 = BaseTableSectionItem(header: "NOTIFICATIONS".localized())
 		section3.items = [switchItem, blank, button]

@@ -97,7 +97,7 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 			let separator = SeparatorTableViewCellItem(reuseIdentifier: "SeparatorTableViewCell",
                                                  identifier: "SeparatorTableViewCell_1\(sectionId)")
 
-			let address = AddressTableViewCellItem(reuseIdentifier: "AddressTableViewCell",
+			let address = AddressTableViewCellItem(reuseIdentifier: "CopyTableViewCell",
                                              identifier: "AddressTableViewCell_" + sectionId)
 			address.address = "Mx" + account.address
 			address.buttonTitle = "Copy".localized()

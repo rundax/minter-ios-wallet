@@ -10,7 +10,7 @@
         <!--Gifts View Controller-->
         <scene sceneID="YBr-Jz-oHy">
             <objects>
-                <viewController storyboardIdentifier="GiftsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rFi-rP-fAT" customClass="GiftsViewController" customModule="MinterWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GiftsViewController" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rFi-rP-fAT" customClass="GiftsViewController" customModule="Rundax" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MXt-aO-Qad"/>
                         <viewControllerLayoutGuide type="bottom" id="TZo-4b-pTs"/>
@@ -23,10 +23,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="rFi-rP-fAT" id="C4y-vN-Rpj"/>
-                                    <outlet property="delegate" destination="rFi-rP-fAT" id="ZR6-GQ-8aX"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -47,7 +43,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bNW-24-diw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1106" y="94"/>
+            <point key="canvasLocation" x="1104.8" y="93.103448275862078"/>
         </scene>
     </scenes>
 </document>
