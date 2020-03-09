@@ -157,6 +157,15 @@ class AddressViewModel: BaseViewModel {
 	func account(for index: Int) -> Account? {
 		return accounts[safe: index]
 	}
+	
+	func removeAccount(index: Int) -> Bool {
+		if let account = accounts[safe: index] {
+			Session.shared.removeAccount(account)
+			return true
+		} else {
+			return false
+		}
+	}
 
 	// MARK: - TableView
 

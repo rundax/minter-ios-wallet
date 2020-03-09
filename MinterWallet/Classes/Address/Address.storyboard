@@ -10,7 +10,7 @@
         <!--Title-->
         <scene sceneID="bUu-aR-4Cp">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="qNr-PD-H9p" customClass="AddressViewController" customModule="MinterWallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="qNr-PD-H9p" customClass="AddressViewController" customModule="Rundax" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0zS-uc-o1g"/>
                         <viewControllerLayoutGuide type="bottom" id="JUD-Ay-MVT"/>
@@ -68,6 +68,11 @@ All funds are received and sent from Main Address which is linked to your profil
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="6hI-Ok-PIx">
                         <barButtonItem key="backBarButtonItem" title="Back" id="Hle-Ms-X0u"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="81l-IE-rcd">
+                            <connections>
+                                <action selector="didTapEditAddresses:" destination="qNr-PD-H9p" id="aLP-vT-Pdx"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>

@@ -109,7 +109,7 @@ class AccountManager {
 
 	//Save PK to SecureStorage
 
-    func save(mnemonic: String, password: Data, pairedCode: String? = nil) throws {
+	func save(mnemonic: String, password: Data, pairedCode: String? = nil) throws {
 		guard let key = self.address(from: mnemonic) else {
 			return
 		}
@@ -123,6 +123,19 @@ class AccountManager {
 		if let secretCode = pairedCode, let secretData = secretCode.data(using: .unicode) {
 			secureStorage.set(secretData, forKey: secretCodeKey + "Mx" + key)
 		}
+	}
+	
+	func removeLocalAccount(address: String) {
+		if let res = database.objects(class: AccountDataBaseModel.self,
+																	query: "address == \"\(address)\"")?.first {
+			database.delete(res)
+		}
+		
+		secureStorage.removeObject(forKey: address)
+		secureStorage.removeObject(forKey: secretCodeKey + "Mx" + address)
+		
+		let sharedKeychein = Keychain(server: Configuration().environment.pushBaseURL, protocolType: .https).synchronizable(true)
+		sharedKeychein.removeSharedPassword("Mx" + address)
 	}
 
 	func encryptedMnemonic(mnemonic: String, password: Data) throws -> Data? {

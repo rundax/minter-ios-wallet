@@ -75,6 +75,8 @@ class Analytics {
 		//Addresses
 		case addressesCopyButton
 		case addressesAddAddressButton
+		case addressesEditAddressButton
+		case addressesDelete
 
 		//ConvertSpend
 		case convertSpendUseMaxButton

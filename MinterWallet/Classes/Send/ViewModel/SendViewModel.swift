@@ -922,8 +922,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 			return
 		}
 		
-		let selectedAmount = self.formatter.formattedDecimal(with: newValue)
-		self.amountSubject.accept(selectedAmount)
+		self.amountSubject.accept((newValue as NSDecimalNumber).stringValue)
 	}
 
 	// MARK: -

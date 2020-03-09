@@ -174,6 +174,16 @@ class Session {
 
 		AppSettingsManager.shared.restore()
 	}
+	
+	func removeAccount(_ account: Account) {
+		if accounts.value.count == 1 {
+			logout()
+			return
+		}
+		
+		accountManager.removeLocalAccount(address: account.address)
+		SessionHelper.reloadAccounts()
+	}
 
 	func logout() {
 		accountManager.clearSharedKeychain()

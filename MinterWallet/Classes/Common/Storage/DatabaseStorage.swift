@@ -62,6 +62,18 @@ class RealmDatabaseStorage: DatabaseStorage {
 	}
 
 	// MARK: -
+	
+	func delete(_ object: DatabaseStorageModel) {
+		if let obj = object as? Object {
+			do {
+				try realm.write {
+					realm.delete(obj)
+				}
+			} catch { 
+				print("Can not delete object")
+			}
+		}
+	}
 
 	func removeAll() {
 		try! realm.write {// swiftlint:disable:this force_try

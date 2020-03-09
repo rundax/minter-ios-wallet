@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxDataSources
+import NotificationBannerSwift
 
 class AddressViewController: BaseViewController, UITableViewDelegate {
 
@@ -35,6 +36,13 @@ class AddressViewController: BaseViewController, UITableViewDelegate {
 			tableView.tableHeaderView = UIView()
 		}
 	}
+	@IBAction func didTapEditAddresses(_ sender: Any) {
+		hardImpactFeedbackGenerator.prepare()
+		hardImpactFeedbackGenerator.impactOccurred()
+		AnalyticsHelper.defaultAnalytics.track(event: .addressesEditAddressButton)
+		tableView.setEditing(!tableView.isEditing, animated: true)
+	}
+
 	@IBAction func didTapAddNewButton(_ sender: Any) {
 		
 		guard let advancedMode = Storyboards.AdvancedMode.storyboard.instantiateInitialViewController() as? AdvancedModeViewController else {
@@ -87,6 +95,38 @@ class AddressViewController: BaseViewController, UITableViewDelegate {
 		rxDataSource?.animationConfiguration = AnimationConfiguration(insertAnimation: .automatic,
 																																	reloadAnimation: .automatic,
 																																	deleteAnimation: .automatic)
+
+		rxDataSource?.canEditRowAtIndexPath = { dataSource, indexPath in
+			if indexPath.row == 0, indexPath.section != self.viewModel.sectionsCount() - 1 {
+				return true
+			} else {
+				return false
+			}
+		}
+		
+		tableView.rx.itemDeleted.subscribe(onNext: { [weak self] (indexPath) in
+			self?.hardImpactFeedbackGenerator.prepare()
+			self?.hardImpactFeedbackGenerator.impactOccurred()
+			AnalyticsHelper.defaultAnalytics.track(event: .addressesDelete)
+
+			let alert = BaseAlertController(title: "Confirm address deletion".localized(), message: "Mx" + (self?.viewModel.account(for: indexPath.row)?.address ?? ""), preferredStyle: .alert)
+			let yesAction = UIAlertAction(title: "DELETE".localized(), style: .default) { action in
+				if self?.viewModel.removeAccount(index: indexPath.section) ?? true {
+					self?.tableView.setEditing(false, animated: true)
+				} else {
+					let banner = NotificationBanner(title: "Can not delete address".localized(),
+																					subtitle: "Try to logout and login again".localized(),
+																					style: .danger)
+					banner.show()
+				}
+			}
+			let cancelAction = UIAlertAction(title: "CANCEL".localized(), style: .cancel)
+			alert.addAction(yesAction)
+			alert.addAction(cancelAction)
+			alert.view.tintColor = UIColor.mainColor()
+
+			self?.present(alert, animated: true)
+		}).disposed(by: disposeBag)
 
 		tableView.rx.setDelegate(self).disposed(by: disposeBag)
 
@@ -182,6 +222,10 @@ class AddressViewController: BaseViewController, UITableViewDelegate {
 			buttonCell.backgroundColor = .clear
 		}
 	}
+	
+	func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+		return .delete
+	}
 
 	// MARK: -
 
@@ -246,6 +290,10 @@ extension AddressViewController: AdvancedModeViewControllerDelegate {
 
 extension AddressViewController: ButtonTableViewCellDelegate {
 	func buttonTableViewCellDidTap(_ cell: ButtonTableViewCell) {
+		if tableView.isEditing {
+			tableView.setEditing(false, animated: true)
+		}
+
 		hardImpactFeedbackGenerator.prepare()
 		hardImpactFeedbackGenerator.impactOccurred()
 
