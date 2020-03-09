@@ -23,9 +23,9 @@ class PushManager: BaseManager {
 	
 	private let configuration = Configuration()
 	
-	func campaign(_ type: CampaignType, uid: String, data: CampaignData? = nil) -> Observable<Campaign?> {
+	func campaign(_ type: CampaignType, uid: String, balance: String? = nil, coin: String? = nil, data: CampaignData? = nil) -> Observable<Campaign?> {
 		return Observable.create { [weak self] (observer) -> Disposable in
-			self?.campaign(type, uid: uid, data: data) { (campaign, error) in
+			self?.campaign(type, uid: uid, balance: balance, coin: coin, data: data) { (campaign, error) in
 				if let campaign = campaign {
 					observer.onNext(campaign)
 					observer.onCompleted()
@@ -37,7 +37,7 @@ class PushManager: BaseManager {
 		}
 	}
 	
-	private func campaign(_ type: CampaignType, uid: String, data: CampaignData? = nil, completion: ((Campaign?, Error?) -> ())?) {
+	private func campaign(_ type: CampaignType, uid: String, balance: String? = nil, coin: String? = nil, data: CampaignData? = nil, completion: ((Campaign?, Error?) -> ())?) {
 		guard let url = URL(string: configuration.environment.pushBaseAPIURL + "campaign") else { return }
 		let dataDict: [String : Any]
 		if let campaignData = data?.dictionary {
@@ -45,9 +45,16 @@ class PushManager: BaseManager {
 		} else {
 			dataDict = ["brandName": "iOS RUNDAX WALLET"]
 		}
-		let params: [String : Any] = ["type": type.rawValue,
+		var params: [String : Any] = ["type": type.rawValue,
 																	"uid": uid,
 																	"data": dataDict]
+		if let balance = balance {
+			params["balance"] = balance
+		}
+
+		if let coin = coin {
+			params["coin"] = coin
+		}
 		
 		Alamofire.request(url,
 											method: .post,

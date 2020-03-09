@@ -722,7 +722,7 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 				return
 			}
 
-			PushManager.shared.campaign(.single, uid: selectedAddress ?? "")
+			PushManager.shared.campaign(.single, uid: selectedAddress ?? "", balance: amountSubject.value, coin: coinSubject.value)
 				.subscribe(onNext: { [weak self] campaign in
 					if let campaign = campaign {
 						self?.campaign = campaign
