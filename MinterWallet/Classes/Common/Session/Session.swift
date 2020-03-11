@@ -180,7 +180,8 @@ class Session {
 			logout()
 			return
 		}
-		
+		allBalances.value = [:]
+		mainCoinBalance.value = 0
 		accountManager.removeLocalAccount(address: account.address)
 		SessionHelper.reloadAccounts()
 	}
@@ -319,32 +320,33 @@ class Session {
 		let addresses = accounts.value
 			.compactMap ({ "Mx" + $0.address.stripMinterHexPrefix() })
 		if addresses.count == 0 { return }
-		
-		addressManager.addresses(addresses: addresses, withSum: true) { [weak self] (response, err) in
+
+		Observable.combineLatest(addresses.map { addressManager.address(address: $0, withSum: true) }).subscribe( { [weak self] values in
 			guard (self?.isLoggedIn.value ?? false) || (self?.accounts.value ?? []).count > 0 else {
 				return
 			}
 
-			guard nil == err else {
-				return
-			}
+			guard let addresses = values.element else { return }
 
 			var newMainCoinBalance = Decimal(0.0)
-			
-			for address in response ?? [] {
-				guard let ads = (address["address"] as? String)?.stripMinterHexPrefix(),
-					let coins = address["balances"] as? [[String: Any]] else {
+			var totalBalanceSum: Decimal = 0
+			var totalBalanceSumUSD: Decimal = 0
+			var baseCoinBalances = [String: Decimal]()
+
+			for address in addresses {
+				guard let ads = (address?["address"] as? String)?.stripMinterHexPrefix(),
+					let coins = address?["balances"] as? [[String: Any]] else {
 					return
 				}
 
-				if let totalBalanceBaseCoin = address["total_balance_sum"] as? String,
+				if let totalBalanceBaseCoin = address?["total_balance_sum"] as? String,
 					let totalBalance = Decimal(string: totalBalanceBaseCoin) {
-					self?.totalMainCoinBalance.onNext(totalBalance)
+					totalBalanceSum += totalBalance
 				}
 
-				if let totalBalanceUSD = address["total_balance_sum_usd"] as? String,
+				if let totalBalanceUSD = address?["total_balance_sum_usd"] as? String,
 					let totalBalance = Decimal(string: totalBalanceUSD) {
-					self?.totalUSDBalance.onNext(totalBalance)
+					totalBalanceSumUSD += totalBalance
 				}
 
 				let baseCoinBalance = coins.filter({ (dict) -> Bool in
@@ -353,7 +355,7 @@ class Session {
 					return Decimal(string: (dict["amount"] as? String) ?? "0.0") ?? 0.0
 				}).reduce(0, +)
 
-				self?.baseCoinBalances.value[ads] = baseCoinBalance
+				baseCoinBalances[ads] = baseCoinBalance
 
 				newMainCoinBalance += baseCoinBalance
 
@@ -374,7 +376,10 @@ class Session {
 				self?.allBalances.value = newAllBalances ?? [:]
 				self?.mainCoinBalance.value = newMainCoinBalance
 			}
-		}
+			self?.baseCoinBalances.value = baseCoinBalances
+			self?.totalMainCoinBalance.onNext(totalBalanceSum)
+			self?.totalUSDBalance.onNext(totalBalanceSumUSD)
+		}).disposed(by: disposeBag)
 	}
 
 	func updateGas() {

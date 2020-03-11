@@ -28,4 +28,17 @@ extension ExplorerAddressManager {
 			return Disposables.create()
 		}
 	}
+	
+	func address(address: String, withSum: Bool = false) -> Observable<([String: Any]?)> {
+		return Observable.create { (observer) -> Disposable in
+			ExplorerAddressManager.default.address(address: address, withSum: withSum, completion: { (response, err) in
+				guard err == nil else {
+					observer.onError(err!)
+					return
+				}
+				observer.onNext(response)
+			})
+			return Disposables.create()
+		}
+	}
 }

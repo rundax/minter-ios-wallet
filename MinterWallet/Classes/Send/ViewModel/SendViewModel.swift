@@ -651,7 +651,12 @@ class SendViewModel: BaseViewModel, ViewModelProtocol {// swiftlint:disable:this
 				let nonce = BigUInt(val.0.0)
 				let amount = (Decimal(string: val.1.2 ?? "") ?? Decimal(0))
 				let coin = val.1.0 ?? Coin.baseCoin().symbol!
-				let recipient = self.recipientSelectedSubject.value?.address ?? val.1.1 ?? self.selectedAddress!
+				let recipient: String
+				if let rec = self.recipientSelectedSubject.value?.address, rec != "" {
+					recipient = rec
+				} else {
+					recipient = val.1.1 ?? self.selectedAddress!
+				}
 				let payload = val.1.3 ?? ""
 				return self.prepareTx(nonce: nonce,
 												 amount: amount,
