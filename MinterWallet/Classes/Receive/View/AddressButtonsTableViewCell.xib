@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rWg-fm-8U8" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
-                        <rect key="frame" x="10" y="10" width="142.5" height="50"/>
+                        <rect key="frame" x="10" y="10" width="126.5" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="Xqv-ZQ-g8f"/>
                         </constraints>
@@ -31,7 +31,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="kSd-PU-cbH" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
-                        <rect key="frame" x="162.5" y="10" width="142.5" height="50"/>
+                        <rect key="frame" x="146.5" y="10" width="158.5" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="HQD-1s-wJT"/>
                         </constraints>
@@ -44,7 +44,7 @@
                         </connections>
                     </button>
                     <activityIndicatorView opaque="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="5hz-ge-43Z">
-                        <rect key="frame" x="215.5" y="16.5" width="37" height="37"/>
+                        <rect key="frame" x="207.5" y="16.5" width="37" height="37"/>
                         <color key="color" red="0.45882352939999999" green="0.45882352939999999" blue="0.45882352939999999" alpha="1" colorSpace="deviceRGB"/>
                     </activityIndicatorView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cXo-zx-T1O">
@@ -83,7 +83,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="cXo-zx-T1O" secondAttribute="bottom" id="1bj-Sm-qR4"/>
-                    <constraint firstItem="rWg-fm-8U8" firstAttribute="width" secondItem="kSd-PU-cbH" secondAttribute="width" id="7O2-tY-wd8"/>
+                    <constraint firstItem="rWg-fm-8U8" firstAttribute="width" secondItem="kSd-PU-cbH" secondAttribute="width" multiplier="0.8" id="7O2-tY-wd8"/>
                     <constraint firstItem="kSd-PU-cbH" firstAttribute="top" secondItem="fpy-43-tli" secondAttribute="top" constant="10" id="7lp-7j-yup"/>
                     <constraint firstItem="5hz-ge-43Z" firstAttribute="centerY" secondItem="kSd-PU-cbH" secondAttribute="centerY" id="9XL-2a-02n"/>
                     <constraint firstAttribute="trailing" secondItem="f1e-Tt-CYY" secondAttribute="trailing" constant="10" id="ATI-DC-EFG"/>

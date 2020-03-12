@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				MinterGateBaseURLString = "https://gate.apps.minter.network"
 				FirebaseApp.configure()
 			} else {
-				MinterGateBaseURLString = "https://texasnet.gate-api.minter.network"
+				MinterGateBaseURLString = "https://gate-api.testnet.minter.network"
 			}
 		}
 		MinterCoreSDK.initialize(urlString: conf.environment.nodeBaseURL, network: isTestnet ? .testnet : .mainnet)

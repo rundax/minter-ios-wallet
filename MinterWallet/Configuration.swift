@@ -39,21 +39,21 @@ enum Environment: String {
 
 	var explorerAPIBaseURL: String {
 		switch self {
-		case .dev: return "https://texasnet.explorer-api.minter.network"
+		case .dev: return "https://explorer-api.testnet.minter.network"
 		case .prod: return "https://explorer-api.apps.minter.network"
 		}
 	}
 
 	var explorerWebURL: String {
 		switch self {
-		case .dev: return "https://texasnet.explorer.minter.network"
+		case .dev: return "https://testnet.explorer.minter.network"
 		case .prod: return "https://explorer.minter.network"
 		}
 	}
 
 	var explorerWebsocketURL: String {
 		switch self {
-		case .dev: return "wss://texasnet.explorer-rtm.minter.network/connection/websocket"
+		case .dev: return "wss://explorer-rtm.testnet.network/connection/websocket"
 		case .prod: return "wss://explorer-rtm.apps.minter.network/connection/websocket"
 		}
 	}
