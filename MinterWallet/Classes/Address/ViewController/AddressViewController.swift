@@ -109,7 +109,7 @@ class AddressViewController: BaseViewController, UITableViewDelegate {
 			self?.hardImpactFeedbackGenerator.impactOccurred()
 			AnalyticsHelper.defaultAnalytics.track(event: .addressesDelete)
 
-			let alert = BaseAlertController(title: "Confirm address deletion".localized(), message: "Mx" + (self?.viewModel.account(for: indexPath.row)?.address ?? ""), preferredStyle: .alert)
+			let alert = BaseAlertController(title: "Confirm address deletion".localized(), message: "Mx" + (self?.viewModel.account(for: indexPath.section)?.address ?? ""), preferredStyle: .alert)
 			let yesAction = UIAlertAction(title: "DELETE".localized(), style: .default) { action in
 				if self?.viewModel.removeAccount(index: indexPath.section) ?? true {
 					self?.tableView.setEditing(false, animated: true)
