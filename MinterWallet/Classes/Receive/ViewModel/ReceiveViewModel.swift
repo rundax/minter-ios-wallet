@@ -25,7 +25,7 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
   struct Output {
     var showViewController: Observable<UIViewController?>
     var errorNotification: Observable<NotifiableError?>
-    var isLoadingPass: Observable<Bool>
+		var isLoadingPass: Observable<String>
     var shouldShowPass: Observable<Bool>
   }
 
@@ -44,7 +44,7 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
 	var sections = Variable([BaseTableSectionItem]())
 
   private var showViewControllerSubject = PublishSubject<UIViewController?>()
-  private var isLoadingPassSubject = PublishSubject<Bool>()
+	private var isLoadingPassSubject = PublishSubject<String>()
   private var errorNotificationSubject = PublishSubject<NotifiableError?>()
   private var shouldShowPassSubject = BehaviorRelay(value: PKPassLibrary.isPassLibraryAvailable())
 
@@ -144,9 +144,9 @@ class ReceiveViewModel: BaseViewModel, ViewModelProtocol {
   let passbookManager = PassbookManager()
 
 	func getPass(_ address: String) {
-    isLoadingPassSubject.onNext(true)
+		isLoadingPassSubject.onNext(address)
     passbookManager.pass(with: address) { [weak self] (data, error) in
-      self?.isLoadingPassSubject.onNext(false)
+			self?.isLoadingPassSubject.onNext("")
       guard let passData = data else {
         //show error
         return

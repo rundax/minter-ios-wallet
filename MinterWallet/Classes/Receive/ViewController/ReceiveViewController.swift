@@ -64,10 +64,11 @@ class ReceiveViewController: BaseTableViewController, ControllerType {
 				
 				if let buttonsCell = cell as? AddressButtonsTableViewCell {
 					buttonsCell.buttonsDelegate = self
-					self?.viewModel.output.isLoadingPass.asDriver(onErrorJustReturn: false).drive(onNext: { (val) in
-						buttonsCell.appleWalletButton.isEnabled = !val
-						buttonsCell.appleWalletActivityIndicator.alpha = val ? 1.0 : 0.0
-						if val {
+					self?.viewModel.output.isLoadingPass.asDriver(onErrorJustReturn: "").drive(onNext: { (val) in
+						let toShow = (buttonsCell.identifier == val)
+						buttonsCell.appleWalletButton.isEnabled = !toShow
+						buttonsCell.appleWalletActivityIndicator.alpha = toShow ? 1.0 : 0.0
+						if toShow {
 							buttonsCell.appleWalletActivityIndicator.startAnimating()
 						} else {
 							buttonsCell.appleWalletActivityIndicator.stopAnimating()
