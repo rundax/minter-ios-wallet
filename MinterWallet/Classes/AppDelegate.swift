@@ -29,7 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			MinterGateBaseURLString = "https://qa.gate-api.minter.network"
 		} else {
 			if !isTestnet {
-				MinterGateBaseURLString = "https://gate.apps.minter.network"
+				// "https://gate.apps.minter.network"
+				MinterGateBaseURLString = "https://minter-gate.rundax.com"
 				FirebaseApp.configure()
 			} else {
 				MinterGateBaseURLString = "https://gate-api.testnet.minter.network"
