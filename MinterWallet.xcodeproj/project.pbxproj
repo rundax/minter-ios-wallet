@@ -479,6 +479,8 @@
 		FA8AE85820AAD3E900F26E11 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8AE85720AAD3E900F26E11 /* Session.swift */; };
 		FA8AE85B20AC196800F26E11 /* SessionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8AE85A20AC196800F26E11 /* SessionHelper.swift */; };
 		FA8AE85D20AC638900F26E11 /* String+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8AE85C20AC638900F26E11 /* String+Random.swift */; };
+		FA9307742418F624003C2E24 /* Data+Base64URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9307732418F624003C2E24 /* Data+Base64URL.swift */; };
+		FA9307752418F624003C2E24 /* Data+Base64URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9307732418F624003C2E24 /* Data+Base64URL.swift */; };
 		FA97F9E8237AFDB300A4828B /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA333095224A4F1D003B4763 /* Configuration.swift */; };
 		FA9A6E51209B1D5D0012AC96 /* SHA3+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9A6E50209B1D5D0012AC96 /* SHA3+String.swift */; };
 		FA9BBCC822A9512B0030E92E /* AddressManager+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9BBCC722A9512B0030E92E /* AddressManager+Rx.swift */; };
@@ -864,6 +866,7 @@
 		FA8AE85720AAD3E900F26E11 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		FA8AE85A20AC196800F26E11 /* SessionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHelper.swift; sourceTree = "<group>"; };
 		FA8AE85C20AC638900F26E11 /* String+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Random.swift"; sourceTree = "<group>"; };
+		FA9307732418F624003C2E24 /* Data+Base64URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Base64URL.swift"; sourceTree = "<group>"; };
 		FA9A6E50209B1D5D0012AC96 /* SHA3+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SHA3+String.swift"; sourceTree = "<group>"; };
 		FA9BBCC722A9512B0030E92E /* AddressManager+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddressManager+Rx.swift"; sourceTree = "<group>"; };
 		FA9BE30A213FE7E0002160F3 /* AnalyticsEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsEvents.swift; sourceTree = "<group>"; };
@@ -2056,6 +2059,7 @@
 				FA5DB808236198C7008A8E47 /* ImpactProtocol.swift */,
 				308FA5CC23F0582500186F79 /* UITextfield+Length.swift */,
 				30DDDE1723FEC778007E9C02 /* Codable+Dictionary.swift */,
+				FA9307732418F624003C2E24 /* Data+Base64URL.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -2366,7 +2370,6 @@
 				FA332F9F224A4B3C003B4763 /* Sources */,
 				FA333051224A4B3C003B4763 /* Frameworks */,
 				FA333053224A4B3C003B4763 /* Resources */,
-				FA33308E224A4B3C003B4763 /* ShellScript */,
 				FA33308F224A4B3C003B4763 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -2684,6 +2687,7 @@
 				"${BUILT_PRODUCTS_DIR}/MinterMy/MinterMy.framework",
 				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
@@ -2729,6 +2733,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MinterMy.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NotificationBannerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
@@ -2820,6 +2825,7 @@
 				"${BUILT_PRODUCTS_DIR}/MinterMy/MinterMy.framework",
 				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
@@ -2865,6 +2871,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MinterMy.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NotificationBannerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
@@ -2926,20 +2933,6 @@
 			shellPath = /bin/sh;
 			shellScript = "echo \"Natalie Generator: Determining if generated Swift file is up-to-date.\"\n\n# Adjust path to \"natalie\" binary\n# NATALIE_PATH=\"$PROJECT_DIR/natalie\"\nNATALIE_PATH=\"/usr/local/bin/natalie\"\n\nif [ -f $NATALIE_PATH ]; then\nBASE_PATH=\"$PROJECT_DIR/$PROJECT_NAME\"\nOUTPUT_PATH=\"$BASE_PATH/Classes/Common/Helper/Storyboards.swift\"\n\nif [ ! -e \"$OUTPUT_PATH\" ] || [ -n \"$(find \"$BASE_PATH\" -type f -name \"*.storyboard\" -newer \"$OUTPUT_PATH\" -print -quit)\" ]; then\necho \"Natalie Generator: Generated Swift is out-of-date; re-generating...\"\n\n/usr/bin/chflags nouchg \"$OUTPUT_PATH\"\n\"$NATALIE_PATH\" \"$BASE_PATH\" > \"$OUTPUT_PATH\"\n/usr/bin/chflags uchg \"$OUTPUT_PATH\"\n\necho \"Natalie Generator: Done.\"\nelse\necho \"Natalie Generator: Generated Swift is up-to-date; skipping re-generation.\"\nfi\nfi\n";
 		};
-		FA33308E224A4B3C003B4763 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\"\n";
-		};
 		FA33308F224A4B3C003B4763 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2965,6 +2958,7 @@
 				"${BUILT_PRODUCTS_DIR}/MinterMy/MinterMy.framework",
 				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
@@ -3010,6 +3004,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MinterMy.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NotificationBannerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
@@ -3253,6 +3248,7 @@
 				3075CDFC23E07C44007FE2CF /* TextfieldPopupViewController.swift in Sources */,
 				FA333021224A4B3C003B4763 /* QRCodeReaderViewController.swift in Sources */,
 				FA333022224A4B3C003B4763 /* GenerateAddressSeedTableViewCell.swift in Sources */,
+				FA9307742418F624003C2E24 /* Data+Base64URL.swift in Sources */,
 				FA333023224A4B3C003B4763 /* AuthManager+Rx.swift in Sources */,
 				308CD03523DA424B0049C69B /* JSONStorage.swift in Sources */,
 				FA294E9A2294012D00382D82 /* ActivityRouter.swift in Sources */,
@@ -3491,6 +3487,7 @@
 				3075CDFD23E07C44007FE2CF /* TextfieldPopupViewController.swift in Sources */,
 				FA0F296721B1740800E10F5E /* QRCodeReaderViewController.swift in Sources */,
 				FAA2608320935E8B009FF3DE /* GenerateAddressSeedTableViewCell.swift in Sources */,
+				FA9307752418F624003C2E24 /* Data+Base64URL.swift in Sources */,
 				FA17816F21EF455300FECDED /* AuthManager+Rx.swift in Sources */,
 				308CD03623DA424B0049C69B /* JSONStorage.swift in Sources */,
 				FA294E9B2294012D00382D82 /* ActivityRouter.swift in Sources */,
