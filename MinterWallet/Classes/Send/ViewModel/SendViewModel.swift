@@ -566,6 +566,7 @@ YOU ARE ABOUT TO SEND SEED PHRASE IN THE MESSAGE ATTACHED TO THIS TRANSACTION.\n
 	// MARK: -
 
 	func accountPickerItems() -> [PickerTableViewCellPickerItem] {
+		let mainAddress = Session.shared.mainAccount()?.address ?? ""
 		var ret = [AccountPickerItem]()
 		let balances = Session.shared.allBalances.value
 		balances.keys.forEach { (address) in
@@ -577,13 +578,20 @@ YOU ARE ABOUT TO SEND SEED PHRASE IN THE MESSAGE ATTACHED TO THIS TRANSACTION.\n
 			blns?.insert((Coin.baseCoin().symbol ?? ""), at: 0)
 			blns?.forEach({ (coin) in
 				let balance = (balances[address]?[coin] ?? 0.0)
+				if balance == 0 {
+					return
+				}
 				let balanceString = coinFormatter.formattedDecimal(with: balance)
 				let title = coin + " (" + balanceString + ") " + address.shortenedAddress()
 				let item = AccountPickerItem(title: title,
 																		 address: address,
 																		 balance: balance,
 																		 coin: coin)
-				ret.append(item)
+				if address == mainAddress, coin == Coin.baseCoin().symbol! {
+					ret.insert(item, at: 0)
+				} else {
+					ret.append(item)
+				}
 			})
 		}
 		return ret.map({ (account) -> PickerTableViewCellPickerItem in

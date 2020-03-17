@@ -332,6 +332,7 @@ class Session {
 			var totalBalanceSum: Decimal = 0
 			var totalBalanceSumUSD: Decimal = 0
 			var baseCoinBalances = [String: Decimal]()
+			var newAllBalances = self?.allBalances.value
 
 			for address in addresses {
 				guard let ads = (address?["address"] as? String)?.stripMinterHexPrefix(),
@@ -359,8 +360,6 @@ class Session {
 
 				newMainCoinBalance += baseCoinBalance
 
-				var newAllBalances = self?.allBalances.value
-
 				var blncs = [String: Decimal]()
 				if let defaultCoin = Coin.baseCoin().symbol {
 					blncs[defaultCoin] = 0.0
@@ -373,9 +372,9 @@ class Session {
 				})
 
 				newAllBalances?[ads] = blncs
-				self?.allBalances.value = newAllBalances ?? [:]
 				self?.mainCoinBalance.value = newMainCoinBalance
 			}
+			self?.allBalances.value = newAllBalances ?? [:]
 			self?.baseCoinBalances.value = baseCoinBalances
 			self?.totalMainCoinBalance.onNext(totalBalanceSum)
 			self?.totalUSDBalance.onNext(totalBalanceSumUSD)
@@ -433,5 +432,9 @@ extension Session {
 			}
 		}
 		completion?(check)
+	}
+	
+	func mainAccount() -> Account? {
+		return self.accounts.value.filter { $0.isMain }.first
 	}
 }

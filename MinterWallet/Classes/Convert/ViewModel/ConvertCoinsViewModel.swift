@@ -139,6 +139,8 @@ class ConvertCoinsViewModel: BaseViewModel {
 	/// Depricated!
 	//TODO: move to SpendCoinPickerItem
 	func pickerItems() -> [ConvertPickerItem] {
+		
+		let mainAddress = Session.shared.mainAccount()?.address ?? ""
 
 		var ret = [ConvertPickerItem]()
 
@@ -153,8 +155,15 @@ class ConvertCoinsViewModel: BaseViewModel {
 
 			coins?.forEach({ (coin) in
 				let balance = (balances[address]?[coin] ?? 0.0)
+				if balance == 0 {
+					return
+				}
 				let item = ConvertPickerItem(coin: coin, address: address, balance: balance)
-				ret.append(item)
+				if address == mainAddress, coin == Coin.baseCoin().symbol! {
+					ret.insert(item, at: 0)
+				} else {
+					ret.append(item)
+				}
 			})
 		}
 		return ret
@@ -163,6 +172,7 @@ class ConvertCoinsViewModel: BaseViewModel {
 	var spendCoinPickerSource: [String: [String: Decimal]] { return Session.shared.allBalances.value }
 
 	var spendCoinPickerItems: [SpendCoinPickerItem] {
+		let mainAddress = Session.shared.mainAccount()?.address ?? ""
 		let balances = spendCoinPickerSource
 		var ret = [SpendCoinPickerItem]()
 		balances.keys.forEach { (address) in
@@ -174,11 +184,18 @@ class ConvertCoinsViewModel: BaseViewModel {
 			coins?.insert(Coin.baseCoin().symbol!, at: 0)
 			coins?.forEach({ (coin) in
 				let balance = (balances[address]?[coin] ?? 0.0)
+				if balance == 0 {
+					return
+				}
 				let item = SpendCoinPickerItem(coin: coin,
 																			 balance: balance,
 																			 address: address,
 																			 formatter: self.formatter)
-				ret.append(item)
+				if address == mainAddress, coin == Coin.baseCoin().symbol! {
+					ret.insert(item, at: 0)
+				} else {
+					ret.append(item)
+				}
 			})
 		}
 		return ret
