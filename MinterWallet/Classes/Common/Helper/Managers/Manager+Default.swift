@@ -35,6 +35,28 @@ public extension MinterExplorer.ExplorerAddressManager {
 	}
 }
 
+public extension MinterExplorer.ExplorerInfoManager {
+
+	class var `default`: MinterExplorer.ExplorerInfoManager {
+		get {
+			let httpClient = APIClient.shared
+			let manager = self.init(httpClient: httpClient)
+			return manager
+		}
+	}
+}
+
+public extension MinterExplorer.ExplorerBlockManager {
+
+	class var `default`: MinterExplorer.ExplorerBlockManager {
+		get {
+			let httpClient = APIClient.shared
+			let manager = self.init(httpClient: httpClient)
+			return manager
+		}
+	}
+}
+
 public extension MinterMy.InfoManager {
 	
 	class var `default`: MinterMy.InfoManager {

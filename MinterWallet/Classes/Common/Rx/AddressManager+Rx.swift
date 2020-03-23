@@ -41,4 +41,18 @@ extension ExplorerAddressManager {
 			return Disposables.create()
 		}
 	}
+	
+	func statisticsRewards(address: String) -> Observable<([[String: Any]]?)> {
+		return Observable.create { (observer) -> Disposable in
+			ExplorerAddressManager.default.statisticsRewards(address: address,
+																											 completion: { (res, err) in
+				guard err == nil else {
+					observer.onError(err!)
+					return
+				}
+				observer.onNext(res)
+			})
+			return Disposables.create()
+		}
+	}
 }

@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import RxRelay
 import MinterExplorer
 import MinterCore
 import MinterMy
@@ -38,6 +39,7 @@ class CoinsViewModel: BaseViewModel, TransactionViewableViewModel, ViewModelProt
 		var error: Observable<NotifiableError?>
 		var delegatedViewModel: () -> (DelegatedViewModel)
     var openAppSettings: Observable<Void>
+		var upcomingRewards: Observable<Decimal>
 	}
 	struct Dependency {}
 
@@ -56,6 +58,8 @@ class CoinsViewModel: BaseViewModel, TransactionViewableViewModel, ViewModelProt
 	private let didTapTransactionSubject = PublishSubject<Void>()
 	private let didTapConvertSubject = PublishSubject<Void>()
   private let openAppSettingsSubject = PublishSubject<Void>()
+	private let userNetworkDataSubject = BehaviorSubject<UserNetworkData?>(value: nil)
+	private let upcomingRewardsSubject = PublishSubject<Decimal>()
 
 	// MARK: -
 
@@ -115,7 +119,8 @@ class CoinsViewModel: BaseViewModel, TransactionViewableViewModel, ViewModelProt
 												 showSendTab: showSendTabSubject.asObservable(),
 												 error: errorNotificationSubject.asObservable(),
                          delegatedViewModel: { return DelegatedViewModel() },
-                         openAppSettings: openAppSettingsSubject.asObservable())
+												 openAppSettings: openAppSettingsSubject.asObservable(),
+												 upcomingRewards: upcomingRewardsSubject.asObserver())
 
 		Observable.combineLatest(Session.shared.transactions.asObservable(),
 														 Session.shared.balances.asObservable(),
@@ -150,6 +155,7 @@ class CoinsViewModel: BaseViewModel, TransactionViewableViewModel, ViewModelProt
 			Session.shared.loadBalances()
 			Session.shared.loadTransactions()
 			Session.shared.loadDelegatedBalance()
+			self.getUserNetworkData()
 		}).disposed(by: disposeBag)
 
 		didTapBalanceSubject.skip(1)
@@ -268,6 +274,63 @@ class CoinsViewModel: BaseViewModel, TransactionViewableViewModel, ViewModelProt
         return
       }
     })
+
+		getUserNetworkData()
+		
+		var rewardsArray: [Decimal] = []
+		
+		userNetworkDataSubject.flatMapLatest({ (userNetworkData) -> Observable<Int> in
+			guard let userNetworkData = userNetworkData else {
+				return Observable.just(0)
+			}
+			let currentBlock = userNetworkData.currentBlock % 120
+			let rewardPerBlock = (userNetworkData.delegatedBIP/userNetworkData.totalDelegatedBIP) * userNetworkData.bipPerBlock
+			var array: [Decimal] = []
+			
+			var currentValue = rewardPerBlock * Decimal(integerLiteral: currentBlock)
+			let paymentValue = rewardPerBlock * 120
+			let step = rewardPerBlock/Decimal(floatLiteral: userNetworkData.blockSpeed24h)/60
+			
+			array.append(currentValue)
+			
+			while currentValue < paymentValue {
+				currentValue = currentValue + step
+				array.append(currentValue)
+			}
+
+			print("array reward count = \(array.count)")
+			rewardsArray = array
+			let from = array.count
+			let to = 0
+			return Observable<Int>
+				.timer(0, period: 0.0167, scheduler: MainScheduler.instance)
+				.take(from - to + 1)
+				.map { from - $0 }
+		}).subscribe( { [weak self] result in
+			guard let e = result.element else { return }
+			let count = rewardsArray.count
+			if count == 0 { return }
+			print("\(Date()) reward = \(e)")
+			do {
+				let delegatedBalance = try Session.shared.delegatedBalance.value()
+				if delegatedBalance == 0 {
+					self?.upcomingRewardsSubject.onNext(0)
+					return
+				}
+			} catch(let error) {
+				print(error.localizedDescription)
+				return
+			}
+
+			if e != 0 {
+				self?.upcomingRewardsSubject.onNext(rewardsArray[count - e])
+			} else {
+				print("\(Date()) reward = zero")
+				Session.shared.loadBalances()
+				Session.shared.loadDelegatedBalance()
+				self?.getUserNetworkData()
+			}
+		}).disposed(by: disposeBag)
 	}
 
 	private func balanceHeaderItem(
@@ -452,5 +515,45 @@ class CoinsViewModel: BaseViewModel, TransactionViewableViewModel, ViewModelProt
 																										.font: UIFont.boldFont(of: 18.0)]))
 		}
 		return string
+	}
+	
+	func getUserNetworkData() {
+		
+		Observable.combineLatest(ExplorerInfoManager.default.statusPage(),
+														 Session.shared.delegatedBalance.asObservable())
+		.flatMapLatest { (statusPage, delegatedBIP) -> Observable<(Int, Decimal, Decimal, Double, Decimal)> in
+			let lastBlock = statusPage?["numberOfBlocks"] as? Int ?? 0
+			let totalDelegatedBip = Decimal(string: statusPage?["totalDelegatedBip"] as? String ?? "1") ?? 1
+			let blockSpeed24h = statusPage?["blockSpeed24h"] as? Double ?? 5
+			let reward = ExplorerBlockManager.default.block(height: lastBlock).map { blockInfo -> (Decimal) in
+				let reward = Decimal(string: blockInfo?["reward"] as? String ?? "1") ?? 1
+				
+				// 10% DAO, 10% DEV, 10% validators
+				return reward * 0.7
+			}
+			return Observable.zip(Observable.just(lastBlock),
+														Observable.just(delegatedBIP),
+														Observable.just(totalDelegatedBip),
+														Observable.just(blockSpeed24h),
+														reward)
+		}.flatMapLatest { (event) -> Observable<UserNetworkData> in
+			print("lastBlock - reward - \(event.0)")
+			print("delegatedBIP - reward - \(event.1)")
+			print("totalDelegatedBip - reward - \(event.2)")
+			print("blockSpeed24h - reward - \(event.3)")
+			print("reward per block - reward - \(event.4)")
+			let userNetworkData = UserNetworkData(currentBlock: event.0, delegatedBIP: event.1, totalDelegatedBIP: event.2, blockSpeed24h: event.3, bipPerBlock: event.4)
+			return Observable.just(userNetworkData)
+		}.subscribe(onNext: { [weak self] (userNetworkData) in
+			do {
+				if try self?.userNetworkDataSubject.value()?.currentBlock == userNetworkData.currentBlock {
+					return
+				}
+			} catch {}
+
+			if userNetworkData.delegatedBIP != 0 {
+				self?.userNetworkDataSubject.onNext(userNetworkData)
+			}
+		}).disposed(by: disposeBag)
 	}
 }

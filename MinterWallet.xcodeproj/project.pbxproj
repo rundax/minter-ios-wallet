@@ -57,6 +57,12 @@
 		30B1681E2416CBBC0090A841 /* CopyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B1681B2416CBBB0090A841 /* CopyTableViewCell.swift */; };
 		30B1681F2416CBBC0090A841 /* CopyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B1681C2416CBBB0090A841 /* CopyTableViewCell.xib */; };
 		30B168202416CBBC0090A841 /* CopyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B1681C2416CBBB0090A841 /* CopyTableViewCell.xib */; };
+		30D332182423D2B900280CC2 /* ExplorerInfoManager+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D332172423D2B900280CC2 /* ExplorerInfoManager+Rx.swift */; };
+		30D332192423D2B900280CC2 /* ExplorerInfoManager+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D332172423D2B900280CC2 /* ExplorerInfoManager+Rx.swift */; };
+		30D3321B2423DB5800280CC2 /* ExplorerBlockManager+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D3321A2423DB5800280CC2 /* ExplorerBlockManager+Rx.swift */; };
+		30D3321C2423DB5800280CC2 /* ExplorerBlockManager+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D3321A2423DB5800280CC2 /* ExplorerBlockManager+Rx.swift */; };
+		30D3321E2424D4CA00280CC2 /* UserNetworkData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D3321D2424D4CA00280CC2 /* UserNetworkData.swift */; };
+		30D3321F2424D4CB00280CC2 /* UserNetworkData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D3321D2424D4CA00280CC2 /* UserNetworkData.swift */; };
 		30DDDE1223FE9747007E9C02 /* PushManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DDDE1123FE9746007E9C02 /* PushManager.swift */; };
 		30DDDE1323FE9747007E9C02 /* PushManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DDDE1123FE9746007E9C02 /* PushManager.swift */; };
 		30DDDE1523FE9CE2007E9C02 /* Campaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DDDE1423FE9CE2007E9C02 /* Campaign.swift */; };
@@ -674,6 +680,9 @@
 		309920A32394764100220323 /* MinterWalletTestnet-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MinterWalletTestnet-Info.plist"; sourceTree = "<group>"; };
 		30B1681B2416CBBB0090A841 /* CopyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyTableViewCell.swift; sourceTree = "<group>"; };
 		30B1681C2416CBBB0090A841 /* CopyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CopyTableViewCell.xib; sourceTree = "<group>"; };
+		30D332172423D2B900280CC2 /* ExplorerInfoManager+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExplorerInfoManager+Rx.swift"; sourceTree = "<group>"; };
+		30D3321A2423DB5800280CC2 /* ExplorerBlockManager+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExplorerBlockManager+Rx.swift"; sourceTree = "<group>"; };
+		30D3321D2424D4CA00280CC2 /* UserNetworkData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkData.swift; sourceTree = "<group>"; };
 		30DDDE1123FE9746007E9C02 /* PushManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushManager.swift; sourceTree = "<group>"; };
 		30DDDE1423FE9CE2007E9C02 /* Campaign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Campaign.swift; sourceTree = "<group>"; };
 		30DDDE1723FEC778007E9C02 /* Codable+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Dictionary.swift"; sourceTree = "<group>"; };
@@ -1793,6 +1802,8 @@
 				FA83186921FF003F007F268D /* CoinManager+Rx.swift */,
 				FA9BBCC722A9512B0030E92E /* AddressManager+Rx.swift */,
 				FA704EB12306B45E00A1A459 /* AdvancedGateManager+Rx.swift */,
+				30D332172423D2B900280CC2 /* ExplorerInfoManager+Rx.swift */,
+				30D3321A2423DB5800280CC2 /* ExplorerBlockManager+Rx.swift */,
 			);
 			path = Rx;
 			sourceTree = "<group>";
@@ -2228,6 +2239,7 @@
 				FA670A3A20E291C0000A5169 /* TransactionItem.swift */,
 				30DDDE1423FE9CE2007E9C02 /* Campaign.swift */,
 				301DC7D824069F8B0095E0F9 /* Recipient.swift */,
+				30D3321D2424D4CA00280CC2 /* UserNetworkData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3134,6 +3146,7 @@
 				FA332FC2224A4B3C003B4763 /* String+Localized.swift in Sources */,
 				FA332FC3224A4B3C003B4763 /* SpendCoinsViewController.swift in Sources */,
 				FAE7228223434C1800895E07 /* RawTransactionFieldTableViewCell.swift in Sources */,
+				30D332182423D2B900280CC2 /* ExplorerInfoManager+Rx.swift in Sources */,
 				FA332FC5224A4B3C003B4763 /* DefaultHeader.swift in Sources */,
 				FA332FC6224A4B3C003B4763 /* QRCodeReader.swift in Sources */,
 				FA332FC7224A4B3C003B4763 /* UIColor+HEX.swift in Sources */,
@@ -3286,10 +3299,12 @@
 				FA9BBCC822A9512B0030E92E /* AddressManager+Rx.swift in Sources */,
 				FA33303B224A4B3C003B4763 /* TextViewTableViewCell.swift in Sources */,
 				FA33303C224A4B3C003B4763 /* ToggleTorchButton.swift in Sources */,
+				30D3321E2424D4CA00280CC2 /* UserNetworkData.swift in Sources */,
 				FA5DB80C2361D017008A8E47 /* SendRouter.swift in Sources */,
 				FA33303D224A4B3C003B4763 /* SettingsViewController.swift in Sources */,
 				30DDDE1823FEC778007E9C02 /* Codable+Dictionary.swift in Sources */,
 				FA33303E224A4B3C003B4763 /* GetCoinsViewController.swift in Sources */,
+				30D3321B2423DB5800280CC2 /* ExplorerBlockManager+Rx.swift in Sources */,
 				FA33303F224A4B3C003B4763 /* SettingsViewModel.swift in Sources */,
 				FA333040224A4B3C003B4763 /* QRCodeReaderViewControllerBuilder.swift in Sources */,
 				FA333041224A4B3C003B4763 /* String+Random.swift in Sources */,
@@ -3373,6 +3388,7 @@
 				FA0F297A21B179BB00E10F5E /* McTextField.swift in Sources */,
 				FA669BA12072461700AD110A /* String+Localized.swift in Sources */,
 				FA04028B20FDD5CA00F1689F /* SpendCoinsViewController.swift in Sources */,
+				30D332192423D2B900280CC2 /* ExplorerInfoManager+Rx.swift in Sources */,
 				FAE7228323434C1800895E07 /* RawTransactionFieldTableViewCell.swift in Sources */,
 				FA557E56207BA7490095459B /* DefaultHeader.swift in Sources */,
 				FA0F296421B1740800E10F5E /* QRCodeReader.swift in Sources */,
@@ -3525,10 +3541,12 @@
 				FA9BBCC922A9512B0030E92E /* AddressManager+Rx.swift in Sources */,
 				FAB865FF20C7D0B3002568A4 /* TextViewTableViewCell.swift in Sources */,
 				FA0F296221B1740800E10F5E /* ToggleTorchButton.swift in Sources */,
+				30D3321F2424D4CB00280CC2 /* UserNetworkData.swift in Sources */,
 				FA5DB80D2361D017008A8E47 /* SendRouter.swift in Sources */,
 				AF44D30C07B56ACF70021D25 /* SettingsViewController.swift in Sources */,
 				30DDDE1923FEC779007E9C02 /* Codable+Dictionary.swift in Sources */,
 				FA04028D20FDD5DF00F1689F /* GetCoinsViewController.swift in Sources */,
+				30D3321C2423DB5800280CC2 /* ExplorerBlockManager+Rx.swift in Sources */,
 				DF1E9909F9D644AEBBBED0DF /* SettingsViewModel.swift in Sources */,
 				FA0F296821B1740800E10F5E /* QRCodeReaderViewControllerBuilder.swift in Sources */,
 				FA8AE85D20AC638900F26E11 /* String+Random.swift in Sources */,
@@ -3629,7 +3647,7 @@
 				CODE_SIGN_ENTITLEMENTS = MinterWallet/MinterWallet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = C5S22Z3J44;
 				ENABLE_BITCODE = YES;
@@ -3665,7 +3683,7 @@
 				CODE_SIGN_ENTITLEMENTS = MinterWallet/MinterWallet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = C5S22Z3J44;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (

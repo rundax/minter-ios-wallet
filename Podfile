@@ -6,7 +6,7 @@ platform :ios, '10.0'
 def shared_pods
 	pod 'MinterCore', :git => 'https://github.com/MinterTeam/minter-ios-core.git', :branch => 'texas'
 	pod 'MinterMy'#, :path => '../../minter-ios-my'
-	pod 'MinterExplorer'#, :path => '../../minter-ios-explorer'
+	pod 'MinterExplorer', :git => 'https://github.com/rundax/minter-ios-explorer.git' #:path => '../minter-ios-explorer'
 	pod 'Alamofire'
 	pod 'AlamofireImage'
 	pod 'RxSwift'

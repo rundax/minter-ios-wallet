@@ -92,13 +92,13 @@ class CoinsViewController:
 
 				let additionalTop = (self?.shouldShowTestnetToolbar ?? false) ? CGFloat(56) : CGFloat(0)
 				if val == nil {
-					let top = 60 + additionalTop
+					let top = 90 + additionalTop
 					if self?.tableView.contentInset.top != top {
 						self?.tableView.contentInset = UIEdgeInsets(top: top, left: 0, bottom: 0, right: 0)
 						shouldLayout = true
 					}
 				} else {
-					let top = 100 + additionalTop
+					let top = 130 + additionalTop
 					if self?.tableView.contentInset.top != top {
 						self?.tableView.contentInset = UIEdgeInsets(top: top, left: 0, bottom: 0, right: 0)
 						shouldLayout = true
@@ -173,6 +173,27 @@ class CoinsViewController:
       .drive(onNext: { [weak self] in
         self?.openAppSpecificSettings()
       }).disposed(by: disposeBag)
+
+		viewModel
+			.output
+			.upcomingRewards
+			.subscribe { [weak self] balance in
+				let formatter = CurrencyNumberFormatter.coinRewardsFormatter
+				guard let b = balance.element as NSNumber?,
+					let balanceString = formatter.string(from: b) else {
+					return
+				}
+				print("\(Date()) reward = \(balanceString)")
+
+				let balanceArray = Array(balanceString.split(separator: "."))
+				let attString = NSMutableAttributedString(attributedString: NSAttributedString(string: String(balanceArray[0]), attributes: [.foregroundColor: UIColor.white, .font: UIFont.boldFont(of: 20.0)]))
+				
+				attString.append(NSAttributedString(string: "." + balanceArray[1], attributes: [.foregroundColor: UIColor.white, .font: UIFont.boldFont(of: 16.0)]))
+				
+				attString.append(NSAttributedString(string: " " + (viewModel.basicCoinSymbol), attributes: [.foregroundColor: UIColor.white, .font: UIFont.boldFont(of: 14.0)]))
+
+				self?.headerViewUpcomingRewardsLabel.attributedText = attString
+			}.disposed(by: disposeBag)
 	}
 
 	// MARK: -
@@ -200,10 +221,12 @@ class CoinsViewController:
 	}
 	//BalanceHeader
 	@IBOutlet weak var headerViewBalanceLabel: UILabel!
+	@IBOutlet weak var headerViewUpcomingRewardsTitleLabel: UILabel!
+	@IBOutlet weak var headerViewUpcomingRewardsLabel: UILabel!
 	@IBOutlet weak var headerViewTitleLabel: UILabel!
 	@IBOutlet override weak var tableView: UITableView! {
 		didSet {
-			tableView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+			tableView.contentInset = UIEdgeInsets(top: 80, left: 0, bottom: 0, right: 0)
 			tableView.estimatedRowHeight = 50.0
 		}
 	}
@@ -222,9 +245,9 @@ class CoinsViewController:
 
 	var tableHeaderTopPadding: Double {
 		if shouldShowTestnetToolbar {
-			return -105
+			return Double(-(headerViewHeightConstraint.constant+30))
 		}
-		return -72
+		return Double(-headerViewHeightConstraint.constant)
 	}
 
 	// MARK: Life cycle
@@ -303,12 +326,30 @@ class CoinsViewController:
 					}
 				})
 			}).disposed(by: disposeBag)
+		
+		headerViewUpcomingRewardsTitleLabel.text = "Upcoming rewards".localized()
+		headerViewUpcomingRewardsTitleLabel.font = UIFont.mediumFont(of: 15.0)
+		headerViewUpcomingRewardsTitleLabel.tintColor = .white
+
+		let intText = NSAttributedString(string: "0",
+		attributes: [.foregroundColor: UIColor.white,
+								 .font: UIFont.boldFont(of: 18.0)])
+		let floatText = NSAttributedString(string: ".0000",
+		attributes: [.foregroundColor: UIColor.white,
+								 .font: UIFont.boldFont(of: 14.0)])
+		let bipText = NSAttributedString(string: " " + (viewModel.basicCoinSymbol),
+																		 attributes: [.foregroundColor: UIColor.white,
+																									.font: UIFont.boldFont(of: 12.0)])
+		let attString = NSMutableAttributedString(attributedString: intText)
+		attString.append(floatText)
+		attString.append(bipText)
+		headerViewUpcomingRewardsLabel.attributedText = attString
 
 		if self.shouldShowTestnetToolbar {
-			headerViewHeightConstraint.constant = 73.0 + 56.0
-			tableHeaderTopConstraint?.constant = 73.0 + 56.0
+			tableHeaderTopConstraint?.constant = headerViewHeightConstraint.constant
+			headerViewHeightConstraint.constant = headerViewHeightConstraint.constant + 56.0
 			self.view?.addSubview(self.testnetToolbarView)
-			self.balanceTopConstraint.constant = 80
+			self.balanceTopConstraint.constant = self.balanceTopConstraint.constant + 56
 		}
 	}
 

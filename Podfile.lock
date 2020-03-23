@@ -153,7 +153,7 @@ DEPENDENCIES:
   - KeychainAccess
   - KeychainSwift (= 12.0.0)
   - MinterCore (from `https://github.com/MinterTeam/minter-ios-core.git`, branch `texas`)
-  - MinterExplorer
+  - MinterExplorer (from `https://github.com/rundax/minter-ios-explorer.git`)
   - MinterMy
   - NotificationBannerSwift (= 1.8.0)
   - ObjectMapper (~> 3.3)
@@ -195,7 +195,6 @@ SPEC REPOS:
     - KeychainAccess
     - KeychainSwift
     - MarqueeLabel
-    - MinterExplorer
     - MinterMy
     - nanopb
     - NotificationBannerSwift
@@ -229,6 +228,8 @@ EXTERNAL SOURCES:
   MinterCore:
     :branch: texas
     :git: https://github.com/MinterTeam/minter-ios-core.git
+  MinterExplorer:
+    :git: https://github.com/rundax/minter-ios-explorer.git
   RealmSwift:
     :branch: master
     :git: https://github.com/realm/realm-cocoa.git
@@ -244,6 +245,9 @@ CHECKOUT OPTIONS:
   MinterCore:
     :commit: 7ade692dfea37dddbe681836044bf2eeb077dc9d
     :git: https://github.com/MinterTeam/minter-ios-core.git
+  MinterExplorer:
+    :commit: 3c33e28971e378897d671dfd7d7af8ada711b032
+    :git: https://github.com/rundax/minter-ios-explorer.git
   RealmSwift:
     :commit: ad6f5f94b023caaec57c99f7a986160f8c087d0c
     :git: https://github.com/realm/realm-cocoa.git
@@ -306,6 +310,6 @@ SPEC CHECKSUMS:
   XLPagerTabStrip: 63166e21c9844fa30f2d95d30f335e73be5caf22
   YandexMobileMetrica: 1030df2959c886a7be3bc3d274eb54c8e86afd6f
 
-PODFILE CHECKSUM: 9dc385499ef592fc3017b4461ad2029ae554a473
+PODFILE CHECKSUM: a11a89e100af539cd6ce09aba6e2fef783024de7
 
 COCOAPODS: 1.8.1

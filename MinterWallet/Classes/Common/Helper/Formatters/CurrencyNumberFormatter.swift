@@ -85,6 +85,20 @@ class CurrencyNumberFormatter: NumberFormatter {
 		formatter.roundingMode = .down
 		return formatter
 	}
+	
+	class var coinRewardsFormatter: CurrencyNumberFormatter {
+		let formatter = CurrencyNumberFormatter()
+		formatter.numberStyle = .decimal
+		formatter.decimalSeparator = "."
+		formatter.groupingSeparator = " "
+		formatter.plusSign = ""
+		formatter.minusSign = ""
+		formatter.minimumFractionDigits = 6
+		formatter.maximumFractionDigits = 6
+		formatter.positivePrefix = formatter.plusSign
+		formatter.roundingMode = .down
+		return formatter
+	}
 
 	class var decimalFormatter: CurrencyNumberFormatter {
 		let formatter = CurrencyNumberFormatter()
