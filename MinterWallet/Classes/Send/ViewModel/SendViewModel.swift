@@ -300,9 +300,9 @@ YOU ARE ABOUT TO SEND SEED PHRASE IN THE MESSAGE ATTACHED TO THIS TRANSACTION.\n
 			}).disposed(by: disposeBag)
 		
 		recipientSubject
-		.asObservable()
-		.subscribe(onNext: { [weak self] (val) in
-			self?.recipientSelectedSubject.accept(val)
+			.asObservable()
+			.subscribe(onNext: { [weak self] (val) in
+				self?.recipientSelectedSubject.accept(val)
 		}).disposed(by: disposeBag)
 
 		NotificationCenter
@@ -455,6 +455,40 @@ YOU ARE ABOUT TO SEND SEED PHRASE IN THE MESSAGE ATTACHED TO THIS TRANSACTION.\n
 				coinSubject.accept(object.coin)
 			}
 		}
+		
+		let recipientPresets = RecipientPresetsTableViewCellItem(reuseIdentifier: "RecipientPresetsTableViewCell",
+		identifier: "RecipientPresetsTableViewCell")
+		
+		recipientPresets
+			.output?
+			.didTapMainPreset
+			.asDriver(onErrorJustReturn: ())
+			.drive(onNext: { [weak self] (_) in
+				if let main = Session.shared.mainAccount() {
+					self?.sendToSubject.accept(main.address)
+				}
+		}).disposed(by: disposeBag)
+		
+		recipientPresets
+			.output?
+			.didTapGiftPreset
+			.asDriver(onErrorJustReturn: ())
+			.drive(onNext: { [weak self] (_) in
+				let title = "GIFT - SEND COINS TO ANYONE".localized()
+				let recipient = Recipient(title: title, address: "")
+				self?.recipientSubject.onNext(recipient)
+				self?.sendToSubject.accept(title)
+		}).disposed(by: disposeBag)
+		
+		recipientPresets
+			.output?
+			.didTapDelegatePreset
+			.asDriver(onErrorJustReturn: ())
+			.drive(onNext: { [weak self] (_) in
+//				let recipient = Recipient(title: "DELEGATE TO RUNDAX VALIDATOR".localized(), address: "Mp31d08d6f64f7a8a528ed2df77de2a02e4d8cefae93c771eb0b7de97322901215")
+//				self?.recipientSubject.onNext(recipient)
+				self?.sendToSubject.accept(BaseValidator.rundax)
+		}).disposed(by: disposeBag)
 
 		let amount = AmountTextFieldTableViewCellItem(reuseIdentifier: "AmountTextFieldTableViewCell",
 																									identifier: CellIdentifierPrefix.amount.rawValue)
@@ -524,7 +558,7 @@ YOU ARE ABOUT TO SEND SEED PHRASE IN THE MESSAGE ATTACHED TO THIS TRANSACTION.\n
 			}).disposed(by: self.disposeBag)
 
 		var section = BaseTableSectionItem(header: "")
-		section.items = [coin, username, amount, presets, payload, fee, separator, blank, button]
+		section.items = [coin, username, recipientPresets, amount, presets, payload, fee, separator, blank, button]
 		return [section]
 	}
 

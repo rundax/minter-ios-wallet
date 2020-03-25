@@ -46,8 +46,11 @@ class Analytics {
 		//Send Coin
 		case sendCoinsChooseCoinButton
 		case sendCoinsClearAmountButton
+		case sendCoinsClearRecipientButton
 		case sendCoinsSendButton
 		case sendCoinsQRButton
+		case sendCoinsMainAddressButton
+		case sendCoinsDelegateButton
 		case sendCoinsGiftButton
 		case sendCoins10Button
 		case sendCoins100Button

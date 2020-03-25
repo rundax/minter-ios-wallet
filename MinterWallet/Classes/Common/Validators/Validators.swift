@@ -9,7 +9,9 @@
 import Foundation
 import MinterCore
 
-class BaseValidator {}
+class BaseValidator {
+	static let rundax = UIApplication.realAppDelegate()?.isTestnet ?? false ? "Mpa3c16ffc2af26f199dd23c52932ce22441f848aa3ab2b7015de01e2f9c293464" : "Mp31d08d6f64f7a8a528ed2df77de2a02e4d8cefae93c771eb0b7de97322901215"
+}
 
 class AmountValidator : BaseValidator {
 

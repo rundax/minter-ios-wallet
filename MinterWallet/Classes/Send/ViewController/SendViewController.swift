@@ -487,7 +487,7 @@ extension SendViewController: QRCodeReaderViewControllerDelegate {
 extension SendViewController: AmountTextFieldTableViewCellDelegate {
 
 	func didTapClear() {
-	AnalyticsHelper.defaultAnalytics.track(event: .sendCoinsClearAmountButton)
+		AnalyticsHelper.defaultAnalytics.track(event: .sendCoinsClearAmountButton)
 	}
 }
 
@@ -497,6 +497,22 @@ extension SendViewController: PresetsTableViewCellDelegate {
 		self.view.endEditing(true)
 
 		switch sender.tag {
+		// MAIN ADDRESS
+		case 1:
+			AnalyticsHelper.defaultAnalytics.track(event: .sendCoinsMainAddressButton)
+			return
+		
+		// DELEGATE
+		case 2:
+			AnalyticsHelper.defaultAnalytics.track(event: .sendCoinsDelegateButton)
+			return
+
+		// GIFT
+		case 3:
+			AnalyticsHelper.defaultAnalytics.track(event: .sendCoinsGiftButton)
+			return
+
+		// Amount presets
 		case 10:
 			AnalyticsHelper.defaultAnalytics.track(event: .sendCoins10Button)
 		case 100:
@@ -535,6 +551,8 @@ extension SendViewController {
 											 forCellReuseIdentifier: "TextFieldTableViewCell")
 		tableView.register(UINib(nibName: "UsernameTableViewCell", bundle: nil),
 											 forCellReuseIdentifier: "UsernameTableViewCell")
+		tableView.register(UINib(nibName: "RecipientPresetsTableViewCell", bundle: nil),
+											 forCellReuseIdentifier: "RecipientPresetsTableViewCell")
 		tableView.register(UINib(nibName: "PayloadTableViewCell", bundle: nil),
 											 forCellReuseIdentifier: "PayloadTableViewCell")
 		tableView.register(UINib(nibName: "AmountTextFieldTableViewCell", bundle: nil),
@@ -579,7 +597,7 @@ extension SendViewController: UsernameTextViewTableViewCellDelegate {
 		guard let text = textView.text?.lowercased() else { return }
 		
 		if text.prefix(4).contains("g") || text.prefix(4).contains("gi") {
-			autocompleteView.elements = [Recipient(title: "GIFT - SEND COINS TO ANYONE", address: "")]
+			autocompleteView.elements = [Recipient(title: "GIFT - SEND COINS TO ANYONE".localized(), address: "")]
 			autocompleteView.isHidden = false
 			let usernameTextViewBounds = usernameTextView?.convert(usernameTextView!.bounds, to: view)
 			let frame = CGRect(x: 10, y: usernameTextViewBounds!.origin.y + usernameTextViewBounds!.size.height + 16, width: usernameTextView!.frame.width, height: CGFloat(autocompleteView.elements.count) * 45)
@@ -591,12 +609,9 @@ extension SendViewController: UsernameTextViewTableViewCellDelegate {
 		autocompleteView.isHidden = true
 	}
 	
-	func didTapGiftButton() {
-		let recipient = Recipient(title: "GIFT - SEND COINS TO ANYONE", address: "")
-		self.usernameTextView?.text = recipient.title
-		view.endEditing(true)
+	func didTapClearButton() {
+		AnalyticsHelper.defaultAnalytics.track(event: .sendCoinsClearRecipientButton)
 		self.autocompleteView.isHidden = true
-		self.viewModel.input.recipient.onNext(recipient)
-		AnalyticsHelper.defaultAnalytics.track(event: .sendCoinsGiftButton)
+		self.viewModel.input.recipient.onNext(nil)
 	}
 }

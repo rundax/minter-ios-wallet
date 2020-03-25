@@ -298,7 +298,7 @@ class CoinsViewModel: BaseViewModel, TransactionViewableViewModel, ViewModelProt
 				array.append(currentValue)
 			}
 
-			print("array reward count = \(array.count)")
+			//print("array reward count = \(array.count)")
 			rewardsArray = array
 			let from = array.count
 			let to = 0
@@ -310,7 +310,7 @@ class CoinsViewModel: BaseViewModel, TransactionViewableViewModel, ViewModelProt
 			guard let e = result.element else { return }
 			let count = rewardsArray.count
 			if count == 0 { return }
-			print("\(Date()) reward = \(e)")
+			//print("\(Date()) reward = \(e)")
 			do {
 				let delegatedBalance = try Session.shared.delegatedBalance.value()
 				if delegatedBalance == 0 {
@@ -325,7 +325,7 @@ class CoinsViewModel: BaseViewModel, TransactionViewableViewModel, ViewModelProt
 			if e != 0 {
 				self?.upcomingRewardsSubject.onNext(rewardsArray[count - e])
 			} else {
-				print("\(Date()) reward = zero")
+				//print("\(Date()) reward = zero")
 				Session.shared.loadBalances()
 				Session.shared.loadDelegatedBalance()
 				self?.getUserNetworkData()

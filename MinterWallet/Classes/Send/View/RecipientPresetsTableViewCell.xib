@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="RecipientPresetsTableViewCell" rowHeight="45" id="F2C-A4-U3f" customClass="RecipientPresetsTableViewCell" customModule="Rundax" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="58"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="F2C-A4-U3f" id="zzK-a8-1Vf">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="58"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zaq-Ya-swK">
+                        <rect key="frame" x="10" y="0.0" width="355" height="34"/>
+                        <subviews>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="2yS-bR-sXj" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="166.5" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="ZB6-qB-6ru"/>
+                                </constraints>
+                                <state key="normal" title="MAIN ADDRESS">
+                                    <color key="titleColor" red="0.94117647059999998" green="0.34509803919999998" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="pattern" value="blank"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="presetButtonDidTap:" destination="F2C-A4-U3f" eventType="touchUpInside" id="9YL-Ul-Nqv"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="rcf-aB-J6z" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
+                                <rect key="frame" x="176.5" y="0.0" width="113" height="34"/>
+                                <state key="normal" title="DELEGATE">
+                                    <color key="titleColor" red="0.94117647059999998" green="0.34509803919999998" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="pattern" value="blank"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="presetButtonDidTap:" destination="-2" eventType="touchUpInside" id="fQN-DZ-h8m"/>
+                                    <action selector="presetButtonDidTap:" destination="F2C-A4-U3f" eventType="touchUpInside" id="syq-sQ-w0u"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="hXC-Fh-Jtl" customClass="DefaultButton" customModule="Rundax" customModuleProvider="target">
+                                <rect key="frame" x="299.5" y="0.0" width="55.5" height="34"/>
+                                <state key="normal" title="GIFT">
+                                    <color key="titleColor" red="0.94117647059999998" green="0.34509803919999998" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="pattern" value="blank"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="presetButtonDidTap:" destination="-2" eventType="touchUpInside" id="RT9-lC-heM"/>
+                                    <action selector="presetButtonDidTap:" destination="F2C-A4-U3f" eventType="touchUpInside" id="hQQ-ir-rsV"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="zaq-Ya-swK" secondAttribute="bottom" constant="10" id="BX7-ZY-Icy"/>
+                    <constraint firstItem="zaq-Ya-swK" firstAttribute="leading" secondItem="zzK-a8-1Vf" secondAttribute="leading" constant="10" id="I0z-dk-0xq"/>
+                    <constraint firstAttribute="trailing" secondItem="zaq-Ya-swK" secondAttribute="trailing" constant="10" id="dqh-XC-rXk"/>
+                    <constraint firstItem="zaq-Ya-swK" firstAttribute="top" secondItem="zzK-a8-1Vf" secondAttribute="top" id="j7Y-XQ-WLE"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="delegateButton" destination="rcf-aB-J6z" id="bfq-LQ-Z4e"/>
+                <outlet property="giftButton" destination="hXC-Fh-Jtl" id="BxC-mj-sCh"/>
+                <outlet property="mainAddressButton" destination="2yS-bR-sXj" id="em5-z6-Vp6"/>
+            </connections>
+            <point key="canvasLocation" x="-117" y="-128"/>
+        </tableViewCell>
+    </objects>
+</document>

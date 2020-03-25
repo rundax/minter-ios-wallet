@@ -7,22 +7,21 @@
 //
 
 import UIKit
+import RxSwift
 
-class UsernameTableViewCellItem: TextViewTableViewCellItem {
-	var giftButtonText: String?
-}
+class UsernameTableViewCellItem: TextViewTableViewCellItem {}
 
 protocol UsernameTextViewTableViewCellDelegate: class {
 	func textViewDidChange(_ textView: UITextView)
 	func textViewDidEndEditing(_ textView: UITextView)
-	func didTapGiftButton()
+	func didTapClearButton()
 }
 
 class UsernameTableViewCell: TextViewTableViewCell {
 
 	var borderLayer: CAShapeLayer?
 	weak var textViewDelegate: UsernameTextViewTableViewCellDelegate?
-	@IBOutlet weak var giftButton: UIButton!
+	@IBOutlet weak var clearButton: UIButton!
 	
 	// MARK: -
 
@@ -31,9 +30,22 @@ class UsernameTableViewCell: TextViewTableViewCell {
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
+	
+	override func configure(item: BaseCellItem) {
+		super.configure(item: item)
 
-	@IBAction func didTapGiftButton(_ sender: Any) {
-		textViewDelegate?.didTapGiftButton()
+		textView
+			.rx
+			.text
+			.subscribe(onNext: { [weak self] (str) in
+				self?.clearButton.isHidden = str == ""
+		}).disposed(by: disposeBag)
+	}
+
+	@IBAction func didTapClearButton(_ sender: Any) {
+		textView.text = ""
+		textViewDelegate?.didTapClearButton()
+		clearButton.isHidden = true
 	}
 	
 	override func awakeFromNib() {
@@ -42,6 +54,7 @@ class UsernameTableViewCell: TextViewTableViewCell {
 		setDefault()
 		activityIndicator?.backgroundColor = .clear
 		textView.font = UIFont.mediumFont(of: 16.0)
+		clearButton.isHidden = true
 	}
 
 	@objc

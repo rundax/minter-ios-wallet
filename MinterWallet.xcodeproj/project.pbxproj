@@ -30,6 +30,10 @@
 		303589BE240D352900863BE8 /* AddressButtonsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 303589BC240D352800863BE8 /* AddressButtonsTableViewCell.xib */; };
 		303589C0240D354F00863BE8 /* AddressButtonsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303589BF240D354F00863BE8 /* AddressButtonsTableViewCell.swift */; };
 		303589C1240D354F00863BE8 /* AddressButtonsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303589BF240D354F00863BE8 /* AddressButtonsTableViewCell.swift */; };
+		30524B39242BB3EA001C5226 /* RecipientPresetsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30524B38242BB3EA001C5226 /* RecipientPresetsTableViewCell.xib */; };
+		30524B3A242BB3EA001C5226 /* RecipientPresetsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30524B38242BB3EA001C5226 /* RecipientPresetsTableViewCell.xib */; };
+		30524B3C242BB40F001C5226 /* RecipientPresetsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30524B3B242BB40F001C5226 /* RecipientPresetsTableViewCell.swift */; };
+		30524B3D242BB40F001C5226 /* RecipientPresetsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30524B3B242BB40F001C5226 /* RecipientPresetsTableViewCell.swift */; };
 		3060AE2A2406E61900513FA8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3060AE292406E61900513FA8 /* GoogleService-Info.plist */; };
 		3066C21F2405510400583B13 /* Gifts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3066C20D2405510300583B13 /* Gifts.storyboard */; };
 		3066C2202405510400583B13 /* Gifts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3066C20D2405510300583B13 /* Gifts.storyboard */; };
@@ -666,6 +670,8 @@
 		30328C182368764C00443D8D /* PairedMode.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PairedMode.storyboard; sourceTree = "<group>"; };
 		303589BC240D352800863BE8 /* AddressButtonsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressButtonsTableViewCell.xib; sourceTree = "<group>"; };
 		303589BF240D354F00863BE8 /* AddressButtonsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressButtonsTableViewCell.swift; sourceTree = "<group>"; };
+		30524B38242BB3EA001C5226 /* RecipientPresetsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipientPresetsTableViewCell.xib; sourceTree = "<group>"; };
+		30524B3B242BB40F001C5226 /* RecipientPresetsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipientPresetsTableViewCell.swift; sourceTree = "<group>"; };
 		3060AE292406E61900513FA8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3066C20D2405510300583B13 /* Gifts.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Gifts.storyboard; sourceTree = "<group>"; };
 		3066C22D240551CC00583B13 /* GiftsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftsViewController.swift; sourceTree = "<group>"; };
@@ -1412,6 +1418,8 @@
 				FAA0B2AA232A44E7001C5C72 /* SendPayloadTableViewCell.xib */,
 				30711C3E24114BD50071EB79 /* PresetsTableViewCell.swift */,
 				30711C3D24114BD40071EB79 /* PresetsTableViewCell.xib */,
+				30524B3B242BB40F001C5226 /* RecipientPresetsTableViewCell.swift */,
+				30524B38242BB3EA001C5226 /* RecipientPresetsTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2548,6 +2556,7 @@
 				FA333071224A4B3C003B4763 /* Login.storyboard in Resources */,
 				FA333072224A4B3C003B4763 /* SwitchTableViewCell.xib in Resources */,
 				FA333073224A4B3C003B4763 /* TwoTitleTableViewCell.xib in Resources */,
+				30524B39242BB3EA001C5226 /* RecipientPresetsTableViewCell.xib in Resources */,
 				30711C3F24114BD50071EB79 /* PresetsTableViewCell.xib in Resources */,
 				FA333074224A4B3C003B4763 /* UbuntuMono-BI.ttf in Resources */,
 				FA333075224A4B3C003B4763 /* pop_down.wav in Resources */,
@@ -2616,6 +2625,7 @@
 				FAA26052208E30AC009FF3DE /* CoinTableViewCell.xib in Resources */,
 				FA669BC82072483100AD110A /* Ubuntu-C.ttf in Resources */,
 				FA669BBF2072483100AD110A /* Ubuntu-L.ttf in Resources */,
+				30524B3A242BB3EA001C5226 /* RecipientPresetsTableViewCell.xib in Resources */,
 				FA4DF4B12108FA1500E64F1B /* AmountTextFieldTableViewCell.xib in Resources */,
 				FA52DD0C225B5E6400A5B554 /* Assets.xcassets in Resources */,
 				FA6A8139207BAE1300DC97E5 /* TransactionTableViewCell.xib in Resources */,
@@ -3164,6 +3174,7 @@
 				FA332FD2224A4B3C003B4763 /* CoinTableViewCell.swift in Sources */,
 				FA332FD3224A4B3C003B4763 /* PickerTableViewCell.swift in Sources */,
 				FA332FD4224A4B3C003B4763 /* EmailEditViewModel.swift in Sources */,
+				30524B3C242BB40F001C5226 /* RecipientPresetsTableViewCell.swift in Sources */,
 				FA332FD5224A4B3C003B4763 /* ShadowView.swift in Sources */,
 				FA0E32B3232FD3E3004D755C /* RawTransactionRouter.swift in Sources */,
 				FA332FD6224A4B3C003B4763 /* LoginRouter.swift in Sources */,
@@ -3406,6 +3417,7 @@
 				FAA2608B2094ABA7009FF3DE /* HomeViewController.swift in Sources */,
 				FAA26053208E30B9009FF3DE /* CoinTableViewCell.swift in Sources */,
 				FAA234EA2084A42A00F999DE /* PickerTableViewCell.swift in Sources */,
+				30524B3D242BB40F001C5226 /* RecipientPresetsTableViewCell.swift in Sources */,
 				FAA2606E20931A89009FF3DE /* EmailEditViewModel.swift in Sources */,
 				FA0E32B4232FD3E3004D755C /* RawTransactionRouter.swift in Sources */,
 				FA89A79B20888D470019226D /* ShadowView.swift in Sources */,
@@ -3647,7 +3659,7 @@
 				CODE_SIGN_ENTITLEMENTS = MinterWallet/MinterWallet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = C5S22Z3J44;
 				ENABLE_BITCODE = YES;
@@ -3683,7 +3695,7 @@
 				CODE_SIGN_ENTITLEMENTS = MinterWallet/MinterWallet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = C5S22Z3J44;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (

@@ -183,7 +183,7 @@ class CoinsViewController:
 					let balanceString = formatter.string(from: b) else {
 					return
 				}
-				print("\(Date()) reward = \(balanceString)")
+				//print("\(Date()) reward = \(balanceString)")
 
 				let balanceArray = Array(balanceString.split(separator: "."))
 				let attString = NSMutableAttributedString(attributedString: NSAttributedString(string: String(balanceArray[0]), attributes: [.foregroundColor: UIColor.white, .font: UIFont.boldFont(of: 20.0)]))
