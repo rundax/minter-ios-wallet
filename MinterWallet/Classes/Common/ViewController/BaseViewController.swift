@@ -109,6 +109,12 @@ class BaseAlertController: UIAlertController {
 	override var preferredStatusBarStyle: UIStatusBarStyle {
 		return .lightContent
 	}
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		view.tintColor = UIColor.mainOrangeColor()
+	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -145,7 +151,6 @@ class BaseAlertController: UIAlertController {
 		})
 		alert.addAction(yesAction)
 		alert.addAction(cancelAction)
-		alert.view.tintColor = UIColor.mainColor()
 
 		if let vc = vc {
 			vc.present(alert, animated: true)

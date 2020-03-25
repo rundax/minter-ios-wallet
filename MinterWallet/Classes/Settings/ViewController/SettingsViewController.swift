@@ -384,7 +384,12 @@ extension SettingsViewController: ButtonTableViewCellDelegate {
 				}
 			} else {
 				// log out
-				viewModel.rightButtonTapped()
+				let alert = BaseAlertController(title: "CONFIRM LOG OUT".localized(), message: "If you don't have access to your addresses seed phrase, you will lose your access to the assets".localized(), preferredStyle: .alert)
+				alert.addAction(UIAlertAction(title: "LOG OUT".localized(), style: .default, handler: { [weak self] (action) in
+					self?.viewModel.rightButtonTapped()
+        }))
+				alert.addAction(UIAlertAction(title: "CANCEL".localized(), style: .cancel, handler: nil))
+        present(alert, animated: true)
 			}
 		}
 	}

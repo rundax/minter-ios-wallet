@@ -289,8 +289,8 @@ extension SendViewController {
     viewModel.output.shouldShowAlert
       .asDriver(onErrorJustReturn: "")
       .drive(onNext: { [weak self] (message) in
-        let alert = UIAlertController(title: "❗️❗️ ATTENTION:", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+        let alert = BaseAlertController(title: "❗️❗️ ATTENTION:", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
           
         }))
         self?.present(alert, animated: true, completion: {
