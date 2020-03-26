@@ -78,7 +78,7 @@ class PairedModeViewController: BaseViewController {
         let secretCode = String.random(length: 10).base32EncodedString
         secretCodeButton.setTitle(secretCode, for: .normal)
 
-        let QRCode = "otpauth://totp/BIPWallet?secret=\(secretCode)&issuer=iOSBIP"
+				let QRCode = "otpauth://totp/Rundax%20Wallet?secret=\(secretCode)&issuer=iOS"
         let image = generateQRCode(from: QRCode)
         secretCodeQRImageView.image = image
     }
