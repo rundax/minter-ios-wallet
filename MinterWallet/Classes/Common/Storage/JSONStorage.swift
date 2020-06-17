@@ -77,7 +77,7 @@ enum StorageType {
 	
 	var folder: URL {
 		let path = NSSearchPathForDirectoriesInDomains(searchPathDirectory, .userDomainMask, true).first!
-		let subfolder = "Rundax.Wallet"
+		let subfolder = "com.rundax.wallet"
 		return URL(fileURLWithPath: path).appendingPathComponent(subfolder)
 	}
 	

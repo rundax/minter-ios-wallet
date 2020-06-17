@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>211047392535-j86par0ucrkgp4hn0bokltid7ba2vhsk.apps.googleusercontent.com</string>
+	<string>211047392535-52qaeom2g04rj57si5khf40prjk98g4o.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.211047392535-j86par0ucrkgp4hn0bokltid7ba2vhsk</string>
+	<string>com.googleusercontent.apps.211047392535-52qaeom2g04rj57si5khf40prjk98g4o</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBwA_SxVVH_B14QkJgwG4yeNqFjdnaImKE</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>Rundax.Wallet</string>
+	<string>com.rundax.wallet</string>
 	<key>PROJECT_ID</key>
 	<string>rundax-wallet</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:211047392535:ios:c957008fa8cec88087c352</string>
+	<string>1:211047392535:ios:2239d217ea016b0187c352</string>
 	<key>DATABASE_URL</key>
 	<string>https://rundax-wallet.firebaseio.com</string>
 </dict>
