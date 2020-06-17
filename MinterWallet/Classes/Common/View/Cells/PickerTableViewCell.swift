@@ -90,7 +90,7 @@ class PickerTableViewCell: BaseCell, UITextFieldDelegate {
 																				range: NSMakeRange(0, attributedString.length))
 					self.selectField.attributedText = attributedString
 				} else {
-					self.selectField.text = title
+					self.selectField.text = self.selectField.text == "" ? title : self.selectField.text
 				}
 			}
 		}
