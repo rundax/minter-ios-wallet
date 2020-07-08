@@ -1,6 +1,19 @@
-[![Download](https://linkmaker.itunes.apple.com/assets/shared/badges/en-us/appstore-lrg.svg)](https://itunes.apple.com/us/app/bip-wallet-testnet/id1436988091?mt=8)
+[![Download](https://linkmaker.itunes.apple.com/assets/shared/badges/en-us/appstore-lrg.svg)](https://apps.apple.com/us/app/id1519026967)
 
-# Bip Wallet
+# Rundax Wallet
+
+**Rundax Wallet for Minter Network with advanced security to interact with BIP in Minter blockchain.**
+
+**Key features:**
+
+- Multiple addresses in one place
+- Advanced security with 2FA Mode - pair devices using Google Authenticator on another device and sign transaction only with 2FA confinement
+- Send any coins to anyone using a one-time web wallet - PUSH.GIFTS
+- Gift links history to allow you to fulfill the balance of one-time web wallets
+- Recipient and amount preset button for even better user experience
+- Upcoming staking rewards calculation in real-time
+- Shared Keychain support for one-click assets withdraws from push.gifts wallets
+- New Minter deep link format support
 
 **Installation**
 
